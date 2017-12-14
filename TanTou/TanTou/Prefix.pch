@@ -1,0 +1,45 @@
+#pragma mark - 头文件
+#import "AppDelegate.h"
+#import "AFNetworking.h"
+#import "MJExtension.h"
+#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+#import "Masonry.h"
+#import "ZXSConst.h"
+#import "ChristmasUserItem.h"
+#import "UIView+ZXSExtension.h"
+#import "NSDate+ZXSExtension.h"
+#import "UIImageView+ZXSExtension.h"
+#import "UIBarButtonItem+ZXSExtension.h"
+#import "UIButton+ZXSExtension.h"
+#import "NSString+ZXSExtension.h"
+#import "UILabel+ZXSExtension.h"
+#import "MBProgressHUD+MJ.h"
+#import "ZXSNetworkTool.h"
+#import "ZXSUtil.h"
+#import "DDCalculateImageValue.h"
+#pragma mark - 宏
+#pragma mark - 屏幕适配
+// 以6s屏幕宽度为基准,表达式内的数字表示宽度点大小
+#define ZXSRealValueFit6SWidthPt(value) ((value) / 750.0f * [UIScreen mainScreen].bounds.size.width)
+// 以6s屏幕宽度为基准,表达式内的数字表示宽度点大小
+#define ZXSSystemFontFit6WithPt(value) [UIFont systemFontOfSize:ZXSRealValueFit6SWidthPt(value)]
+#define ZXSSCREEN_BOUNDS [UIScreen mainScreen].bounds
+#define ZXSSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define ZXSSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+/**显示登录成功的东西**/
+#define ZF_Login_Success  @"login_success"
+#pragma mark - 系统适配
+#define iOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? YES : NO)
+
+#pragma mark - 自定义颜色
+//从16进制获取颜色
+#define ZXSRGBColorFromHex(Value) [UIColor colorWithRed:((float)((Value & 0xFF0000) >> 16)) / 255.0f green:((float)((Value & 0xFF00) >> 8)) / 255.0f blue:((float)(Value & 0xFF)) / 255.0f alpha:1.0f]
+#define ZXSRGBAColor(red, green, blue ,alpha) [UIColor colorWithRed:(red) / 255.0 green:(green) / 255.0 blue:(blue) / 255.0 alpha:alpha]
+#define ZXSColor(red, green, blue) ZXSRGBAColor(red, green, blue, 1.0)
+#define ZXSGrayColor(v) ZXSColor(v, v, v)
+#define ZXSRandomColor ZXSColor(arc4random_uniform(255),arc4random_uniform(255),arc4random_uniform(255))
+
+
+
+
