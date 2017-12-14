@@ -136,7 +136,6 @@
         _tantouRedPacketView = tantouRedPacketView;
         tantouRedPacketView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(648));
         tantouRedPacketView.hidden = YES;
-        
         //背景图片
         UIImageView *backgroundImageView = [[UIImageView alloc] init];
         [tantouRedPacketView addSubview:backgroundImageView];

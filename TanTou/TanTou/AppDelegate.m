@@ -30,9 +30,9 @@
 @end
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:ZXSSCREEN_BOUNDS];
     //集成分享
     [self setupShareSDK];
-    self.window = [[UIWindow alloc] initWithFrame:ZXSSCREEN_BOUNDS];
     UIViewController *rootVC = nil;
     //设置状态栏的样式
     application.statusBarStyle = UIStatusBarStyleLightContent;
@@ -50,32 +50,16 @@
     }
     self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
-    //self.homeVC.coverView.hidden = NO;
-    //self.homeVC.shengdanhuodongView.hidden = NO;
     [self setupGuangGao];
     return YES;
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isEnterForeground"];
-    //[[NSUserDefaults standardUserDefaults] synchronize];
-    //NSLog(@"applicationWillEnterForeground");
-    //self.homeVC.coverView.hidden = NO;
-    //self.homeVC.shengdanhuodongView.hidden = NO;
 }
 -(void)applicationDidEnterBackground:(UIApplication *)application {
-    //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isEnterForeground"];
-    //[[NSUserDefaults standardUserDefaults] synchronize];
-    //NSLog(@"applicationDidEnterBackground");
-    //self.homeVC.coverView.hidden = YES;
-    //self.homeVC.shengdanhuodongView.hidden = YES;
+
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [GDTTrack activateApp];
-    //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isEnterForeground"];
-    //[[NSUserDefaults standardUserDefaults] synchronize];
-    //NSLog(@"applicationDidBecomeActive");
-    //self.homeVC.coverView.hidden = NO;
-    //self.homeVC.shengdanhuodongView.hidden = NO;
 }
 #pragma mark - 自定义方法
 //初始化ShareSDK应用
@@ -130,44 +114,95 @@
     } else {
         splash.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"LaunchImage"]];
     }
-    splash.fetchDelay = 3; //开发者可以设置开屏拉取时间，超时则放弃展示 //[可选]拉取并展示全屏开屏广告
+    splash.fetchDelay = 2; //开发者可以设置开屏拉取时间，超时则放弃展示 //[可选]拉取并展示全屏开屏广告
     [splash loadAdAndShowInWindow:self.window];
     self.splash = splash;
 }
 
 #pragma mark - GDTSplashAdDelegate
-- (void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd {
-    NSLog(@"%s",__FUNCTION__);
+/**
+ *  开屏广告成功展示
+ */
+-(void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+/**
+ *  开屏广告展示失败
+ */
+-(void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-- (void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error {
-    NSLog(@"%s%@",__FUNCTION__,error);
+/**
+ *  应用进入后台时回调
+ *  详解: 当点击下载应用时会调用系统程序打开，应用切换到后台
+ */
+- (void)splashAdApplicationWillEnterBackground:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-- (void)splashAdApplicationWillEnterBackground:(GDTSplashAd *)splashAd {
-    NSLog(@"%s",__FUNCTION__);
+/**
+ *  开屏广告点击回调
+ */
+- (void)splashAdClicked:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-- (void)splashAdClicked:(GDTSplashAd *)splashAd {
-    NSLog(@"%s",__FUNCTION__);
+/**
+ *  开屏广告将要关闭回调
+ */
+- (void)splashAdWillClosed:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
-- (void)splashAdWillClosed:(GDTSplashAd *)splashAd {
-    NSLog(@"%s",__FUNCTION__);
-}
-
-- (void)splashAdClosed:(GDTSplashAd *)splashAd {
-    NSLog(@"%s",__FUNCTION__);
+/**
+ *  开屏广告关闭回调
+ */
+- (void)splashAdClosed:(GDTSplashAd *)splashAd{
     _splash = nil;
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+/**
+ *  开屏广告点击以后即将弹出全屏广告页
+ */
+- (void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-- (void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd {
-    NSLog(@"%s",__FUNCTION__);
+/**
+ *  开屏广告点击以后弹出全屏广告页
+ */
+- (void)splashAdDidPresentFullScreenModal:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-- (void)splashAdDidDismissFullScreenModal:(GDTSplashAd *)splashAd {
-    NSLog(@"%s",__FUNCTION__);
+/**
+ *  点击以后全屏广告页将要关闭
+ */
+- (void)splashAdWillDismissFullScreenModal:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-
+/**
+ *  点击以后全屏广告页已经关闭
+ */
+- (void)splashAdDidDismissFullScreenModal:(GDTSplashAd *)splashAd{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+/**
+ * 开屏广告剩余时间回调
+ */
+- (void)splashAdLifeTime:(NSUInteger)time{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
 @end

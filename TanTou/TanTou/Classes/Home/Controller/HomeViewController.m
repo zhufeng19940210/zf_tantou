@@ -5,7 +5,6 @@
 //  Created by bailing on 2017/8/10.
 //  Copyright © 2017年 bailing. All rights reserved.
 //  主页
-
 #import "HomeViewController.h"
 #import "WeChatLoginViewController.h"
 #import "ChristmasHomeViewController.h"
@@ -19,8 +18,11 @@
 #import "ZFNavigtionController.h"
 #import "DCPathButton.h"
 #import "DCPathItemButton.h"
-@interface HomeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,DCPathButtonDelegate>
-
+#import "ZFCustomAlterView.h"
+#import "FeedbackViewController1.h"
+#import "PaymoneyViewController.h"
+#import "ShareViewController.h"
+@interface HomeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,DCPathButtonDelegate,ZFCustomAlterViewDelegate>
 //背景
 @property (weak, nonatomic) UIImageView *backgroundImageView;
 //相机
@@ -47,18 +49,24 @@
 @property (weak, nonatomic) UIView *tantouRedPacketView;
 //moneyLabel
 @property (weak, nonatomic) UILabel *moneyLabel;
-//蒙版
-@property (weak, nonatomic) UIView *coverView;
 //活动框
 @property (weak, nonatomic) UIView *shengdanhuodongView;
+//底部的button
+@property (weak,nonatomic) DCPathButton *dcPathButton;
+@property (nonatomic,strong)ZFCustomAlterView *alterView;
 @end
-
 @implementation HomeViewController
+-(ZFCustomAlterView *)alterView{
+    if (!_alterView) {
+        _alterView = [[ZFCustomAlterView alloc]init];
+        _alterView.delegate = self;
+    }
+    return _alterView;
+}
 #pragma mark - 懒加载
 //背景图片
 - (UIImageView *)backgroundImageView {
     if (!_backgroundImageView) {
-        
         UIImageView *backgroundImageView = [[UIImageView alloc] init];
         [self.view addSubview:backgroundImageView];
         _backgroundImageView = backgroundImageView;
@@ -67,11 +75,9 @@
     }
     return _backgroundImageView;
 }
-
 //相机
 - (UIButton *)cameraButton {
     if (!_cameraButton) {
-        
         UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.view addSubview:cameraButton];
         _cameraButton = cameraButton;
@@ -81,11 +87,9 @@
     }
     return _cameraButton;
 }
-
 //相册
 - (UIButton *)albumButton {
     if (!_albumButton) {
-        
         UIButton *albumButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.view addSubview:albumButton];
         _albumButton = albumButton;
@@ -115,16 +119,6 @@
     }
     return _containIconView;
 }
-//蒙版
-- (UIView *)coverView {
-    if (!_coverView) {
-        UIView *coverView = [UIView zxs_coverViewWithBounds:CGRectMake(0, 0, self.screenWidth, self.screenHeight) backgroundColor:[UIColor blackColor] alpha:0.3  hidden:YES target:self action:@selector(tapGestureRecognizerDidClick)];
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        [window addSubview:coverView];
-        _coverView = coverView;
-    }
-    return _coverView;
-}
 //活动框
 - (UIView *)shengdanhuodongView {
     if (!_shengdanhuodongView) {
@@ -132,12 +126,12 @@
         [self.view addSubview:shengdanhuodongView];
         _shengdanhuodongView = shengdanhuodongView;
         shengdanhuodongView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(612), ZXSRealValueFit6SWidthPt(674));
-        
+        shengdanhuodongView.hidden = YES;
         //背景图片
         UIImageView *backgroundImageView = [UIImageView zxs_imageViewWithImage:[UIImage imageNamed:@"shengdanhuodong"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(612), ZXSRealValueFit6SWidthPt(574))];
         [shengdanhuodongView addSubview:backgroundImageView];
         backgroundImageView.origin = CGPointMake(0, ZXSRealValueFit6SWidthPt(50));
-        
+
         //关闭按钮
         UIButton *closeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"chacha"] selectedImage:[UIImage imageNamed:@"chacha"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(84), ZXSRealValueFit6SWidthPt(84)) target:self action:@selector(closeShengDanHuoDongViewDidClick)];
         [shengdanhuodongView addSubview:closeButton];
@@ -161,22 +155,20 @@
     }
     return _redPacketButton;
 }
-
 //探头红包框
 - (UIView *)tantouRedPacketView {
     if (!_tantouRedPacketView) {
         UIView *tantouRedPacketView = [[UIView alloc] init];
         [self.view addSubview:tantouRedPacketView];
         _tantouRedPacketView = tantouRedPacketView;
-        tantouRedPacketView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+        tantouRedPacketView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(648));
         tantouRedPacketView.hidden = YES;
         //背景图片
         UIImageView *backgroundImageView = [[UIImageView alloc] init];
         [tantouRedPacketView addSubview:backgroundImageView];
         backgroundImageView.image = [UIImage imageNamed:@"jinez"];
-        backgroundImageView.bounds = tantouRedPacketView.bounds;
+        backgroundImageView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
         backgroundImageView.origin = CGPointMake(0, 0);
-        
         //moneyLabel
         UILabel *moneyLabel = [UILabel zxs_labelWithTextColor:[UIColor colorWithRed:1.0 green:103 / 255.0 blue:103 / 255.0 alpha:1.0] font:ZXSSystemFontFit6WithPt(80.f) text:@"0.00"];
         [tantouRedPacketView addSubview:moneyLabel];
@@ -189,21 +181,56 @@
         [tantouRedPacketView addSubview:challengeButton];
         challengeButton.right = tantouRedPacketView.width * 0.5 - ZXSRealValueFit6SWidthPt(30);
         challengeButton.bottom = CGRectGetMaxY(backgroundImageView.frame) - ZXSRealValueFit6SWidthPt(60);
-        
         //注销按钮
         UIButton *cancelButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"zhuxiao"] highlightedImage:[UIImage imageNamed:@"zhuxiao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(cancelButtonDidClick)];
         [tantouRedPacketView addSubview:cancelButton];
         cancelButton.left = tantouRedPacketView.width * 0.5 + ZXSRealValueFit6SWidthPt(30);
         cancelButton.bottom = challengeButton.bottom;
         
+        //关闭按钮
+        UIButton *closeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"chacha"] highlightedImage:[UIImage imageNamed:@"chacha"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(80), ZXSRealValueFit6SWidthPt(80)) target:self action:@selector(closeButtonDidClick)];
+        [tantouRedPacketView addSubview:closeButton];
+        closeButton.centerX = tantouRedPacketView.width * 0.5;
+        closeButton.bottom = tantouRedPacketView.height;
     }
     return _tantouRedPacketView;
+}
+
+-(DCPathButton *) dcPathButton{
+    if (!_dcPathButton) {
+        DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"jia111"]
+                                                             highlightedImage:[UIImage imageNamed:@"jia111"]];
+        dcPathButton.delegate = self;
+        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"w"]
+                                                               highlightedImage:[UIImage imageNamed:@"w"]
+                                                                backgroundImage:nil
+                                                     backgroundHighlightedImage:nil];
+        DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"fankui111"]
+                                                               highlightedImage:[UIImage imageNamed:@"fankui111"]
+                                                                backgroundImage:nil
+                                                     backgroundHighlightedImage:nil];
+        DCPathItemButton *itemButton_3 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"fenxiang111"]
+                                                               highlightedImage:[UIImage imageNamed:@"fenxiang111"]
+                                                                backgroundImage:nil
+                                                     backgroundHighlightedImage:nil];
+        [dcPathButton addPathItems:@[itemButton_1,
+                                     itemButton_2,
+                                     itemButton_3
+                                     ]];
+        dcPathButton.bloomRadius = 80.0f;
+        dcPathButton.allowSounds = NO;
+        dcPathButton.allowCenterButtonRotation = YES;
+        dcPathButton.bottomViewColor = [UIColor grayColor];
+        dcPathButton.bloomDirection = kDCPathButtonBloomDirectionTopLeft;
+        [self.view addSubview:dcPathButton];
+        _dcPathButton = dcPathButton;
+    }
+    return _dcPathButton;
 }
 #pragma mark - 系统方法
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
-    [self setupDCPathButton];
     // 获取当前最新数据
     self.userItem = [ChristmasUserItem shareChristmasUserItem];
     [self.userItem userItemFromUserDefaults];
@@ -211,34 +238,7 @@
     if (self.userItem.uid.length == 0 || self.userItem.uid == nil) return;
     [self loadUserInfoFromServer];
 }
--(void)setupDCPathButton{
-    DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"jia111"]
-                                                         highlightedImage:[UIImage imageNamed:@"jia111"]];
-    dcPathButton.delegate = self;
-    DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"w"]
-                                                           highlightedImage:[UIImage imageNamed:@"w"]
-                                                            backgroundImage:nil
-                                                 backgroundHighlightedImage:nil];
-    DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"fankui111"]
-                                                           highlightedImage:[UIImage imageNamed:@"fankui111"]
-                                                            backgroundImage:nil
-                                                 backgroundHighlightedImage:nil];
-    DCPathItemButton *itemButton_3 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"fenxiang111"]
-                                                           highlightedImage:[UIImage imageNamed:@"fenxiang111"]
-                                                            backgroundImage:nil
-                                                 backgroundHighlightedImage:nil];
-    [dcPathButton addPathItems:@[itemButton_1,
-                                 itemButton_2,
-                                 itemButton_3
-                                 ]];
-    dcPathButton.bloomRadius = 80.0f;
-    dcPathButton.allowSounds = NO;
-    dcPathButton.allowCenterButtonRotation = YES;
-    dcPathButton.bottomViewColor = [UIColor grayColor];
-    dcPathButton.bloomDirection = kDCPathButtonBloomDirectionTopLeft;
-    dcPathButton.dcButtonCenter = CGPointMake(self.screenWidth - 10 - dcPathButton.frame.size.width/2, self.screenHeight - dcPathButton.frame.size.height/2 - 10);
-    [self.view addSubview:dcPathButton];
-}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
@@ -248,6 +248,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 }
 #pragma mark - 自定义方法
 - (void)setupUI {
@@ -263,10 +264,10 @@
     self.containIconView.top = ZXSRealValueFit6SWidthPt(40);
     self.redPacketButton.right = self.screenWidth;
     self.redPacketButton.centerY = self.screenHeight * 0.5 + ZXSRealValueFit6SWidthPt(60);
-    self.coverView.origin = CGPointMake(0, 0);
     self.shengdanhuodongView.centerX = self.screenWidth * 0.5;
     self.shengdanhuodongView.centerY = self.screenHeight * 0.5;
     self.tantouRedPacketView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
+    self.dcPathButton.dcButtonCenter = CGPointMake(self.screenWidth - 10 - self.dcPathButton.frame.size.width/2, self.screenHeight - self.dcPathButton.frame.size.height/2 - 10);
 }
 - (void)showorHideShengDanHuoDongView {
     //获取用户数据，判断用户是否登录
@@ -280,22 +281,20 @@
     switch (flagInt) {
         case 1:{
             NSLog(@"showorHideShengDanHuoDongView");
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isEnterForeground"]) {
+            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:ZF_Alter_HuoDong];
+            if (isShow == YES) {
                 self.shengdanhuodongView.hidden = NO;
-                self.coverView.hidden = NO;
+                [self.alterView showShareViewAddView:self.shengdanhuodongView];
             } else {
                 self.shengdanhuodongView.hidden = YES;
-                self.coverView.hidden = YES;
             }
             if (self.isLogin) {//登录
-                //self.redPacketButton.hidden = NO;
                 self.containIconView.hidden = NO;
                 //设置头像
                 NSURL *iconURL = [NSURL URLWithString:self.userItem.icon];
                 [self.touxiangButton sd_setImageWithURL:iconURL forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"touxiang"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                 }];
             } else {//没有登录
-                //self.redPacketButton.hidden = YES;
                 self.containIconView.hidden = YES;
             }
         }
@@ -303,18 +302,14 @@
         case 0:
         case -1:{
             self.shengdanhuodongView.hidden = YES;
-            //self.redPacketButton.hidden = YES;
             self.touxiangButton.hidden = YES;
-            self.coverView.hidden = YES;
         }
             break;
         default:
             break;
     }
 }
-
 - (void)clearUserDefaults{
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:@"uid"];
     [userDefaults removeObjectForKey:@"token"];
@@ -334,7 +329,7 @@
 - (void)loadUserInfoFromServer {
     NSString *networkStatus = [[ZXSUtil shareUtil] getcurrentStatus];
     if ([networkStatus isEqualToString:@"NotNet"]) {
-        [MBProgressHUD showError:@"当前网络出错！"];
+        [MBProgressHUD showError:@"网络未连接"];
         return;
     }
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -377,46 +372,31 @@
 }
 #pragma mark - 触发事件
 - (void)immediateChallengeButtonDidClick {
+    [self hiddenAllView];
     if (self.isLogin) {
          [self.navigationController pushViewController:[[ChristmasHomeViewController alloc] init] animated:YES];
     } else {
          [self.navigationController pushViewController:[[WeChatLoginViewController alloc] init] animated:YES];
     }
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isEnterForeground"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-- (void)tapGestureRecognizerDidClick {
-    [self closeShengDanHuoDongViewDidClick];
-    self.tantouRedPacketView.hidden = YES;
-    self.touxiangButton.selected = NO;
 }
 - (void)closeShengDanHuoDongViewDidClick {
-    self.coverView.hidden = YES;
-    self.shengdanhuodongView.hidden = YES;
-    self.redPacketButton.hidden = NO;
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isEnterForeground"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self hiddenAllView];
 }
 - (void)touxiangButtonDidClick:(UIButton *)button {
-    button.selected = !button.selected;
-    if (button.selected) {
-        //跳出红包框
-        self.coverView.hidden = NO;
-        self.tantouRedPacketView.hidden = NO;
-        //获取本地用户数据
-        [self.userItem userItemFromUserDefaults];
-        self.moneyLabel.text = self.userItem.money;
-    } else {
-        self.coverView.hidden = YES;
-        self.tantouRedPacketView.hidden = YES;
-    }
+    //跳出红包框
+    self.tantouRedPacketView.hidden = NO;
+    [self.alterView showShareViewAddView:self.tantouRedPacketView];
+    //获取本地用户数据
+    [self.userItem userItemFromUserDefaults];
+    self.moneyLabel.text = self.userItem.money;
 }
 - (void)challengeButtonDidClick {
-    self.coverView.hidden = YES;
-    self.tantouRedPacketView.hidden = YES;
+    [self hiddenAllView];
     [self.navigationController pushViewController:[[ChristmasHomeViewController alloc] init] animated:YES];
 }
 - (void)redPacketButtonDidClick {
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     if (self.isLogin) {
         [self.navigationController pushViewController:[[ChristmasHomeViewController alloc] init] animated:YES];
     } else {
@@ -424,9 +404,8 @@
     }
 }
 - (void)cancelButtonDidClick {
-    self.tantouRedPacketView.hidden = YES;
+    [self hiddenAllView];
     self.containIconView.hidden = YES;
-    self.coverView.hidden = YES;
     //清空本地数据
     [self clearUserDefaults];
     self.isLogin = NO;
@@ -451,6 +430,10 @@
             [self presentViewController:alertView animated:YES completion:nil];
         }
     }
+}
+#pragma mark closeBtn
+-(void)closeButtonDidClick{
+    [self hiddenAllView];
 }
 - (void)albumButtonDidClick:(UIButton*)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -479,17 +462,28 @@
     NSLog(@" at index : %lu",  (unsigned long)itemButtonIndex);
     if(itemButtonIndex==0)
     {
-       // IntroduceViewController*inVC=[[IntroduceViewController alloc]init];
-       // [self.navigationController pushViewController:inVC animated:YES];
-        
+        PaymoneyViewController *paymoneyVc = [[PaymoneyViewController alloc]init];
+        [self.navigationController pushViewController:paymoneyVc animated:NO];
     }else if(itemButtonIndex==1)
     {
-        //FeedbackViewController1*feedBackVC=[[FeedbackViewController1 alloc]init];
-       // [self.navigationController pushViewController:feedBackVC animated:NO];
+        FeedbackViewController1*feedBackVC=[[FeedbackViewController1 alloc]init];
+        [self.navigationController pushViewController:feedBackVC animated:NO];
     }else
     {
-       // ShareViewController*shareVC=[[ShareViewController alloc]init];
-        //[self.navigationController pushViewController:shareVC animated:NO];
+        ShareViewController*shareVC=[[ShareViewController alloc]init];
+        [self.navigationController pushViewController:shareVC animated:NO];
     }
+}
+#pragma mark ZFCustomAlterViewDelegate
+-(void)customAlterViewHidden{
+    [self hiddenAllView];
+}
+// 隐藏keywindow
+-(void)hiddenAllView{
+    self.tantouRedPacketView.hidden = YES;
+    self.shengdanhuodongView.hidden = YES;
+    [self.alterView hihhdenView];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 @end

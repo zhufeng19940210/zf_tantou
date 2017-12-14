@@ -27,8 +27,9 @@
 #define ZXSSCREEN_BOUNDS [UIScreen mainScreen].bounds
 #define ZXSSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define ZXSSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define REDIO ZXSSCREEN_WIDTH/1080  //适配比例
 /**显示登录成功的东西**/
-#define ZF_Login_Success  @"login_success"
+#define ZF_Alter_HuoDong  @"alter_huodong"
 #pragma mark - 系统适配
 #define iOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? YES : NO)
 

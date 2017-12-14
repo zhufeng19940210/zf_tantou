@@ -60,15 +60,15 @@
 }
 #pragma mark - 触发事件
 - (void)enterBtnClick {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirstRun"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     HomeViewController *homeVC = [[HomeViewController alloc] init];
     ZFNavigtionController *nav = [[ZFNavigtionController alloc] initWithRootViewController:homeVC];
     appDelegate.window.rootViewController = nav;
     appDelegate.homeVC = homeVC;
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirstRun"];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
 #pragma mark -UIScollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -81,7 +81,4 @@
         self.pageControl.hidden = NO;
     }
 }
-
-
-
 @end

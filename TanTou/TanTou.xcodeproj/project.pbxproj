@@ -56,6 +56,12 @@
 		BF0578001F44B50D00181CA6 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0577ED1F44B50D00181CA6 /* UIProgressView+AFNetworking.m */; };
 		BF0578011F44B50D00181CA6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0577EF1F44B50D00181CA6 /* UIRefreshControl+AFNetworking.m */; };
 		BF0578021F44B50D00181CA6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0577F11F44B50D00181CA6 /* UIWebView+AFNetworking.m */; };
+		BF2331051FE30BBF003D674F /* FeedbackViewController1.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF2330FC1FE30BBE003D674F /* FeedbackViewController1.xib */; };
+		BF2331061FE30BBF003D674F /* FeedbackViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2330FD1FE30BBE003D674F /* FeedbackViewController1.m */; };
+		BF2331071FE30BBF003D674F /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2330FF1FE30BBE003D674F /* ShareViewController.m */; };
+		BF2331081FE30BBF003D674F /* PaymoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2331001FE30BBF003D674F /* PaymoneyViewController.m */; };
+		BF2331091FE30BBF003D674F /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF2331011FE30BBF003D674F /* ShareViewController.xib */; };
+		BF23310A1FE30BBF003D674F /* PaymoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF2331041FE30BBF003D674F /* PaymoneyViewController.xib */; };
 		BF24B9A71F3D14FD00741740 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF24B9A61F3D14FD00741740 /* Assets.xcassets */; };
 		BF24B9AA1F3D14FD00741740 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF24B9A81F3D14FD00741740 /* LaunchScreen.storyboard */; };
 		BF24B9D31F3D161800741740 /* YJTComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF24B9C91F3D161800741740 /* YJTComposeView.m */; };
@@ -101,6 +107,7 @@
 		BF24BAFF1F3D1AF500741740 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF24BAFE1F3D1AF500741740 /* libstdc++.tbd */; };
 		BF24BB011F3D1AFF00741740 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF24BB001F3D1AFF00741740 /* libz.tbd */; };
 		BF24BB031F3D1B1200741740 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF24BB021F3D1B1200741740 /* libicucore.tbd */; };
+		BF8669EA1FE2F7E000CD3981 /* ZFCustomAlterView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8669E81FE2F7E000CD3981 /* ZFCustomAlterView.m */; };
 		BF9418D81F586DDB00E895A8 /* SelectHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9418D31F586DDB00E895A8 /* SelectHeaderView.m */; };
 		BF9418D91F586DDB00E895A8 /* SelectHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF9418D41F586DDB00E895A8 /* SelectHeaderView.xib */; };
 		BF9418DA1F586DDB00E895A8 /* SelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9418D61F586DDB00E895A8 /* SelectTableViewCell.m */; };
@@ -257,6 +264,15 @@
 		BF0577EF1F44B50D00181CA6 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		BF0577F01F44B50D00181CA6 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		BF0577F11F44B50D00181CA6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		BF2330FC1FE30BBE003D674F /* FeedbackViewController1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackViewController1.xib; sourceTree = "<group>"; };
+		BF2330FD1FE30BBE003D674F /* FeedbackViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController1.m; sourceTree = "<group>"; };
+		BF2330FE1FE30BBE003D674F /* FeedbackViewController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController1.h; sourceTree = "<group>"; };
+		BF2330FF1FE30BBE003D674F /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		BF2331001FE30BBF003D674F /* PaymoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymoneyViewController.m; sourceTree = "<group>"; };
+		BF2331011FE30BBF003D674F /* ShareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
+		BF2331021FE30BBF003D674F /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		BF2331031FE30BBF003D674F /* PaymoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymoneyViewController.h; sourceTree = "<group>"; };
+		BF2331041FE30BBF003D674F /* PaymoneyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymoneyViewController.xib; sourceTree = "<group>"; };
 		BF24B9971F3D14FD00741740 /* TanTou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TanTou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF24B9A61F3D14FD00741740 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF24B9A91F3D14FD00741740 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -343,6 +359,8 @@
 		BF24BAFE1F3D1AF500741740 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		BF24BB001F3D1AFF00741740 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BF24BB021F3D1B1200741740 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		BF8669E81FE2F7E000CD3981 /* ZFCustomAlterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCustomAlterView.m; sourceTree = "<group>"; };
+		BF8669E91FE2F7E000CD3981 /* ZFCustomAlterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCustomAlterView.h; sourceTree = "<group>"; };
 		BF9418D21F586DDB00E895A8 /* SelectHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectHeaderView.h; sourceTree = "<group>"; };
 		BF9418D31F586DDB00E895A8 /* SelectHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectHeaderView.m; sourceTree = "<group>"; };
 		BF9418D41F586DDB00E895A8 /* SelectHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectHeaderView.xib; sourceTree = "<group>"; };
@@ -916,6 +934,15 @@
 		BF9E60DF1FE1F165002FAC10 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BF2330FE1FE30BBE003D674F /* FeedbackViewController1.h */,
+				BF2330FD1FE30BBE003D674F /* FeedbackViewController1.m */,
+				BF2330FC1FE30BBE003D674F /* FeedbackViewController1.xib */,
+				BF2331031FE30BBF003D674F /* PaymoneyViewController.h */,
+				BF2331001FE30BBF003D674F /* PaymoneyViewController.m */,
+				BF2331041FE30BBF003D674F /* PaymoneyViewController.xib */,
+				BF2331021FE30BBF003D674F /* ShareViewController.h */,
+				BF2330FF1FE30BBE003D674F /* ShareViewController.m */,
+				BF2331011FE30BBF003D674F /* ShareViewController.xib */,
 				BF9E60E21FE1F183002FAC10 /* ZFNavigtionController.h */,
 				BF9E60E31FE1F183002FAC10 /* ZFNavigtionController.m */,
 			);
@@ -932,6 +959,8 @@
 		BF9E60E11FE1F165002FAC10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BF8669E91FE2F7E000CD3981 /* ZFCustomAlterView.h */,
+				BF8669E81FE2F7E000CD3981 /* ZFCustomAlterView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1223,7 +1252,9 @@
 			files = (
 				BF24B9AA1F3D14FD00741740 /* LaunchScreen.storyboard in Resources */,
 				BF9E60DC1FE1A516002FAC10 /* MBProgressHUD.bundle in Resources */,
+				BF2331051FE30BBF003D674F /* FeedbackViewController1.xib in Resources */,
 				BF24B9A71F3D14FD00741740 /* Assets.xcassets in Resources */,
+				BF23310A1FE30BBF003D674F /* PaymoneyViewController.xib in Resources */,
 				80B702DA1F482CA8008CE0D4 /* bloom.caf in Resources */,
 				FED548851FC44ADC00A268A4 /* README.txt in Resources */,
 				80B702DB1F482CA8008CE0D4 /* fold.caf in Resources */,
@@ -1236,6 +1267,7 @@
 				FED548891FC44ADC00A268A4 /* ShareSDK.bundle in Resources */,
 				FED5488E1FC44ADC00A268A4 /* ShareSDKConfigFile.bundle in Resources */,
 				BF9418D91F586DDB00E895A8 /* SelectHeaderView.xib in Resources */,
+				BF2331091FE30BBF003D674F /* ShareViewController.xib in Resources */,
 				FED548831FC44ADC00A268A4 /* WeiboSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1257,6 +1289,8 @@
 				BF24BA661F3D162600741740 /* SDWebImagePrefetcher.m in Sources */,
 				8015D3951F4C10D20076D875 /* TYShowAlertView.m in Sources */,
 				BF24B9D71F3D161800741740 /* ZXSNetworkTool.m in Sources */,
+				BF2331071FE30BBF003D674F /* ShareViewController.m in Sources */,
+				BF2331061FE30BBF003D674F /* FeedbackViewController1.m in Sources */,
 				BF24BA651F3D162600741740 /* SDWebImageManager.m in Sources */,
 				8015D38F1F4C10D20076D875 /* TYAlertController.m in Sources */,
 				BF24BA511F3D162500741740 /* MJExtensionConst.m in Sources */,
@@ -1324,6 +1358,7 @@
 				BF24B9D41F3D161800741740 /* UIView+ZXSExtension.m in Sources */,
 				C596F2221F986A8B00BEA912 /* AppDelegate.m in Sources */,
 				BF9E60E41FE1F183002FAC10 /* ZFNavigtionController.m in Sources */,
+				BF2331081FE30BBF003D674F /* PaymoneyViewController.m in Sources */,
 				8015D3921F4C10D20076D875 /* TYAlertScaleFadeAnimation.m in Sources */,
 				C596F2251F986B7400BEA912 /* main.m in Sources */,
 				FE3ED3A41FB88E0C0091259B /* MASCompositeConstraint.m in Sources */,
@@ -1339,6 +1374,7 @@
 				8015D38E1F4C10D20076D875 /* TYAlertController+TransitionAnimate.m in Sources */,
 				BF24BA6C1F3D162600741740 /* UIImageView+WebCache.m in Sources */,
 				BF24BA561F3D162600741740 /* NSObject+MJClass.m in Sources */,
+				BF8669EA1FE2F7E000CD3981 /* ZFCustomAlterView.m in Sources */,
 				BF24BA4F1F3D162500741740 /* DDCalculateImageValue.m in Sources */,
 				BF24BA681F3D162600741740 /* UIImage+GIF.m in Sources */,
 				BF24BA631F3D162600741740 /* SDWebImageDownloader.m in Sources */,

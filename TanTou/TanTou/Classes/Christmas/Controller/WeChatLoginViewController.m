@@ -66,7 +66,7 @@
 #pragma mark - 系统方法
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setupUI];
     self.userItem = [ChristmasUserItem shareChristmasUserItem];
     self.isLogining = NO;
@@ -91,7 +91,7 @@
 #pragma mark - 触发事件
 - (void)backButtonDidClick {
     self.navigationController.navigationBarHidden = NO;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 - (void)loginButtonDidClick:(UIButton *)button {
     button.enabled = NO;
