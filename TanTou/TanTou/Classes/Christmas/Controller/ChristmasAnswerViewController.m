@@ -10,13 +10,11 @@
 #import "ChristmasEndingViewController.h"
 #import "ChristmasFoodItem.h"
 #import "JX_GCDTimerManager.h"
-
 @interface ChristmasAnswerViewController ()
 //背景
 @property (weak, nonatomic) UIImageView *backgroundImageView;
 //返回
 @property (weak, nonatomic) UIButton *backButton;
-
 //containsdlrView
 @property (weak, nonatomic) UIView *containsdlrView;
 //sdlrImageView

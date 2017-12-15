@@ -22,6 +22,7 @@
 #import "WelcomeViewController.h"
 #import "HomeViewController.h"
 #import "ZFNavigtionController.h"
+#import <AlipaySDK/AlipaySDK.h>
 @interface AppDelegate ()<GDTSplashAdDelegate,WXApiDelegate>
 /**是否是第一次运行*/
 @property (assign, nonatomic) BOOL isFirstRun; // yes是,no不是
@@ -204,5 +205,50 @@
 - (void)splashAdLifeTime:(NSUInteger)time{
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
     [[NSUserDefaults standardUserDefaults]synchronize];
+}
+#pragma mark 支付的回调方法
+#pragma mark - 这里是回调的方法
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    NSLog(@"openurl1 = %@" , url);
+    //1.支付宝
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result1 = %@",resultDic);
+            NSString *resultStatus =  [resultDic objectForKey:@"resultStatus"];
+            if ([resultStatus isEqualToString: @"9000"]) {
+                [MBProgressHUD showSuccess:@"订单支付成功"];
+            }else if([resultStatus isEqualToString:@"8000"]) {
+                [MBProgressHUD showSuccess:@"支付结果确认中"];
+            }else{
+                [MBProgressHUD showError:@"订单未支付"];
+            }
+        }];
+    }
+    //2.微信
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+// NOTE: 9.0以后使用新API接口
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    NSLog(@"openurl2 = %@" , url);
+    //1.支付宝
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result2 = %@",resultDic);
+            //支付宝回调在这里处理...
+            NSString *resultStatus =  [resultDic objectForKey:@"resultStatus"];
+            if ([resultStatus isEqualToString: @"9000"]) {
+                [MBProgressHUD showSuccess:@"订单支付成功"];
+            }else if([resultStatus isEqualToString:@"8000"]) {
+                [MBProgressHUD showSuccess:@"支付结果确认中"];
+            }else{
+                [MBProgressHUD showError:@"订单未支付"];
+            }
+        }];
+    }
+    //2.微信
+    return  [WXApi handleOpenURL:url delegate:self];
 }
 @end

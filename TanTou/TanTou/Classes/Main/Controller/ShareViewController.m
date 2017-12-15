@@ -28,69 +28,33 @@
 @implementation ShareViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title=@"好友推荐";
-    [self createUI];
+    self.title=@"好友推荐";
+    self.navigationController.navigationBar.hidden = NO;
+    [self.navigationController.navigationBar setNeedsLayout];
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
--(void)createUI
-{
-    self.tantouview = [[UIImageView alloc]init];
-    self.tantouview.frame = CGRectMake(0, 0, ZXSSCREEN_WIDTH, ZXSSCREEN_HEIGHT);
-    self.tantouview.image = [UIImage imageNamed:@"好友推荐"];
-    [self.view addSubview:self.tantouview];
-    self.weixinbtn = [[UIButton alloc]init];
-    self.weixinbtn.size = CGSizeMake(180*REDIO, 180*REDIO);
-    self.weixinbtn.left = 70*REDIO;
-    self.weixinbtn.bottom = ZXSSCREEN_HEIGHT - 250*REDIO;
-    [self.weixinbtn setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
-    [self.weixinbtn addTarget:self action:@selector(weixinbtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.weixinbtn];
-    
-    self.pengyouquanbtn= [[UIButton alloc]init];
-    self.pengyouquanbtn.size = CGSizeMake(180*REDIO, 180*REDIO);
-    self.pengyouquanbtn.left = self.weixinbtn.right + 80*REDIO;
-    self.pengyouquanbtn.bottom = ZXSSCREEN_HEIGHT - 250*REDIO;
-    [self.pengyouquanbtn setBackgroundImage:[UIImage imageNamed:@"pengyouquan"] forState:UIControlStateNormal];
-    [self.pengyouquanbtn addTarget:self action:@selector(pengyouquanbtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.pengyouquanbtn];
-    
-    self.qqbtn = [[UIButton alloc]init];
-    self.qqbtn.size = CGSizeMake(180*REDIO, 180*REDIO);
-    self.qqbtn.left = self.pengyouquanbtn.right + 80*REDIO;
-    self.qqbtn.bottom = ZXSSCREEN_HEIGHT - 250*REDIO;
-    [self.qqbtn setBackgroundImage:[UIImage imageNamed:@"qq-3"] forState:UIControlStateNormal];
-    [self.qqbtn addTarget:self action:@selector(qqbtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.qqbtn];
-    
-    self.weibobtn= [[UIButton alloc]init];
-    self.weibobtn.size = CGSizeMake(180*REDIO, 180*REDIO);
-    self.weibobtn.left = self.qqbtn.right + 80*REDIO;
-    self.weibobtn.bottom = ZXSSCREEN_HEIGHT - 250*REDIO;
-    [self.weibobtn setBackgroundImage:[UIImage imageNamed:@"weibo"] forState:UIControlStateNormal];
-    [self.weibobtn addTarget:self action:@selector(weibobtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.weibobtn];
-}
-
--(void)weixinbtnAction:(UIButton *)sender{
-    
+//weixin
+- (IBAction)onClickWenxinBtn:(UIButton *)sender {
     self.shareType =SSDKPlatformSubTypeWechatSession;
     [self myRealShareWithtag];
-    
 }
--(void)pengyouquanbtn:(UIButton *)sender{
-    
-   self.shareType = SSDKPlatformSubTypeWechatTimeline;
+//朋友圈
+- (IBAction)onClickPengyouquanBtn:(UIButton *)sender {
+    self.shareType = SSDKPlatformSubTypeWechatTimeline;
     [self myRealShareWithtag];
 }
--(void)qqbtnAction:(UIButton *)sender{
- 
+//QQ
+- (IBAction)onClickQQBtn:(UIButton *)sender {
     self.shareType = SSDKPlatformTypeQQ;
     [self myRealShareWithtag];
 }
--(void)weibobtnAction:(UIButton *)sender{
-    
+//微博
+- (IBAction)onClickWeiboBtn:(UIButton *)sender {
     self.shareType = SSDKPlatformTypeSinaWeibo;
-     NSString *url = @"https://www.daodianwang.com/App/download-tantou.php";
-     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    NSString *url = @"https://www.daodianwang.com/App/download-tantou.php";
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKSetupSinaWeiboShareParamsByText:@"对焦食物，一探究竟！" title:@"探头" image:[UIImage imageNamed:@"testshare.png"] url:[NSURL URLWithString:url] latitude:0 longitude:0 objectID:nil type:SSDKContentTypeAuto];
     
     [ShareSDK share:self.shareType parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
@@ -116,7 +80,6 @@
         }
     }];
 }
-
 -(void)myRealShareWithtag{
 //创建一个分享参数
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -131,7 +94,6 @@
         switch (state) {
             case SSDKResponseStateSuccess:
             {
-          
                 [MBProgressHUD showSuccess:@"分享成功"];
             }
                 break;
@@ -149,5 +111,4 @@
         }
     }];
 }
-
 @end

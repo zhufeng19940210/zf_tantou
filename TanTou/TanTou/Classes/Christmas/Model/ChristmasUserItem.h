@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface ChristmasUserItem : NSObject
-
 #pragma mark - 属性
 /**用户id*/
 @property (strong, nonatomic) NSString *uid;
