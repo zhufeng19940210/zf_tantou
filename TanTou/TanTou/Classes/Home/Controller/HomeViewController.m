@@ -22,6 +22,7 @@
 #import "FeedbackViewController1.h"
 #import "ShareViewController.h"
 #import "ZFPayViewController.h"
+#import "SelectViewController.h"
 @interface HomeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,DCPathButtonDelegate,ZFCustomAlterViewDelegate>
 //背景
 @property (weak, nonatomic) UIImageView *backgroundImageView;
@@ -453,9 +454,9 @@
 #pragma mark- 选择相片回调
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     self.photoImage = info[UIImagePickerControllerOriginalImage];
-    AlbumHealthScoreViewController *albumHealthScoreVC = [[AlbumHealthScoreViewController alloc] init];
-    albumHealthScoreVC.photoImage = self.photoImage;
-    [picker pushViewController:albumHealthScoreVC animated:NO];
+    SelectViewController *selectVc = [[SelectViewController alloc]init];
+    selectVc.selectImage = self.photoImage;
+    [picker pushViewController:selectVc animated:YES];
 }
 #pragma mark DCPathButtonDelegate
 - (void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex {

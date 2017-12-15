@@ -10,6 +10,8 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "ZFCustomAlterView.h"
+#import "ChristmasAnswerViewController.h"
+#import "ChristmasEndingViewController.h"
 @interface ChristmasHomeViewController () <ZFCustomAlterViewDelegate>
 //背景
 @property (weak, nonatomic) UIImageView *backgroundImageView;
@@ -262,16 +264,20 @@
         NSLog(@"sendCashMoneyRequestToServermsg:%@",dict[@"msg"]);
         NSNumber *status = [dict objectForKey:@"status"];
         if ([status intValue] == 1) { //操作成功
+            [self hiddenOtherView];
             weakSelf.userItem.money = @"0.00";
             //保存新数据
             [weakSelf.userItem saveUserItemToUserDefaults];
-            [MBProgressHUD showSuccess:@"提现成功" toView:weakSelf.view];
+            [MBProgressHUD showSuccess:@"提现成功" toView:self.view];
             self.moneyLabel.text = @"0.00";
         } else { //操作失败
-            [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
+            [weakSelf hiddenOtherView];
+            [MBProgressHUD showError:dict[@"msg"] toView:self.view];
+         
         }
     } failure:^(NSError *error) {
-        [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
+        [weakSelf hiddenOtherView];
+        [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:self.view];
     }];
 }
 //用户信息从服务器
@@ -360,8 +366,13 @@
 }
 #pragma mark -明天再来
 -(void)TomoorowButtonDidClick{
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    // 退出当前控制器
+//    ChristmasAnswerViewController *answerVc = [[ChristmasAnswerViewController alloc]init];
+//    [self.navigationController pushViewController:answerVc animated:YES];
+    ChristmasEndingViewController *endVc = [[ChristmasEndingViewController alloc]init];
+    [self.navigationController pushViewController:endVc animated:YES];
+//    self.navigationController.navigationBarHidden = NO;
+//    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)startAnswerButtonDidClick:(UIButton *)button {
     // 退出当前控制器

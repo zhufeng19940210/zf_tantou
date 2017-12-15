@@ -6,7 +6,7 @@
 //  Copyright © 2017年 daodian. All rights reserved.
 //评分页面
 #import "TheZoomImage.h"
-#import "SelectViewController.h"
+#import "SelectViewController2.h"
 #import "UIView+TYAlertView.h"
 #import "TYAlertController+BlurEffects.h"
 #import "ShareView.h"
@@ -23,7 +23,7 @@
 #import <ShareSDKUI/SSUIShareActionSheetCustomItem.h>
 #import <ShareSDK/ShareSDK+Base.h>
 #import <ShareSDKExtension/ShareSDK+Extension.h>
-@interface SelectViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SelectViewController2 ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *yuandianimage;
 @property (weak, nonatomic) IBOutlet UILabel *biaoyulabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bgimageView;
@@ -47,7 +47,7 @@
 @property (strong, nonatomic) UIImage *snapshotImage;
 @end
 
-@implementation SelectViewController
+@implementation SelectViewController2
 
 -(NSMutableArray *)foodDataArray{
 
@@ -83,7 +83,7 @@
 }
 #pragma mark - 触发事件
 - (void)leftBarButtonItemDidClick {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)saveBarButtonItemDidClick {
     if (self.snapshotImage) {
@@ -225,27 +225,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
--(void)createnav
-{
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-}
-
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:18],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.title=@"健康分数";
-    UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setImage:[UIImage imageNamed:@"左-1"] forState:UIControlStateNormal];
-    [backBtn setImage:[UIImage imageNamed:@"左-1"] forState:UIControlStateHighlighted];
-    [backBtn sizeToFit];
-    [backBtn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
-    UIImage* image=[UIImage imageNamed:@"导航栏"];
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-}
 
 -(void)sendShareCommandWithType:(UIImage*)photo{
     
@@ -326,8 +305,7 @@
     return newImage;
 }
 -(void)leftAction{
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(UIImage*)getNormalImage:(UIView*)view
 {

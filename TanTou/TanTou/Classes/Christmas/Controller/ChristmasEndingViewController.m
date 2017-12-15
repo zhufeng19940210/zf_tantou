@@ -5,16 +5,14 @@
 //  Created by StoneMan on 2017/11/16.
 //  Copyright © 2017年 bailing. All rights reserved.
 //
-
 #import "ChristmasEndingViewController.h"
 #import "ChristmasHomeViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "ChristmasUserItem.h"
 #import "WeChatLoginViewController.h"
-
-@interface ChristmasEndingViewController ()
-
+#import "ZFCustomAlterView.h"
+@interface ChristmasEndingViewController () <ZFCustomAlterViewDelegate>
 /**screenWidth*/
 @property (assign, nonatomic) CGFloat screenWidth;
 /**screenHeight*/
@@ -27,8 +25,6 @@
 @property (weak, nonatomic) UIButton *backButton;
 //红包
 @property (weak, nonatomic) UIButton *redPacketButton;
-//coverView
-@property (weak, nonatomic) UIView *coverView;
 //tantouRedPacketView
 @property (weak, nonatomic) UIView *tantouRedPacketView;
 //moneyLabel
@@ -43,12 +39,19 @@
 @property (weak, nonatomic) UIButton *endChallengeButton;
 /**用户*/
 @property (weak, nonatomic) ChristmasUserItem *userItem;
+@property (nonatomic,strong)ZFCustomAlterView *alterView;
 @end
 @implementation ChristmasEndingViewController
+-(ZFCustomAlterView *)alterView{
+    if (!_alterView) {
+        _alterView = [[ZFCustomAlterView alloc]init];
+        _alterView.delegate = self;
+    }
+    return _alterView;
+}
 #pragma mark - 懒加载
 - (UIImageView *)backgroundImageView {
     if (!_backgroundImageView) {
-        
         UIImageView *backgroundImageView = [[UIImageView alloc] init];
         [self.view addSubview:backgroundImageView];
         _backgroundImageView = backgroundImageView;
@@ -88,25 +91,8 @@
     }
     return _redPacketButton;
 }
-
-- (UIView *)coverView {
-    if (!_coverView) {
-        
-        UIView *coverView = [[UIView alloc] init];
-        [self.view addSubview:coverView];
-        _coverView = coverView;
-        coverView.backgroundColor = [UIColor blackColor];
-        coverView.alpha = 0.3;
-        coverView.hidden = YES;
-        coverView.bounds = CGRectMake(0, 0, self.screenWidth, self.screenHeight);
-        [coverView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizerDidClick)]];
-    }
-    return _coverView;
-}
-
 - (UIView *)tantouRedPacketView {
     if (!_tantouRedPacketView) {
-        
         UIView *tantouRedPacketView = [[UIView alloc] init];
         [self.view addSubview:tantouRedPacketView];
         _tantouRedPacketView = tantouRedPacketView;
@@ -182,13 +168,10 @@
     }
     return _endChallengeButton;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupUI];
-    
     //获取用户信息
     self.userItem = [ChristmasUserItem shareChristmasUserItem];
     // 获取当前最新数据
@@ -258,25 +241,21 @@
     self.endChallengeButton.bottom = self.screenHeight - ZXSRealValueFit6SWidthPt(100);
     self.shareActivityButton.centerX = self.endChallengeButton.centerX;
     self.shareActivityButton.bottom = self.endChallengeButton.top - ZXSRealValueFit6SWidthPt(20);
-    self.coverView.origin = CGPointMake(0, 0);
     self.tantouRedPacketView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
 }
-
+//获取商家的信息
 - (void)loadUserInfoFromServer {
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
     __weak typeof(self) weakSelf = self;
     [[ZXSNetworkTool sharedNetworkTool] POST:[NSString stringWithFormat:@"%@/Tantou/Activity/achieve",ZXSBasicURL] parameters:parameters success:^(id responseObject) {
-        
         //解析json数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"loadUserInfoFromServerdict:%@",dict);
         NSLog(@"loadUserInfoFromServermsg:%@",dict[@"msg"]);
         NSNumber *status = [dict objectForKey:@"status"];
         if ([status intValue] == 1) { //操作成功
-            
             NSLog(@"self.userItem.last_money:%@",weakSelf.userItem.last_money);
             NSDictionary *resultDict = dict[@"result"];
             weakSelf.userItem.add_time = resultDict[@"add_time"];
@@ -322,42 +301,41 @@
         [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
     }];
 }
-
+//提现红包了
 - (void)sendCashMoneyRequestToServer {
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
      __weak typeof(self) weakSelf = self;
     [[ZXSNetworkTool sharedNetworkTool] POST:[NSString stringWithFormat:@"%@/Tantou/Activity/wdDeposit",ZXSBasicURL] parameters:parameters success:^(id responseObject) {
-        
         //解析json数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"sendCashMoneyRequestToServerdict:%@",dict);
         NSLog(@"sendCashMoneyRequestToServermsg:%@",dict[@"msg"]);
         NSNumber *status = [dict objectForKey:@"status"];
         if ([status intValue] == 1) { //操作成功
+            [weakSelf hidderOtherView];
             weakSelf.userItem.money = @"0.00";
             //保存新数据
             [weakSelf.userItem saveUserItemToUserDefaults];
             [MBProgressHUD showSuccess:@"提现成功" toView:weakSelf.view];
             self.moneyLabel.text = @"0.00";
         } else { //操作失败
+            [weakSelf hidderOtherView];
             [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
         }
     } failure:^(NSError *error) {
+        [weakSelf hidderOtherView];
         [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
     }];
 }
-
+//分享次数
 - (void)sendShareActivityRequestToServer {
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
     __weak typeof(self) weakSelf = self;
     [[ZXSNetworkTool sharedNetworkTool] POST:[NSString stringWithFormat:@"%@/Tantou/Activity/shareCount",ZXSBasicURL] parameters:parameters success:^(id responseObject) {
-        
         //解析json数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"shareActivityButtonDidClickdict:%@",dict);
@@ -372,15 +350,12 @@
         [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
     }];
 }
-
 - (void)useMobShareSDKForShareImage:(UIImage *)shareImage {
-    
     __weak typeof(self) weakSelf = self;
     //1、创建分享参数
     NSArray *imageArray = @[shareImage];
     //（注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     if (imageArray) {
-        
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];//[NSURL URLWithString:@"http://mob.com"]
         [shareParams SSDKSetupShareParamsByText:@"猜美食，赢现金红包——探头APP\n黑科技助力食物属性一拍即成\n扫码下载探头，一款晒美食也能赚钱的APP" images:imageArray url:nil title:@"探头圣诞抢红包活动来啦" type:SSDKContentTypeAuto];
         //有的平台要客户端分享需要加此方法，例如微博
@@ -409,9 +384,7 @@
         }];
     }
 }
-
 - (void)moveAndScalemoneyLabel {
-    
     //当前金额动画
     /* 移动 */
     CABasicAnimation *animation1 = [CABasicAnimation animationWithKeyPath:@"position"];
@@ -426,10 +399,8 @@
     [self.newaddMoneyLabel.layer addAnimation:animation1 forKey:nil];
     [self.newaddMoneyLabel.layer addAnimation:animation2 forKey:nil];
 }
-
 #pragma mark - 触发事件
 - (void)backButtonDidClick {
-    
     [UIView animateWithDuration:5.0 animations:^{
         [self moveAndScalemoneyLabel];
     } completion:^(BOOL finished) {
@@ -443,24 +414,24 @@
 }
 
 - (void)redPacketButtonDidClick {
-    self.coverView.hidden = NO;
     self.tantouRedPacketView.hidden = NO;
+    [self.alterView showShareViewAddView:self.tantouRedPacketView];
 }
-
-- (void)tapGestureRecognizerDidClick {
-    self.coverView.hidden = YES;
+#pragma mark -ZFCustomAlterViewDelegate
+-(void)customAlterViewHidden{
+    [self hidderOtherView];
+}
+-(void)hidderOtherView{
     self.tantouRedPacketView.hidden = YES;
+    [self.alterView hihhdenView];
 }
-
-- (void)cashButtonDidClick {
+-(void)cashButtonDidClick {
     //提现
     [self sendCashMoneyRequestToServer];
 }
-
 - (void)closeButtonDidClick {
-    [self tapGestureRecognizerDidClick];
+    [self hidderOtherView];
 }
-
 - (void)shareActivityButtonDidClick {
     [self useMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
 }
@@ -471,7 +442,6 @@
     } else {
         [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:YES];
     }
-   
 }
 
 @end

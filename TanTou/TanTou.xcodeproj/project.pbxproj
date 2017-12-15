@@ -148,6 +148,8 @@
 		BF9BFFC01FE33F9E00D02995 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFFAA1FE33F9E00D02995 /* README.txt */; };
 		BF9BFFC11FE33F9E00D02995 /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFFAF1FE33F9E00D02995 /* ShareSDK.bundle */; };
 		BF9BFFC21FE33F9E00D02995 /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9BFFB01FE33F9E00D02995 /* ShareSDKConnector.framework */; };
+		BF9BFFC61FE368DB00D02995 /* SelectViewController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFFC41FE368DA00D02995 /* SelectViewController2.xib */; };
+		BF9BFFC71FE368DB00D02995 /* SelectViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFFC51FE368DB00D02995 /* SelectViewController2.m */; };
 		BF9E60E41FE1F183002FAC10 /* ZFNavigtionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9E60E31FE1F183002FAC10 /* ZFNavigtionController.m */; };
 		C596F2221F986A8B00BEA912 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C596F2201F986A8B00BEA912 /* AppDelegate.m */; };
 		C596F2251F986B7400BEA912 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C596F2241F986B7400BEA912 /* main.m */; };
@@ -433,6 +435,9 @@
 		BF9BFFAD1FE33F9E00D02995 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		BF9BFFAF1FE33F9E00D02995 /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		BF9BFFB01FE33F9E00D02995 /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
+		BF9BFFC31FE368DA00D02995 /* SelectViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController2.h; sourceTree = "<group>"; };
+		BF9BFFC41FE368DA00D02995 /* SelectViewController2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectViewController2.xib; sourceTree = "<group>"; };
+		BF9BFFC51FE368DB00D02995 /* SelectViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController2.m; sourceTree = "<group>"; };
 		BF9E60E21FE1F183002FAC10 /* ZFNavigtionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFNavigtionController.h; sourceTree = "<group>"; };
 		BF9E60E31FE1F183002FAC10 /* ZFNavigtionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFNavigtionController.m; sourceTree = "<group>"; };
 		C596F2201F986A8B00BEA912 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1185,6 +1190,9 @@
 		FEF7F7641F9CDA0000B9F155 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BF9BFFC31FE368DA00D02995 /* SelectViewController2.h */,
+				BF9BFFC51FE368DB00D02995 /* SelectViewController2.m */,
+				BF9BFFC41FE368DA00D02995 /* SelectViewController2.xib */,
 				FEF7F77B1F9CDA0000B9F155 /* WelcomeViewController.h */,
 				FEF7F77C1F9CDA0000B9F155 /* WelcomeViewController.m */,
 				FEF7F77D1F9CDA0000B9F155 /* WelcomeViewController.xib */,
@@ -1277,6 +1285,7 @@
 				BF9BFF3E1FE33E8B00D02995 /* README.md in Resources */,
 				BF24B9AA1F3D14FD00741740 /* LaunchScreen.storyboard in Resources */,
 				BF9BFFC11FE33F9E00D02995 /* ShareSDK.bundle in Resources */,
+				BF9BFFC61FE368DB00D02995 /* SelectViewController2.xib in Resources */,
 				BF2331051FE30BBF003D674F /* FeedbackViewController1.xib in Resources */,
 				BF24B9A71F3D14FD00741740 /* Assets.xcassets in Resources */,
 				BF9BFEF81FE33E8B00D02995 /* selected.caf in Resources */,
@@ -1308,6 +1317,7 @@
 				BF9BFEF91FE33E8B00D02995 /* MJExtensionConst.m in Sources */,
 				BF9BFF531FE33E8C00D02995 /* UIImage+ImageEffects.m in Sources */,
 				BF9BFF4E1FE33E8C00D02995 /* TYBaseAnimation.m in Sources */,
+				BF9BFFC71FE368DB00D02995 /* SelectViewController2.m in Sources */,
 				BF9BFF3F1FE33E8B00D02995 /* AFAutoPurgingImageCache.m in Sources */,
 				FEF7F78C1F9CDA0000B9F155 /* WelcomeViewController.m in Sources */,
 				BF9BFF0B1FE33E8B00D02995 /* View+MASAdditions.m in Sources */,

@@ -251,34 +251,27 @@ static NSUInteger currentCorrectCount = 0;
     
     return _containBackSelectedView;
 }
-
 - (UIView *)coverView {
     if (!_coverView) {
-        
         UIView *coverView = [UIView zxs_coverViewWithBounds:CGRectMake(0, 0, self.screenWidth, self.screenHeight) backgroundColor:[UIColor blackColor] alpha:0.3 hidden:YES target:self action:nil];
         [self.view addSubview:coverView];
         _coverView = coverView;
     }
     return _coverView;
 }
-
 - (NSMutableArray *)foodItems {
     if (!_foodItems) {
         _foodItems = [NSMutableArray array];
     }
     return _foodItems;
 }
-
 #pragma mark - 系统方法
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setupUI];
-    
     //获取用户数据
     self.userItem = [ChristmasUserItem shareChristmasUserItem];
     [self.userItem userItemFromUserDefaults];
-    
     //获取题目
     [self loadQuestionsFromServer];
 }
@@ -299,22 +292,20 @@ static NSUInteger currentCorrectCount = 0;
     self.containBackSelectedView.centerY = self.screenHeight * 0.5;
 
 }
-
  //获取题目
 - (void)loadQuestionsFromServer {
     //正在获取题目
-    [MBProgressHUD showMessage:@"正在获取题目中..." toView:self.view];
     //获取题目之前设置所有按钮不能交互
-    self.view.userInteractionEnabled = NO;
     for (UIButton *tempButton in self.selectedButtons) {
         tempButton.userInteractionEnabled = NO;
     }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
     [[ZXSNetworkTool sharedNetworkTool] GET:[NSString stringWithFormat:@"%@/Tantou/Activity/question",ZXSBasicURL] parameters:parameters success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         //隐藏提示
-        [MBProgressHUD hideHUD];
         //解析json数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"loadQuestionsFromServerdict:%@",dict);
@@ -330,22 +321,18 @@ static NSUInteger currentCorrectCount = 0;
             }
             /* 启动一个timer，每隔1秒执行一次。每次执行显示秒数，在执行到秒数==10的时候切换到下一题，当秒数等于30的时候结束考试进入结果页*/
             [self startGCDTimer];
-    
         } else { //登录失败
-            self.view.userInteractionEnabled = YES;
             [MBProgressHUD showError:dict[@"msg"] toView:self.view];
         }
     } failure:^(NSError *error) {
-        self.view.userInteractionEnabled = YES;
+        [MBProgressHUD hideHUDForView:self.view animated:self.view];
         [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:self.view];
     }];
 }
-
 /**
  回答问题
  */
 - (void)sendAnswerToServerWithQuestion_id:(NSString *)question_id answer:(NSString *)answer {
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
@@ -363,7 +350,6 @@ static NSUInteger currentCorrectCount = 0;
             [MBProgressHUD showError:dict[@"msg"] toView:self.view];
             return;
         }
-        
         //操作成功
         NSNumber *correctOrerrorResult = dict[@"result"][@"correct"];
         if ([correctOrerrorResult isEqualToNumber:@1]) { //正确

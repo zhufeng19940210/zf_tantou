@@ -5,7 +5,6 @@
 //  Created by lai_mac on 2017/8/19.
 //  Copyright © 2017年 daodian. All rights reserved.
 //
-
 #import "TheZoomImage.h"
 @implementation TheZoomImage
 static CGRect oldframe;
@@ -14,8 +13,8 @@ static CGRect oldframe;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     oldframe = [currentImageview convertRect:currentImageview.bounds toView:window];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:107/255.0 green:107/255.0 blue:99/255.0 alpha:0.6]];
-    [backgroundView setAlpha:0];
+    [backgroundView setBackgroundColor:[UIColor blackColor]];
+    [backgroundView setAlpha:0.5];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:oldframe];
     [imageView setImage:image];
     [imageView setTag:1024];
@@ -29,7 +28,6 @@ static CGRect oldframe;
         width = [UIScreen mainScreen].bounds.size.width;
         height = image.size.height * [UIScreen mainScreen].bounds.size.width / image.size.width;
         [imageView setFrame:CGRectMake(0, y, width, height)];
-        
         [backgroundView setAlpha:1];
     } completion:^(BOOL finished) {
         

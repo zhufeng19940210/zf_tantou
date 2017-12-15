@@ -9,7 +9,7 @@
 #import "FoolCameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "HealthScoreViewController.h"
-
+#import "SelectViewController2.h"
 @interface FoolCameraViewController ()
 /**
  * session：由他把输入输出结合在一起，并开始启动捕获设备（摄像头）
@@ -304,19 +304,14 @@
     }
 }
 - (void)completeBarButtonItemDidClick {
-    // 设置拍照、闪光按钮和网格按钮能点击
-    self.view.userInteractionEnabled = YES;
     // 保存图片
     [self saveImageToPhotoAlbum:self.photoImage];
-    
-    HealthScoreViewController *healthScoreViewController = [[HealthScoreViewController alloc] init];
-    healthScoreViewController.photoImage = self.photoImage;
-    [self.navigationController pushViewController:healthScoreViewController animated:YES];
+    SelectViewController2 *selectVc2 = [[SelectViewController2 alloc]init];
+    selectVc2.selectImage = self.photoImage;
+    [self.navigationController pushViewController:selectVc2 animated:YES];
 }
-
 //网格线打开与关闭
 - (void)gridButtonDidClick:(UIButton *)button {
-    
     if (self.isgridOn) {
         self.isgridOn = NO;
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isgridOn"];
@@ -474,7 +469,6 @@
     
     return image;
 }
-
 #pragma - 保存至相册
 - (void)saveImageToPhotoAlbum:(UIImage *)savedImage {
     UIImageWriteToSavedPhotosAlbum(savedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
@@ -489,5 +483,4 @@
     }
     NSLog(@"%@",msg);
 }
-
 @end
