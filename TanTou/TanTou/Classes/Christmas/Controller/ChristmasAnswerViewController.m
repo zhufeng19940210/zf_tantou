@@ -27,7 +27,6 @@
 @property (weak, nonatomic) UILabel *foodQuestionTextLabel;
 //resultImageView
 @property (weak, nonatomic) UIImageView *resultImageView;
-
 //containOptionButtonView
 @property (weak, nonatomic) UIView *containOptionButtonView;
 //abutton
