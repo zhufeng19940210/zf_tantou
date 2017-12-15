@@ -12,4 +12,5 @@
 @property (nonatomic,strong)NSString *isExpend; //是否展开
 @property (nonatomic,strong)NSString *food_name;
 @property (nonatomic,strong)NSString *intro;
+@property (nonatomic,strong)NSString *kaluli;
 @end

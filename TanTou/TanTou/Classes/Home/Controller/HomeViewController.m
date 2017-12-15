@@ -14,7 +14,6 @@
 #import <AssetsLibrary/ALAssetsGroup.h>
 #import <AssetsLibrary/ALAssetRepresentation.h>
 #import "SelectViewController.h"
-#import "AlbumHealthScoreViewController.h"
 #import "ZFNavigtionController.h"
 #import "DCPathButton.h"
 #import "DCPathItemButton.h"
@@ -242,14 +241,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     // 超过圣诞时间就隐藏
     [self showorHideShengDanHuoDongView];
 }
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 #pragma mark - 自定义方法
 - (void)setupUI {
@@ -258,7 +256,7 @@
     self.backgroundImageView.origin = CGPointMake(0, 0);
     self.cameraButton.bottom = self.screenHeight - ZXSRealValueFit6SWidthPt(194);
     self.cameraButton.centerX = self.screenWidth * 0.5;
-    CGFloat margin = ZXSRealValueFit6SWidthPt(15);
+    CGFloat margin = ZXSRealValueFit6SWidthPt(25);
     self.albumButton.right = self.cameraButton.left - margin;
     self.albumButton.centerY = self.cameraButton.centerY;
     self.containIconView.left = ZXSRealValueFit6SWidthPt(40);
@@ -423,6 +421,7 @@
     if(iOS8) {
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             //跳转照相界面
+            self.navigationController.navigationBar.hidden = YES;
             [self.navigationController pushViewController:[[FoolCameraViewController alloc] init] animated:NO];
         }else {
             UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message: @"您当前的设备没有照相功能"  preferredStyle:UIAlertControllerStyleAlert];
@@ -449,7 +448,7 @@
     imagePickerController.allowsEditing = NO;
     imagePickerController.navigationBar.translucent = NO;
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:imagePickerController animated:YES completion:nil];
+    [self presentViewController:imagePickerController animated:NO completion:nil];
 }
 #pragma mark- 选择相片回调
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{

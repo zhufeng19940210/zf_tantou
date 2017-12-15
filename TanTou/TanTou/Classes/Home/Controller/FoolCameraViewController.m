@@ -8,7 +8,6 @@
 
 #import "FoolCameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "HealthScoreViewController.h"
 #import "SelectViewController2.h"
 @interface FoolCameraViewController ()
 /**
@@ -32,7 +31,6 @@
  *  图像预览层，实时显示捕获的图像
  */
 @property (weak, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
-
 /**containView*/
 @property (weak, nonatomic) UIView *containView;
 //网格ImageView
@@ -43,12 +41,10 @@
 @property (weak, nonatomic) UIButton *flashButton;
 //聚焦View
 @property (weak, nonatomic) UIView *focusView;
-
 /**buttomView*/
 @property (weak, nonatomic) UIView *buttomView;
 //相机按钮
 @property (weak, nonatomic) UIButton *photoButton;
-
 /**屏幕宽度*/
 @property (assign, nonatomic) CGFloat screenwidth;
 //闪光开关
@@ -131,16 +127,13 @@
 
 - (UIView *)containView {
     if (!_containView) {
-        
         UIView *containView = [[UIView alloc] init];
         [self.view addSubview:containView];
         _containView = containView;
         CGFloat screenwidth = self.screenwidth;
         containView.size = CGSizeMake(screenwidth, screenwidth + ZXSRealValueFit6SWidthPt(125));
-        
         // 预览层
         self.previewLayer.frame = CGRectMake(0, 0, screenwidth, screenwidth);
-        
          //显示网格线ImageView
         UIImageView *gridImageView = [[UIImageView alloc] init];
         [containView addSubview:gridImageView];
@@ -150,7 +143,6 @@
         gridImageView.contentMode = UIViewContentModeScaleAspectFill;
         gridImageView.hidden = YES;
         gridImageView.userInteractionEnabled = YES;
-        
         //网格按钮
         UIButton *gridButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [containView addSubview:gridButton];
@@ -200,7 +192,6 @@
         _buttomView = buttomView;
         buttomView.bounds = CGRectMake(0, 0, self.screenwidth, ZXSSCREEN_HEIGHT - CGRectGetMaxY(self.containView.frame));
         buttomView.backgroundColor = [UIColor colorWithRed:244 / 255.0 green:244 / 255.0 blue:244 / 255.0 alpha:1];
-        
         // 添加拍照按钮
         UIButton *photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_buttomView addSubview:photoButton];
@@ -209,7 +200,7 @@
         [photoButton setImage:[UIImage imageNamed:@"anjianz"] forState:UIControlStateHighlighted];
         [photoButton addTarget:self action:@selector(shutterCamera) forControlEvents:UIControlEventTouchUpInside];//拍照按钮
         photoButton.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(240), ZXSRealValueFit6SWidthPt(240));
-        photoButton.center = CGPointMake(self.screenwidth * 0.5, buttomView.height * 0.5);
+        photoButton.center = CGPointMake(self.screenwidth * 0.5, buttomView.height * 0.5-20);
     }
     return _buttomView;
 }
@@ -240,15 +231,13 @@
 #pragma mark - 自定义方法
 - (void)setupNavigationBar {
     self.title = @"拍照";
-    [self.navigationController.navigationBar setNeedsLayout];
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
 }
 - (void)setupUI {
     self.screenwidth = ZXSSCREEN_WIDTH;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.containView.origin = CGPointMake(0, 44);
+    self.containView.origin = CGPointMake(0, -20);
     self.buttomView.origin = CGPointMake(0, CGRectGetMaxY(self.containView.frame));
     // 获取闪光按钮和网格按钮默认设置值，并且设置闪光按钮和网格按钮
     [self setupGridButtonAndFlashButton];
@@ -283,7 +272,6 @@
         [self.device unlockForConfiguration];
     }
 }
-
 #pragma mark - 触发事件
 - (void)backBarButtonItemDidClick {
     [self.navigationController popViewControllerAnimated:YES];

@@ -10,5 +10,6 @@
 
 @interface SelectTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *kaluliLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayout;
 @end

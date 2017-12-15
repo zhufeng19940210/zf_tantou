@@ -16,24 +16,25 @@
 - (void) viewWillDisappear:(BOOL)animated {
     NSLog(@"Banner viewWillDisappear");
 }
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:@"FeedbackViewController1" bundle:nibBundleOrNil];
-    if (self) {
-        _bannerView = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, -100, ZXSSCREEN_WIDTH,100) appkey:@"1106337035" placementId:@"4000725589503736"];
-    }
-    return self;
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+//
+//    self = [super initWithNibName:@"FeedbackViewController1" bundle:nibBundleOrNil];
+//    if (self) {
+//        _bannerView = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, -100, ZXSSCREEN_WIDTH,100) appkey:@"1106337035" placementId:@"4000725589503736"];
+//    }
+//    return self;
+//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"反馈";
     self.navigationController.navigationBar.hidden = NO;
-    _bannerView.delegate = self; // 设置Delegate
-    _bannerView.currentViewController = self; //设置当前的ViewController
-    _bannerView.interval =30; //【可选】设置广告轮播时间;范围为30~120秒，0表示不轮 播
-    _bannerView.isGpsOn = NO; //【可选】开启GPS定位;默认关闭 _bannerView.showCloseBtn = YES; //【可选】展示关闭按钮;默认显示 _bannerView.isAnimationOn = YES; //【可选】开启banner轮播和展现时的动画效果;
-//    默认开启
-    [self.view addSubview:_bannerView]; //添加到当前的view中
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+//    _bannerView.delegate = self; // 设置Delegate
+//    _bannerView.currentViewController = self; //设置当前的ViewController
+//    _bannerView.interval =30; //【可选】设置广告轮播时间;范围为30~120秒，0表示不轮 播
+//    _bannerView.isGpsOn = NO; //【可选】开启GPS定位;默认关闭 _bannerView.showCloseBtn = YES; //【可选】展示关闭按钮;默认显示 _bannerView.isAnimationOn = YES; //【可选】开启banner轮播和展现时的动画效果;
+////    默认开启
+//    [self.view addSubview:_bannerView]; //添加到当前的view中
     [_bannerView loadAdAndShow]; //加载广告并展示
     self.suggestionView.placeholder = @"请留下宝贵的意见和建设,并留下你的联系方式，我们将不断努力改进(不少于5个字)";
     self.suggestionView.delegate = self;

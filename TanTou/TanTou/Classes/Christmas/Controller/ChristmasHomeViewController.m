@@ -163,12 +163,13 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self loadUserInfoFromServer];
     [self.userItem userItemFromUserDefaults];
 }
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -354,8 +355,7 @@
 #pragma mark - 触发事件
 - (void)backButtonDidClick {
     // 退出当前控制器
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 - (void)redPacketButtonDidClick {
     self.tantouRedPacketView.hidden = NO;
@@ -367,12 +367,10 @@
 #pragma mark -明天再来
 -(void)TomoorowButtonDidClick{
     // 退出当前控制器
-//    ChristmasAnswerViewController *answerVc = [[ChristmasAnswerViewController alloc]init];
-//    [self.navigationController pushViewController:answerVc animated:YES];
+    //[self.navigationController popToRootViewControllerAnimated:NO];
+    //TODO测试东西了
     ChristmasEndingViewController *endVc = [[ChristmasEndingViewController alloc]init];
     [self.navigationController pushViewController:endVc animated:YES];
-//    self.navigationController.navigationBarHidden = NO;
-//    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)startAnswerButtonDidClick:(UIButton *)button {
     // 退出当前控制器

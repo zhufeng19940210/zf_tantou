@@ -133,7 +133,6 @@
 
 - (void)hideView
 {
-
     if ([self isShowInAlertController]) {
         [self hideInController];
     }else if ([self isShowInWindow]) {

@@ -31,10 +31,10 @@
 @end
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:ZXSSCREEN_BOUNDS];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
     //集成分享
     [self setupShareSDK];
-    UIViewController *rootVC = nil;
     //设置状态栏的样式
     application.statusBarStyle = UIStatusBarStyleLightContent;
     //程序启动完后显示状态栏
@@ -42,15 +42,16 @@
     // 判断用户是否是第一次使用app
     self.isFirstRun = [[NSUserDefaults standardUserDefaults] boolForKey:@"isFirstRun"];
     if (!self.isFirstRun) {//第一次使用软件
-        rootVC = [[WelcomeViewController alloc] init];
+        UIViewController *rootVc = [[WelcomeViewController alloc] init];
+        self.window.rootViewController = rootVc;
+        [self.window makeKeyAndVisible];
     } else { // 平时使用
         HomeViewController *homeVC = [[HomeViewController alloc] init];
         ZFNavigtionController *nav = [[ZFNavigtionController alloc] initWithRootViewController:homeVC];
-        rootVC = nav;
-        self.homeVC = homeVC;
+        self.window.rootViewController = nav;
+        [self.window makeKeyAndVisible];
     }
-    self.window.rootViewController = rootVC;
-    [self.window makeKeyAndVisible];
+    //启动广告页面了
     [self setupGuangGao];
     return YES;
 }
@@ -60,7 +61,6 @@
 
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [GDTTrack activateApp];
 }
 #pragma mark - 自定义方法
 //初始化ShareSDK应用
@@ -135,7 +135,6 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
 /**
  *  应用进入后台时回调
  *  详解: 当点击下载应用时会调用系统程序打开，应用切换到后台
@@ -144,7 +143,6 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
 /**
  *  开屏广告点击回调
  */
@@ -152,7 +150,6 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
 /**
  *  开屏广告将要关闭回调
  */
@@ -175,7 +172,6 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
 /**
  *  开屏广告点击以后弹出全屏广告页
  */
@@ -183,7 +179,6 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
 /**
  *  点击以后全屏广告页将要关闭
  */
@@ -191,7 +186,6 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-
 /**
  *  点击以后全屏广告页已经关闭
  */

@@ -30,10 +30,7 @@
     [super viewDidLoad];
     self.title=@"好友推荐";
     self.navigationController.navigationBar.hidden = NO;
-    [self.navigationController.navigationBar setNeedsLayout];
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
 }
 //weixin
 - (IBAction)onClickWenxinBtn:(UIButton *)sender {

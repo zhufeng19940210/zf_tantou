@@ -73,10 +73,11 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 #pragma mark - 自定义方法
 - (void)setupUI {
@@ -90,7 +91,6 @@
 }
 #pragma mark - 触发事件
 - (void)backButtonDidClick {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:NO];
 }
 - (void)loginButtonDidClick:(UIButton *)button {

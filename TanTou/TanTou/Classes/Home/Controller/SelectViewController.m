@@ -23,11 +23,10 @@
 #import <ShareSDKUI/SSUIShareActionSheetCustomItem.h>
 #import <ShareSDK/ShareSDK+Base.h>
 #import <ShareSDKExtension/ShareSDK+Extension.h>
-@interface SelectViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UIImageView *yuandianimage;
+#import "ZFCustomAlterView.h"
+@interface SelectViewController ()<UITableViewDelegate,UITableViewDataSource,ZFCustomAlterViewDelegate,ShareViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *biaoyulabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bgimageView;
-@property (weak, nonatomic) IBOutlet UILabel *count;
 @property (nonatomic,strong)UIImageView *activityImageV;
 @property (weak, nonatomic) IBOutlet UIImageView *actionView;
 @property (weak, nonatomic) IBOutlet UIView *activityView;
@@ -35,24 +34,52 @@
 @property(nonatomic,strong) UIButton*shareBtn;
 @property(nonatomic,strong)  UIView*views;
 #pragma mark zhufeng
+@property (weak, nonatomic) IBOutlet UIView *selectView;
 @property (weak, nonatomic) IBOutlet UIView *ZFAlterView;
 @property (weak, nonatomic) IBOutlet UIView *ZFMyView;
 @property (weak, nonatomic) IBOutlet UITableView *zfTableView;
-@property (weak, nonatomic) IBOutlet UIView *erweimaView;
-@property (weak, nonatomic) IBOutlet UILabel *eweimaLabel;
 @property (nonatomic,strong)NSMutableArray *foodDataArray;
 @property (nonatomic,strong)NSString *myscore;
 @property (nonatomic,strong) ShareView *shareView;
 @property (nonatomic,assign)int shareType;
 @property (strong, nonatomic) UIImage *snapshotImage;
+@property (nonatomic,strong)UIView *tantouRedPacketView;
+@property (nonatomic,strong)ZFCustomAlterView *customAlterView;
 @end
-
 @implementation SelectViewController
-
+-(ZFCustomAlterView *)customAlterView{
+    if (!_customAlterView) {
+        _customAlterView = [[ZFCustomAlterView alloc]init];
+        _customAlterView.delegate = self;
+    }
+    return _customAlterView;
+}
+//探头红包框
+- (UIView *)tantouRedPacketView {
+    if (!_tantouRedPacketView) {
+        UIView *tantouRedPacketView = [[UIView alloc] init];
+        [self.view addSubview:tantouRedPacketView];
+        _tantouRedPacketView = tantouRedPacketView;
+        tantouRedPacketView.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(648));
+        tantouRedPacketView.hidden = YES;
+        //关闭按钮
+        UIButton *closeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"cha"] highlightedImage:[UIImage imageNamed:@"cha"] bounds:CGRectMake(ZXSRealValueFit6SWidthPt(500),0, ZXSRealValueFit6SWidthPt(60), ZXSRealValueFit6SWidthPt(120)) target:self action:@selector(ButtonCloseDidClick)];
+        closeButton.frame = CGRectMake(ZXSRealValueFit6SWidthPt(500),0, ZXSRealValueFit6SWidthPt(60), ZXSRealValueFit6SWidthPt(120));
+        [tantouRedPacketView addSubview:closeButton];
+        //背景图片
+        UIImageView *backgroundImageView = [[UIImageView alloc] init];
+        [tantouRedPacketView addSubview:backgroundImageView];
+        backgroundImageView.image = [UIImage imageNamed:@"tanchuang1"];
+        backgroundImageView.frame = CGRectMake(0, ZXSRealValueFit6SWidthPt(120), ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+    }
+    return _tantouRedPacketView;
+}
+#pragma mark ButtonCloseDidClick
+-(void)ButtonCloseDidClick{
+    [self ZFhiddenOtherView];
+}
 -(NSMutableArray *)foodDataArray{
-
-    if (_foodDataArray == nil) {
-        
+    if (!_foodDataArray) {
         _foodDataArray = [NSMutableArray array];
     }
     return _foodDataArray;
@@ -63,8 +90,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavigationBar];
-    _yuandianimage.hidden=YES;
-    _biaoyulabel.hidden=YES;
+    self.tantouRedPacketView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5- 40);
+    self.biaoyulabel.hidden=YES;
     self.bgimageView.image = self.selectImage;
      self.bgimageView.contentMode = UIViewContentModeScaleAspectFit;
     UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scanBigImageClick1:)];
@@ -75,15 +102,15 @@
     [self sendShareCommandWithType:self.selectImage];
 }
 - (void)setupNavigationBar {
-    self.title = @"健康得分";
+    self.title = @"健康指数";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:33 / 255.0 green:203 / 255.0 blue:200 / 255.0 alpha:1.0]];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"左-1"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"zf_back_height"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:18] target:self action:@selector(saveBarButtonItemDidClick) title:@"保存"];
 }
 #pragma mark - 触发事件
 - (void)leftBarButtonItemDidClick {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)saveBarButtonItemDidClick {
     if (self.snapshotImage) {
@@ -150,7 +177,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
     return 50;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -159,7 +185,6 @@
 }
 
 -(CGFloat)cellHeightWithStr:(NSString *)str{
-    
     CGFloat cellHeight;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -171,8 +196,7 @@
                               nil];
     CGSize maxSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, MAXFLOAT);
     CGFloat textH = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrDict context:nil].size.height;
-    cellHeight = textH +70;
-    
+    cellHeight = textH +80;
     return cellHeight;
 
 }
@@ -221,38 +245,23 @@
     }
     cell.backgroundColor=[UIColor whiteColor];
     SelectModel *model = self.foodDataArray[indexPath.section];
+    if ([model.kaluli isEqualToString:@"0"]) {
+        cell.kaluliLabel.hidden = YES;
+        cell.topLayout.constant = -30;
+    }else{
+        cell.kaluliLabel.text = [NSString stringWithFormat:@"卡路里:%@大卡(每100克)",model.kaluli];
+    }
     cell.contentLabel.text = model.intro;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
--(void)createnav
-{
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-}
-
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:18],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.title=@"健康分数";
-    UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setImage:[UIImage imageNamed:@"左-1"] forState:UIControlStateNormal];
-    [backBtn setImage:[UIImage imageNamed:@"左-1"] forState:UIControlStateHighlighted];
-    [backBtn sizeToFit];
-    [backBtn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
-    UIImage* image=[UIImage imageNamed:@"导航栏"];
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-}
-
 -(void)sendShareCommandWithType:(UIImage*)photo{
     
     if ([[[ZXSUtil shareUtil] getcurrentStatus] isEqualToString:@"NotNet"]) {
         [MBProgressHUD showError:@"网络未连接"];
         return;
     }
+    self.ZFAlterView.hidden = NO;
     self.activityView.hidden = NO;
     [self myStartAnimating];
     photo = [self imageCompressForWidth:photo targetWidth:200.0f];
@@ -275,12 +284,12 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"dict:%@",dict);
         [weakSelf myStopAnimating];
+        self.ZFAlterView.hidden = YES;
         self.activityView.hidden = YES;
         NSNumber*status  =[dict objectForKey:@"status"];
         int a=[status intValue];
         if(a==1)
         {
-            _yuandianimage.hidden=NO;
             NSMutableDictionary*result=[dict objectForKey:@"result"];
             weakSelf.myscore=[result objectForKey:@"score"];
             NSMutableArray*arrfood=[[NSMutableArray alloc]init];
@@ -288,24 +297,27 @@
             for (int i=0; i<arrfood.count; i++) {
                 NSMutableDictionary*food=[arrfood objectAtIndex:i];
                 SelectModel *model = [[SelectModel alloc]init];
+                NSString *kaliu = [food objectForKey:@"calorie"];
                 NSString*foodname=[food objectForKey:@"food_name"];
                 NSString*intro=[food objectForKey:@"intro"];
                 model.food_name = foodname;
                 model.intro = intro;
+                model.kaluli = kaliu;
                 [self.foodDataArray addObject:model];
             }
-
-            weakSelf.count.text = [NSString stringWithFormat:@"%@分",weakSelf.myscore];
-            weakSelf.eweimaLabel.text = [NSString stringWithFormat:@"%@分",weakSelf.myscore];
+             self.biaoyulabel.hidden=NO;
+            weakSelf.biaoyulabel.text =[dict objectForKey:@"result"][@"food_name"];
         }else
         {
-            _biaoyulabel.hidden=YES;
-            _yuandianimage.hidden=YES;
-            weakSelf.count.text = [NSString stringWithFormat:@"不是食物哦"];
-            weakSelf.eweimaLabel.text = [NSString stringWithFormat:@"不是食物哦"];
+             self.biaoyulabel.hidden=NO;
+            weakSelf.biaoyulabel.text = [NSString stringWithFormat:@"无法识别"];
+            weakSelf.bgimageView.userInteractionEnabled = NO;
+            weakSelf.tantouRedPacketView.hidden = NO;
+            [weakSelf.customAlterView showShareViewAddView:weakSelf.tantouRedPacketView];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [MBProgressHUD showError:@"请求失败"];
+        return;
     }];
 }
 -(void)scanBigImageClick1:(UITapGestureRecognizer *)tap{
@@ -364,9 +376,10 @@
 }
 - (IBAction)sharebtnAction:(UIButton *)sender {
     self.shareView = [ShareView createViewFromNib];
-    //self.shareView.delegate = self;
+    self.shareView.delegate = self;
     TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:self.shareView preferredStyle:TYAlertControllerStyleAlert];
-    [alertController setBlurEffectWithView:self.view];
+    alertController.backgroundColor = [UIColor colorWithRed:(0/255.0f) green:(0/255.0f) blue:(0/255.0f) alpha:0.4];
+    //[alertController setBlurEffectWithView:self.view];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 #pragma mark -shareViewdelegate
@@ -376,25 +389,20 @@
         self.shareType = SSDKPlatformTypeSinaWeibo;
         [self.shareView hideView];
         [self performSelector:@selector(shareWithCurrentScreen) withObject:nil afterDelay:1.0f];
-        self.erweimaView.hidden = NO;
     }else if (tag == 1){
         self.shareType = SSDKPlatformSubTypeWechatSession;
         [self.shareView hideView];
         [self performSelector:@selector(shareWithCurrentScreen) withObject:nil afterDelay:1.0f];
-        self.erweimaView.hidden = NO;
     }else if(tag == 2){
         self.shareType = SSDKPlatformTypeQQ;
         [self.shareView hideView];
         [self performSelector:@selector(shareWithCurrentScreen) withObject:nil afterDelay:1.0f];
-        self.erweimaView.hidden = NO;
     }else if (tag == 3){
         self.shareType = SSDKPlatformSubTypeWechatTimeline;
         [self.shareView hideView];
-        self.erweimaView.hidden = NO;
         [self performSelector:@selector(shareWithCurrentScreen) withObject:nil afterDelay:1.0f];
     }else if (tag ==4){
         [self.shareView hideView];
-        self.erweimaView.hidden = NO;
     }
 }
 -(void)shareWithCurrentScreen{
@@ -404,9 +412,8 @@
         {
             image = [[SSDKImage alloc] initWithImage:[UIImage imageNamed:@"testshare.png"] format:SSDKImageFormatJpeg settings:nil];
         }
-       
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:@"你好"
+        [shareParams SSDKSetupShareParamsByText:@"对焦食物，一探究竟！"
                                          images:@[image]
                                             url:[NSURL URLWithString:@"https://www.daodianwang.com/App/download-tantou.php"]
                                           title:@"分享食物评分"
@@ -444,7 +451,6 @@
                             
                         }];
 }
-    
 - (IBAction)dashangAction:(UIButton *)sender {
     if (self.myscore!=nil) {
         [self createTableView];
@@ -452,21 +458,21 @@
         self.ZFAlterView.hidden = NO;
         [self.zfTableView reloadData];
     }else{
-        [MBProgressHUD showError:@"这个不是食物"];
+        self.bgimageView.userInteractionEnabled = NO;
+        self.tantouRedPacketView.hidden = NO;
+        [self.customAlterView showShareViewAddView:self.tantouRedPacketView];
     }
 }
 - (IBAction)backbtnAction:(UIButton *)sender {
     self.ZFAlterView.hidden = YES;
     self.ZFMyView.hidden = YES;
 }
-
 #pragma - 保存至相册
 - (void)saveImageToPhotoAlbum:(UIImage *)savedImage {
     UIImageWriteToSavedPhotosAlbum(savedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
 }
 // 指定回调方法
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    
     NSString *msg = nil;
     if(error != NULL){
         msg = @"保存图片失败";
@@ -474,5 +480,15 @@
         msg = @"保存图片成功";
     }
     NSLog(@"%@",msg);
+}
+#pragma mark - ZFCustomAlterViewDelegate
+-(void)customAlterViewHidden{
+    [self ZFhiddenOtherView];
+}
+#pragma mark --隐藏其他的东西
+-(void)ZFhiddenOtherView{
+    self.bgimageView.userInteractionEnabled = YES;
+    self.tantouRedPacketView.hidden = YES;
+    [self.customAlterView hihhdenView];
 }
 @end

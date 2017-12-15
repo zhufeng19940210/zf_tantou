@@ -24,6 +24,7 @@
     [super viewDidLoad];
     self.title = @"支持";
     self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
     //默认是微信
     self.payTag = @"1";
     self.moneyTF.clearButtonMode =

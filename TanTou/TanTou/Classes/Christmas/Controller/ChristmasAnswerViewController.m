@@ -275,10 +275,16 @@ static NSUInteger currentCorrectCount = 0;
     //获取题目
     [self loadQuestionsFromServer];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
 #pragma mark - 自定义方法
 - (void)setupUI {
-    
     self.screenWidth = ZXSSCREEN_WIDTH;
     self.screenHeight = ZXSSCREEN_HEIGHT;
     self.backgroundImageView.origin = CGPointMake(0, 0);
@@ -457,17 +463,13 @@ static NSUInteger currentCorrectCount = 0;
     NSLog(@"myTimer runs %lu times!", (unsigned long)second++);
     
 }
-
 #pragma mark - 触发事件
 - (void)backButtonDidClick {
-    
     //弹出选择框
     self.coverView.hidden = NO;
     self.containBackSelectedView.hidden = NO;
 }
-
 - (void)selectButtonDidClick:(UIButton *)button {
-    
     //未设置题目前不可点击
     NSLog(@"self.foodItems.count%zd",self.foodItems.count);
     if (!self.currentfoodItem) {
@@ -531,7 +533,7 @@ static NSUInteger currentCorrectCount = 0;
     self.userItem.today_times = [NSString stringWithFormat:@"%zd",[self.userItem.today_times integerValue] - 1];
     [[NSUserDefaults standardUserDefaults] setObject:self.userItem.today_times forKey:@"today_times"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:YES];
+    [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:NO];
 }
 
 - (void)preventFlicker:(UIButton *)button {

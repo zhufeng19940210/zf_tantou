@@ -151,6 +151,8 @@
 		BF9BFFC61FE368DB00D02995 /* SelectViewController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFFC41FE368DA00D02995 /* SelectViewController2.xib */; };
 		BF9BFFC71FE368DB00D02995 /* SelectViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFFC51FE368DB00D02995 /* SelectViewController2.m */; };
 		BF9E60E41FE1F183002FAC10 /* ZFNavigtionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9E60E31FE1F183002FAC10 /* ZFNavigtionController.m */; };
+		BFE8177D1FE45CEE00A7782A /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE8177A1FE45CED00A7782A /* ShareView.m */; };
+		BFE8177E1FE45CEE00A7782A /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFE8177C1FE45CEE00A7782A /* ShareView.xib */; };
 		C596F2221F986A8B00BEA912 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C596F2201F986A8B00BEA912 /* AppDelegate.m */; };
 		C596F2251F986B7400BEA912 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C596F2241F986B7400BEA912 /* main.m */; };
 		FE08BC1F1FBED1DC007572CC /* ChristmasFoodItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08BC1E1FBED1DC007572CC /* ChristmasFoodItem.m */; };
@@ -158,7 +160,6 @@
 		FE1D0B8D1FB57C39001E1A35 /* NewPagedFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D0B8A1FB57C38001E1A35 /* NewPagedFlowView.m */; };
 		FE1D0B8E1FB57C39001E1A35 /* PGIndexBannerSubiew.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D0B8B1FB57C38001E1A35 /* PGIndexBannerSubiew.m */; };
 		FE1D0B931FB57C5F001E1A35 /* FoolCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D0B901FB57C5E001E1A35 /* FoolCameraViewController.m */; };
-		FE1D0B941FB57C5F001E1A35 /* HealthScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D0B911FB57C5E001E1A35 /* HealthScoreViewController.m */; };
 		FE1D0B971FB57C97001E1A35 /* FoodItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D0B951FB57C97001E1A35 /* FoodItem.m */; };
 		FE1D0BCC1FB5E842001E1A35 /* UILabel+ZXSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D0BCB1FB5E842001E1A35 /* UILabel+ZXSExtension.m */; };
 		FE396A471FAC8C74008FFD3D /* UIBarButtonItem+ZXSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE396A461FAC8C74008FFD3D /* UIBarButtonItem+ZXSExtension.m */; };
@@ -171,13 +172,11 @@
 		FE8B46731FBC3D07002EAE10 /* ChristmasAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8B46721FBC3D07002EAE10 /* ChristmasAnswerViewController.m */; };
 		FE9E5CF31FB164B000622A33 /* NSString+ZXSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9E5CF21FB164B000622A33 /* NSString+ZXSExtension.m */; };
 		FE9EC1D51FB69EE700382310 /* UIImageView+ZXSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9EC1D41FB69EE700382310 /* UIImageView+ZXSExtension.m */; };
-		FED548611FC3E63900A268A4 /* AlbumHealthScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FED5485F1FC3E63900A268A4 /* AlbumHealthScoreViewController.m */; };
 		FEF7F7331F9CC94D00B9F155 /* ZXSConst.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7F7321F9CC94D00B9F155 /* ZXSConst.m */; };
 		FEF7F7801F9CDA0000B9F155 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7F7691F9CDA0000B9F155 /* HomeViewController.m */; };
 		FEF7F7831F9CDA0000B9F155 /* ModelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7F76E1F9CDA0000B9F155 /* ModelTableViewCell.m */; };
 		FEF7F7861F9CDA0000B9F155 /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7F7731F9CDA0000B9F155 /* SelectViewController.m */; };
 		FEF7F7871F9CDA0000B9F155 /* SelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF7F7741F9CDA0000B9F155 /* SelectViewController.xib */; };
-		FEF7F7881F9CDA0000B9F155 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7F7761F9CDA0000B9F155 /* ShareView.m */; };
 		FEF7F78C1F9CDA0000B9F155 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7F77C1F9CDA0000B9F155 /* WelcomeViewController.m */; };
 		FEF7F78D1F9CDA0000B9F155 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF7F77D1F9CDA0000B9F155 /* WelcomeViewController.xib */; };
 /* End PBXBuildFile section */
@@ -440,6 +439,9 @@
 		BF9BFFC51FE368DB00D02995 /* SelectViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController2.m; sourceTree = "<group>"; };
 		BF9E60E21FE1F183002FAC10 /* ZFNavigtionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFNavigtionController.h; sourceTree = "<group>"; };
 		BF9E60E31FE1F183002FAC10 /* ZFNavigtionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFNavigtionController.m; sourceTree = "<group>"; };
+		BFE8177A1FE45CED00A7782A /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
+		BFE8177B1FE45CED00A7782A /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		BFE8177C1FE45CEE00A7782A /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
 		C596F2201F986A8B00BEA912 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C596F2211F986A8B00BEA912 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C596F2231F986B0800BEA912 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -452,9 +454,7 @@
 		FE1D0B8A1FB57C38001E1A35 /* NewPagedFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPagedFlowView.m; sourceTree = "<group>"; };
 		FE1D0B8B1FB57C38001E1A35 /* PGIndexBannerSubiew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGIndexBannerSubiew.m; sourceTree = "<group>"; };
 		FE1D0B8C1FB57C38001E1A35 /* PGIndexBannerSubiew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGIndexBannerSubiew.h; sourceTree = "<group>"; };
-		FE1D0B8F1FB57C5E001E1A35 /* HealthScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthScoreViewController.h; sourceTree = "<group>"; };
 		FE1D0B901FB57C5E001E1A35 /* FoolCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoolCameraViewController.m; sourceTree = "<group>"; };
-		FE1D0B911FB57C5E001E1A35 /* HealthScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthScoreViewController.m; sourceTree = "<group>"; };
 		FE1D0B921FB57C5F001E1A35 /* FoolCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoolCameraViewController.h; sourceTree = "<group>"; };
 		FE1D0B951FB57C97001E1A35 /* FoodItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodItem.m; sourceTree = "<group>"; };
 		FE1D0B961FB57C97001E1A35 /* FoodItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodItem.h; sourceTree = "<group>"; };
@@ -480,8 +480,6 @@
 		FE9E5CF21FB164B000622A33 /* NSString+ZXSExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZXSExtension.m"; sourceTree = "<group>"; };
 		FE9EC1D31FB69EE700382310 /* UIImageView+ZXSExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+ZXSExtension.h"; sourceTree = "<group>"; };
 		FE9EC1D41FB69EE700382310 /* UIImageView+ZXSExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ZXSExtension.m"; sourceTree = "<group>"; };
-		FED5485F1FC3E63900A268A4 /* AlbumHealthScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumHealthScoreViewController.m; sourceTree = "<group>"; };
-		FED548601FC3E63900A268A4 /* AlbumHealthScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumHealthScoreViewController.h; sourceTree = "<group>"; };
 		FEF7F7311F9CC94D00B9F155 /* ZXSConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXSConst.h; sourceTree = "<group>"; };
 		FEF7F7321F9CC94D00B9F155 /* ZXSConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXSConst.m; sourceTree = "<group>"; };
 		FEF7F7681F9CDA0000B9F155 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -491,8 +489,6 @@
 		FEF7F7721F9CDA0000B9F155 /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		FEF7F7731F9CDA0000B9F155 /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 		FEF7F7741F9CDA0000B9F155 /* SelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectViewController.xib; sourceTree = "<group>"; };
-		FEF7F7751F9CDA0000B9F155 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
-		FEF7F7761F9CDA0000B9F155 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		FEF7F77B1F9CDA0000B9F155 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		FEF7F77C1F9CDA0000B9F155 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		FEF7F77D1F9CDA0000B9F155 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
@@ -1138,6 +1134,9 @@
 		BF9E60E11FE1F165002FAC10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BFE8177B1FE45CED00A7782A /* ShareView.h */,
+				BFE8177A1FE45CED00A7782A /* ShareView.m */,
+				BFE8177C1FE45CEE00A7782A /* ShareView.xib */,
 				BF8669E91FE2F7E000CD3981 /* ZFCustomAlterView.h */,
 				BF8669E81FE2F7E000CD3981 /* ZFCustomAlterView.m */,
 			);
@@ -1200,17 +1199,11 @@
 				FEF7F7691F9CDA0000B9F155 /* HomeViewController.m */,
 				FE1D0B921FB57C5F001E1A35 /* FoolCameraViewController.h */,
 				FE1D0B901FB57C5E001E1A35 /* FoolCameraViewController.m */,
-				FE1D0B8F1FB57C5E001E1A35 /* HealthScoreViewController.h */,
-				FE1D0B911FB57C5E001E1A35 /* HealthScoreViewController.m */,
-				FED548601FC3E63900A268A4 /* AlbumHealthScoreViewController.h */,
-				FED5485F1FC3E63900A268A4 /* AlbumHealthScoreViewController.m */,
 				FEF7F7721F9CDA0000B9F155 /* SelectViewController.h */,
 				FEF7F7731F9CDA0000B9F155 /* SelectViewController.m */,
 				FEF7F7741F9CDA0000B9F155 /* SelectViewController.xib */,
 				FEF7F76D1F9CDA0000B9F155 /* ModelTableViewCell.h */,
 				FEF7F76E1F9CDA0000B9F155 /* ModelTableViewCell.m */,
-				FEF7F7751F9CDA0000B9F155 /* ShareView.h */,
-				FEF7F7761F9CDA0000B9F155 /* ShareView.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1300,6 +1293,7 @@
 				BF9BFF3D1FE33E8B00D02995 /* LICENSE in Resources */,
 				BF9BFEF71FE33E8B00D02995 /* fold.caf in Resources */,
 				BF9418D91F586DDB00E895A8 /* SelectHeaderView.xib in Resources */,
+				BFE8177E1FE45CEE00A7782A /* ShareView.xib in Resources */,
 				BF9BFFB61FE33F9E00D02995 /* ShareSDKUI.bundle in Resources */,
 				BF9BFFC01FE33F9E00D02995 /* README.txt in Resources */,
 				BF2331091FE30BBF003D674F /* ShareViewController.xib in Resources */,
@@ -1347,7 +1341,6 @@
 				BF9BFEFF1FE33E8B00D02995 /* NSObject+MJCoding.m in Sources */,
 				BF9BFF3B1FE33E8B00D02995 /* AFURLResponseSerialization.m in Sources */,
 				BF9BFF501FE33E8C00D02995 /* UIView+TYAlertView.m in Sources */,
-				FED548611FC3E63900A268A4 /* AlbumHealthScoreViewController.m in Sources */,
 				FE613ED41FBD98A40063EF99 /* ChristmasUserItem.m in Sources */,
 				FE1D0B931FB57C5F001E1A35 /* FoolCameraViewController.m in Sources */,
 				FE1D0B8E1FB57C39001E1A35 /* PGIndexBannerSubiew.m in Sources */,
@@ -1356,7 +1349,6 @@
 				BF9BFF381FE33E8B00D02995 /* AFNetworkReachabilityManager.m in Sources */,
 				BF9BFF0E1FE33E8B00D02995 /* MKAnnotationView+WebCache.m in Sources */,
 				BF9BFF051FE33E8B00D02995 /* MASConstraintMaker.m in Sources */,
-				FEF7F7881F9CDA0000B9F155 /* ShareView.m in Sources */,
 				BF9BFF361FE33E8B00D02995 /* HSV.m in Sources */,
 				BF9BFF031FE33E8B00D02995 /* MASCompositeConstraint.m in Sources */,
 				BF9BFEFB1FE33E8B00D02995 /* MJProperty.m in Sources */,
@@ -1367,8 +1359,8 @@
 				BF9BFF471FE33E8C00D02995 /* UIWebView+AFNetworking.m in Sources */,
 				BF9BFF1A1FE33E8B00D02995 /* UIImage+GIF.m in Sources */,
 				BF9BFF431FE33E8B00D02995 /* UIButton+AFNetworking.m in Sources */,
-				FE1D0B941FB57C5F001E1A35 /* HealthScoreViewController.m in Sources */,
 				FE08BC221FBEDD8F007572CC /* JX_GCDTimerManager.m in Sources */,
+				BFE8177D1FE45CEE00A7782A /* ShareView.m in Sources */,
 				BF9BFF081FE33E8B00D02995 /* MASViewConstraint.m in Sources */,
 				BF9BFF0C1FE33E8B00D02995 /* ViewController+MASAdditions.m in Sources */,
 				BF9BFF121FE33E8B00D02995 /* SDImageCacheConfig.m in Sources */,

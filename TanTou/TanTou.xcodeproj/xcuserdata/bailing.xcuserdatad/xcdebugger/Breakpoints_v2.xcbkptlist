@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TanTou/Classes/Christmas/Controller/ChristmasEndingViewController.m"
-            timestampString = "534998344.344427"
+            filePath = "TanTou/Classes/Home/Controller/ModelTableViewCell.m"
+            timestampString = "535069159.335174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "-loadUserInfoFromServer"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "-initWithStyle:reuseIdentifier:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

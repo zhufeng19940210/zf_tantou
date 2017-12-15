@@ -180,6 +180,14 @@
     [self loadUserInfoFromServer];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
 //- (void)viewWillAppear:(BOOL)animated {
 //    [super viewWillAppear:animated];
 //
@@ -245,6 +253,7 @@
 }
 //获取商家的信息
 - (void)loadUserInfoFromServer {
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
@@ -412,7 +421,6 @@
         }
     }];
 }
-
 - (void)redPacketButtonDidClick {
     self.tantouRedPacketView.hidden = NO;
     [self.alterView showShareViewAddView:self.tantouRedPacketView];
@@ -438,10 +446,9 @@
 
 - (void)endChallengeButtonDidClick {
     if ([self.navigationController.childViewControllers[1] isKindOfClass:[WeChatLoginViewController class]]) {
-         [self.navigationController popToViewController:self.navigationController.childViewControllers[2] animated:YES];
+         [self.navigationController popToViewController:self.navigationController.childViewControllers[2] animated:NO];
     } else {
-        [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:YES];
+        [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:NO];
     }
 }
-
 @end

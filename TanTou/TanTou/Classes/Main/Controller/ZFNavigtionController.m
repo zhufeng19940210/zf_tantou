@@ -17,7 +17,6 @@
                           NSFontAttributeName:[UIFont systemFontOfSize:18]
                           };
     [self.navigationBar setTitleTextAttributes:dict];
-    [self.navigationBar setTintColor:[UIColor whiteColor]];
     //侧滑的代理方法
     self.interactivePopGestureRecognizer.delegate = self;
 }
@@ -32,8 +31,8 @@
         [button setTitle:@"" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-        [button setImage:[UIImage imageNamed:@"fanhuibai"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"fanhuihei"] forState:UIControlStateHighlighted];
+        [button setImage:[UIImage imageNamed:@"zf_back_height"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"zf_back_nomal"] forState:UIControlStateHighlighted];
         [button sizeToFit];
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         [button addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
@@ -45,8 +44,7 @@
 }
 //返回按钮了
 -(void)backClick{
-    
-    [super popViewControllerAnimated:YES];
+    [super popViewControllerAnimated:NO];
 }
 #pragma mark UIGestureRecognizerDelegate 代理方法
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -57,5 +55,4 @@
         return YES;
     }
 }
-
 @end

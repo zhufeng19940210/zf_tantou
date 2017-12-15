@@ -13,9 +13,7 @@
 {
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier])
     {
-
         self.selectionStyle = 0;
-        
         self.imagetitle=[[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 10, 30)];
         self.imagetitle.image=[UIImage imageNamed:@"xiaolv"];
         [self addSubview:_imagetitle];
@@ -33,7 +31,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
