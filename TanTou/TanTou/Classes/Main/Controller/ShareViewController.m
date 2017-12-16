@@ -60,17 +60,17 @@
             case SSDKResponseStateSuccess:
             {
                 
-                [MBProgressHUD showSuccess:@"分享成功"];
+                [MBProgressHUD showSuccess:@"分享成功" toView:self.view];
             }
                 break;
             case SSDKResponseStateFail:
             {
-                [MBProgressHUD showError:@"分享失败"];
+                [MBProgressHUD showError:@"分享失败" toView:self.view];
             }
                 break;
             case SSDKResponseStateCancel:{
                 
-                [MBProgressHUD showError:@"分享取消"];
+                [MBProgressHUD showError:@"分享取消" toView:self.view];
             }
             default:
                 break;
@@ -91,17 +91,17 @@
         switch (state) {
             case SSDKResponseStateSuccess:
             {
-                [MBProgressHUD showSuccess:@"分享成功"];
+                [MBProgressHUD showSuccess:@"分享成功" toView:self.view];
             }
                 break;
             case SSDKResponseStateFail:
             {
-                [MBProgressHUD showError:@"分享失败"];
+                [MBProgressHUD showError:@"分享失败" toView:self.view];
             }
                 break;
             case SSDKResponseStateCancel:{
             
-                [MBProgressHUD showError:@"分享取消"];
+                [MBProgressHUD showError:@"分享取消" toView:self.view];
             }
             default:
                 break;

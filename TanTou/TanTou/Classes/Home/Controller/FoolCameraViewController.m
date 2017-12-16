@@ -280,7 +280,7 @@
     //设置拍照、闪光按钮和网格按钮能点击
     self.view.userInteractionEnabled = YES;
     //设置导航栏leftBarButtonItem
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"fanhuibai"] highlightedImage:nil target:self action:@selector(backBarButtonItemDidClick)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"zf_back_height"] highlightedImage:nil target:self action:@selector(backBarButtonItemDidClick)];
     //设置导航栏rightBarButtonItem
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] init];
     //设置将存储照片的imageView里面的照片移除

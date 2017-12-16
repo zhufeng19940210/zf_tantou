@@ -258,7 +258,7 @@
 -(void)sendShareCommandWithType:(UIImage*)photo{
     
     if ([[[ZXSUtil shareUtil] getcurrentStatus] isEqualToString:@"NotNet"]) {
-        [MBProgressHUD showError:@"网络未连接"];
+        [MBProgressHUD showError:@"网络未连接" toView:self.view];
         return;
     }
     self.ZFAlterView.hidden = NO;
@@ -316,7 +316,7 @@
             [weakSelf.customAlterView showShareViewAddView:weakSelf.tantouRedPacketView];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:@"请求失败"];
+        [MBProgressHUD showError:@"请求失败" toView:self.view];
         return;
     }];
 }
@@ -372,7 +372,7 @@
 -(void)rightAction{
     UIImage*image=[self getNormalImage:self.view];
     UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    [MBProgressHUD showSuccess:@"保存成功！"];
+    [MBProgressHUD showSuccess:@"保存成功！" toView:self.view];
 }
 - (IBAction)sharebtnAction:(UIButton *)sender {
     self.shareView = [ShareView createViewFromNib];
@@ -430,19 +430,19 @@
                                 case SSDKResponseStateSuccess:
                                 {
                                    
-                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    [MBProgressHUD showSuccess:@"分享成功" toView:self.view];
                                 }
                                 break;
                                 case SSDKResponseStateFail:
                                 {
                                    
-                                    [MBProgressHUD showError:@"分享失败"];
+                                    [MBProgressHUD showError:@"分享失败" toView:self.view];
                                 }
                                 break;
                                 case SSDKResponseStateCancel:
                                 {
                                     
-                                    [MBProgressHUD showError:@"分享取消"];
+                                    [MBProgressHUD showError:@"分享取消" toView:self.view];
                                 }
                                 break;
                               default:

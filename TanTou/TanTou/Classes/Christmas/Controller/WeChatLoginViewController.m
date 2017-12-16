@@ -134,9 +134,9 @@
                         //将用户数据偏好存储
                         [weakSelf.userItem saveUserItemToUserDefaults];
                         //跳转到圣诞活动首页
-                        weakSelf.navigationController.navigationBarHidden = NO;
+                        [MBProgressHUD showSuccess:@"登录成功" toView:weakSelf.view];
                         [weakSelf.navigationController pushViewController:[[ChristmasHomeViewController alloc] init] animated:YES];
-                        [MBProgressHUD showSuccess:@"登录成功"];
+                       
                     } else { //登录失败
                         [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
                         return;

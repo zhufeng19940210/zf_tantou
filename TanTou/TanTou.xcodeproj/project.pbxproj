@@ -1240,8 +1240,8 @@
 				TargetAttributes = {
 					BF24B9961F3D14FD00741740 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = UG23VK8R95;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 3R48RV923F;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1548,8 +1548,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ShiWen Feng (PL839S6LZU)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = UG23VK8R95;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3R48RV923F;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TanTou/Library/ZhiFuBao",
@@ -1593,8 +1593,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bailing.TanTou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96f37346-8d90-4a61-a33a-0c4b6551b165";
-				PROVISIONING_PROFILE_SPECIFIER = zf_bailing_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1605,9 +1605,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen DaoDian Technology Co. Ltd (UG23VK8R95)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = UG23VK8R95;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3R48RV923F;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TanTou/Library/ZhiFuBao",
@@ -1650,8 +1650,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bailing.TanTou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51ed8b22-e0e5-49ee-b6fb-b98ddc887c03";
-				PROVISIONING_PROFILE_SPECIFIER = zf_bailing_ad_hoc;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

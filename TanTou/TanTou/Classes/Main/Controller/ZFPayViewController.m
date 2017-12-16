@@ -65,7 +65,7 @@
     NSLog(@"money:%@",money);
     NSString *message = self.messageTF.text;
     if ([money isEqualToString:@""]) {
-        [MBProgressHUD showError:@"请输入金额!"];
+        [MBProgressHUD showError:@"请输入金额!" toView:self.view];
         return;
     }
     //支付的方式
@@ -99,7 +99,7 @@
                     return;
                 }
             } failure:^(NSError *error) {
-                [MBProgressHUD showError:@"请求失败"];
+                [MBProgressHUD showError:@"请求失败" toView:self.view];
                 return ;
             }];
         }else{
@@ -131,7 +131,7 @@
                     return;
                 }
             } failure:^(NSError *error) {
-                [MBProgressHUD showError:@"请求失败"];
+                [MBProgressHUD showError:@"请求失败" toView:self.view];
                 return;
             }];
         }else{
@@ -184,13 +184,13 @@
             // 不能输入.0-9以外的字符
             if (!((single >= '0' && single <= '9') || single == '.'))
             {
-                [MBProgressHUD showError:@"您的输入格式不正确"];
+                [MBProgressHUD showError:@"您的输入格式不正确" toView:self.view];
                 return NO;
             }
             
             // 只能有一个小数点
             if (self.isHaveDian && single == '.') {
-                [MBProgressHUD showError:@"最多只能输入一个小数点"];
+                [MBProgressHUD showError:@"最多只能输入一个小数点" toView:self.view];
                 
                 return NO;
             }
@@ -205,12 +205,12 @@
                 if (textField.text.length > 1) {
                     NSString *secondStr = [textField.text substringWithRange:NSMakeRange(1, 1)];
                     if (![secondStr isEqualToString:@"."]) {
-                        [MBProgressHUD showError:@"第二个字符需要是小数点"];
+                        [MBProgressHUD showError:@"第二个字符需要是小数点" toView:self.view];
                         return NO;
                     }
                 }else{
                     if (![string isEqualToString:@"."]) {
-                        [MBProgressHUD showError:@"第二个字符需要是小数点"];
+                        [MBProgressHUD showError:@"第二个字符需要是小数点" toView:self.view];
                         return NO;
                     }
                 }
@@ -222,7 +222,7 @@
                 // 由于range.location是NSUInteger类型的，所以这里不能通过(range.location - ran.location)>2来判断
                 if (range.location > ran.location) {
                     if ([textField.text pathExtension].length > 1) {
-                        [MBProgressHUD showError:@"小数点后最多有两位小数"];
+                        [MBProgressHUD showError:@"小数点后最多有两位小数" toView:self.view];
                         return NO;
                     }
                 }

@@ -19,10 +19,8 @@
     hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", icon]]];
     // 再设置模式
     hud.mode = MBProgressHUDModeCustomView;
-    
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
-    
     // 1秒之后再消失
     [hud hide:YES afterDelay:0.7];
 }
@@ -44,9 +42,9 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.labelText = message;
     // 隐藏时候从父控件中移除
-    hud.removeFromSuperViewOnHide = NO;
+    hud.removeFromSuperViewOnHide = YES;
     // YES代表需要蒙版效果
-    hud.dimBackground = YES;
+    hud.dimBackground = NO;
     return hud;
 }
 

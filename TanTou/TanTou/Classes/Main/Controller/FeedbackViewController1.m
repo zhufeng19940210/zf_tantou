@@ -91,33 +91,32 @@
     [self.suggestionView resignFirstResponder];
     NSString *suggestionStr = self.suggestionView.text;
     if (suggestionStr.length ==0 || [suggestionStr isEqualToString:@""]) {
-        [MBProgressHUD showError:@"请输入反馈内容"];
+        [MBProgressHUD showError:@"请输入反馈内容" toView:self.view];
         return;
     }
     if (suggestionStr.length<5) {
-        [MBProgressHUD showError:@"反馈内容不能少于5个字"];
+        [MBProgressHUD showError:@"反馈内容不能少于5个字" toView:self.view];
         return;
     }
     NSMutableDictionary *pararm = [NSMutableDictionary dictionary];
     pararm[@"action"] =@"complain";
     pararm[@"complain"] = suggestionStr;
     __weak typeof(self) WeakSelf = self;
-    [MBProgressHUD showMessage:@"提交中..."];
+    [MBProgressHUD showMessage:@"提交中..." toView:self.view];
     [[ZXSNetworkTool sharedNetworkTool]POST:[NSString stringWithFormat:@"%@/Api/Users/tantou",ZXSBasicURL] parameters:pararm success:^(id responseObject) {
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"dict:%@",dict);
         NSString *msg = dict[@"msg"];
         if ([msg isEqualToString:@"反馈成功"]) {
-                [MBProgressHUD showSuccess:@"反馈成功"];
-                [WeakSelf.navigationController popViewControllerAnimated:YES];
+                [MBProgressHUD showSuccess:@"反馈成功" toView:WeakSelf.view];
             }else{
-                [MBProgressHUD showError:@"反馈失败"];
+                [MBProgressHUD showError:@"反馈失败"toView:WeakSelf.view];
                 return;
             }
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUD];
-        [MBProgressHUD showError:@"请求失败"];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"请求失败" toView:self.view];
     }];
 }
 @end
