@@ -54,8 +54,25 @@
 //底部的button
 @property (weak,nonatomic) DCPathButton *dcPathButton;
 @property (nonatomic,strong)ZFCustomAlterView *alterView;
+@property (nonatomic,assign)BOOL isFirst;
 @end
 @implementation HomeViewController
+
+-(instancetype)init{
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(ShowHuodong) name:ZF_Alter_HuoDong object:nil];
+    }
+    return self;
+}
+-(void)ShowHuodong{
+    NSLog(@"1111");
+    if (self.isFirst == NO) {
+        self.isFirst = YES;
+        self.shengdanhuodongView.hidden = NO;
+        [self.alterView showShareViewAddView:self.shengdanhuodongView];
+    }
+}
+
 -(ZFCustomAlterView *)alterView{
     if (!_alterView) {
         _alterView = [[ZFCustomAlterView alloc]init];
@@ -279,13 +296,12 @@
     NSInteger flagInt = [NSDate zxs_compareDateString:nowDateString otherDateString:@"2017-12-26 00:00:00"];
     switch (flagInt) {
         case 1:{
-            NSLog(@"showorHideShengDanHuoDongView");
-            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:ZF_Alter_HuoDong];
+            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:ZF_Alter_HuoDong2];
             if (isShow == YES) {
                 self.shengdanhuodongView.hidden = NO;
                 [self.alterView showShareViewAddView:self.shengdanhuodongView];
-            } else {
-                self.shengdanhuodongView.hidden = YES;
+            } else{
+                
             }
             if (self.isLogin) {//登录
                 self.containIconView.hidden = NO;
@@ -394,8 +410,6 @@
     [self.navigationController pushViewController:[[ChristmasHomeViewController alloc] init] animated:YES];
 }
 - (void)redPacketButtonDidClick {
-    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
     if (self.isLogin) {
         [self.navigationController pushViewController:[[ChristmasHomeViewController alloc] init] animated:YES];
     } else {
@@ -483,7 +497,7 @@
     self.tantouRedPacketView.hidden = YES;
     self.shengdanhuodongView.hidden = YES;
     [self.alterView hihhdenView];
-    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:ZF_Alter_HuoDong2];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 @end

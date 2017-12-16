@@ -12,6 +12,7 @@
 #import "ChristmasUserItem.h"
 #import "WeChatLoginViewController.h"
 #import "ZFCustomAlterView.h"
+#import "UIImageView+WebCache.h"
 @interface ChristmasEndingViewController () <ZFCustomAlterViewDelegate>
 /**screenWidth*/
 @property (assign, nonatomic) CGFloat screenWidth;
@@ -40,8 +41,89 @@
 /**用户*/
 @property (weak, nonatomic) ChristmasUserItem *userItem;
 @property (nonatomic,strong)ZFCustomAlterView *alterView;
+@property (nonatomic,strong)UIView *tantouRedPacketView2;
+@property (nonatomic,strong)UIImageView *centerView;
+@property (nonatomic,copy)NSString *pushUrl;
+@property (nonatomic,strong)UIView *zfShareView;
 @end
 @implementation ChristmasEndingViewController
+//分享View
+- (UIView *)zfShareView {
+    if (!_zfShareView) {
+        UIView *tantouRedPacketView = [[UIView alloc] init];
+        [self.view addSubview:tantouRedPacketView];
+        _zfShareView = tantouRedPacketView;
+        tantouRedPacketView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+        tantouRedPacketView.hidden = YES;
+        //背景图片
+        UIImageView *backgroundImageView = [[UIImageView alloc] init];
+        [tantouRedPacketView addSubview:backgroundImageView];
+        backgroundImageView.image = [UIImage imageNamed:@"tuichutanchuang"];
+        backgroundImageView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+        backgroundImageView.origin = CGPointMake(0, 0);
+        //挑战按钮
+        UIButton *challengeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"tiaozhan"] highlightedImage:[UIImage imageNamed:@"tiaozhan"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(CancelButtonDidClick)];
+        [tantouRedPacketView addSubview:challengeButton];
+        challengeButton.right = tantouRedPacketView.width * 0.5 - ZXSRealValueFit6SWidthPt(30);
+        challengeButton.bottom = CGRectGetMaxY(backgroundImageView.frame) - ZXSRealValueFit6SWidthPt(60);
+        //注销按钮
+        UIButton *cancelButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"zhuxiao"] highlightedImage:[UIImage imageNamed:@"zhuxiao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(ShareButtonDidClick)];
+        [tantouRedPacketView addSubview:cancelButton];
+        cancelButton.left = tantouRedPacketView.width * 0.5 + ZXSRealValueFit6SWidthPt(30);
+        cancelButton.bottom = challengeButton.bottom;
+    }
+    return _zfShareView;
+}
+#pragma mark CancelButtonDidClick
+-(void)CancelButtonDidClick{
+    [self hidderOtherView];
+}
+#pragma mark - ShareButtonDidClick
+-(void)ShareButtonDidClick{
+    [self hidderOtherView];
+    [self useMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
+}
+//懒加载
+- (UIView *)tantouRedPacketView2 {
+if (!_tantouRedPacketView2) {
+        UIView *tantouRedPacketView = [[UIView alloc] init];
+        [self.view addSubview:tantouRedPacketView];
+        _tantouRedPacketView2 = tantouRedPacketView;
+        tantouRedPacketView.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(648));
+        tantouRedPacketView.hidden = YES;
+        //关闭按钮
+        UIButton *closeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"chacha2"] highlightedImage:[UIImage imageNamed:@"chacha2"] bounds:CGRectMake(ZXSRealValueFit6SWidthPt(540),0, ZXSRealValueFit6SWidthPt(48), ZXSRealValueFit6SWidthPt(48)) target:self action:@selector(EndCloseDidClick)];
+        closeButton.frame = CGRectMake(ZXSRealValueFit6SWidthPt(540),10, ZXSRealValueFit6SWidthPt(48), ZXSRealValueFit6SWidthPt(48));
+        [tantouRedPacketView addSubview:closeButton];
+        //背景图片
+        UIImageView *backgroundImageView = [[UIImageView alloc] init];
+        [tantouRedPacketView addSubview:backgroundImageView];
+        backgroundImageView.image = [UIImage imageNamed:@"meicaiwangz"];
+        backgroundImageView.frame = CGRectMake(0, ZXSRealValueFit6SWidthPt(48), ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(600));
+        //中间的图片
+        UIImageView *centerView = [[UIImageView alloc] init];
+        [tantouRedPacketView addSubview:centerView];
+        _centerView = centerView;
+        centerView.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(400), ZXSRealValueFit6SWidthPt(400));
+        centerView.centerX = tantouRedPacketView.width * 0.5;
+        centerView.centerY = tantouRedPacketView.height *0.5;
+        //获取更多鼓励
+        UIButton *moreButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"jiangli"] highlightedImage:[UIImage imageNamed:@"jiangli"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(260), ZXSRealValueFit6SWidthPt(80)) target:self action:@selector(MoreButtonDidClick)];
+        [tantouRedPacketView addSubview:moreButton];
+        moreButton.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(200), ZXSRealValueFit6SWidthPt(70));
+        moreButton.centerX = tantouRedPacketView.width * 0.5;
+        moreButton.bottom = tantouRedPacketView.bottom - 10;
+    }
+    return _tantouRedPacketView2;
+}
+#pragma mark - MoreButtonDidClick
+-(void)MoreButtonDidClick{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pushUrl]];
+}
+#pragma mark -EndCloseDidClick
+-(void)EndCloseDidClick{
+    [self hidderOtherView];
+}
 -(ZFCustomAlterView *)alterView{
     if (!_alterView) {
         _alterView = [[ZFCustomAlterView alloc]init];
@@ -63,7 +145,6 @@
 
 - (UIImageView *)middleImageView {
     if (!_middleImageView) {
-        
         UIImageView *middleImageView = [[UIImageView alloc] init];
         [self.view addSubview:middleImageView];
         _middleImageView = middleImageView;
@@ -84,7 +165,6 @@
 
 - (UIButton *)redPacketButton {
     if (!_redPacketButton) {
-        
         UIButton *redPacketButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"hongbao"] highlightedImage:[UIImage imageNamed:@"hongbao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(72), ZXSRealValueFit6SWidthPt(88)) target:self action:@selector(redPacketButtonDidClick)];
         [self.view addSubview:redPacketButton];
         _redPacketButton = redPacketButton;
@@ -177,9 +257,9 @@
     // 获取当前最新数据
     [self.userItem userItemFromUserDefaults];
     // 发送网络请求获取服务器用户参数
-    [self loadUserInfoFromServer];
+    //[self loadUserInfoFromServer];
+    [self loadAdFromSever];
 }
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -250,10 +330,41 @@
     self.shareActivityButton.centerX = self.endChallengeButton.centerX;
     self.shareActivityButton.bottom = self.endChallengeButton.top - ZXSRealValueFit6SWidthPt(20);
     self.tantouRedPacketView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
+    self.tantouRedPacketView2.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5- 40);
+}
+// 获取广告了
+-(void)loadAdFromSever{
+    if (![[[ZXSUtil shareUtil]getcurrentStatus] isEqualToString:@"NotNet"]) {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        parameters[@"uid"] = self.userItem.uid;
+        parameters[@"token"] = self.userItem.token;
+        __weak typeof(self) weakSelf = self;
+        [[ZXSNetworkTool sharedNetworkTool]POST:[NSString stringWithFormat:@"%@/Tantou/Activity2/adver",ZXSBasicURL] parameters:parameters success:^(id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+            NSLog(@"dict:%@",dict);
+            NSNumber *status = [dict objectForKey:@"status"];
+            NSString *logonurl = [dict objectForKey:@"result"][@"logo_url"];
+            weakSelf.pushUrl =  [dict objectForKey:@"result"][@"url"];
+            if ([status intValue] ==1) {
+                [weakSelf.centerView sd_setImageWithURL:[NSURL URLWithString:logonurl]];
+                weakSelf.tantouRedPacketView2.hidden = NO;
+                [weakSelf.alterView showShareViewAddView:weakSelf.tantouRedPacketView2];
+                [weakSelf loadUserInfoFromServer];
+            }else{
+               [MBProgressHUD showError:@"请求失败" toView:self.view];
+               return;
+            }
+        } failure:^(NSError *error) {
+            [MBProgressHUD showError:@"请求失败" toView:self.view];
+            return;
+        }];
+    }else{
+        [MBProgressHUD showError:@"网络未连接" toView:self.view];
+        return;
+    }
 }
 //获取商家的信息
 - (void)loadUserInfoFromServer {
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
@@ -280,13 +391,10 @@
             weakSelf.userItem.challenge_times = resultDict[@"challenge_times"];
             weakSelf.userItem.share_times = resultDict[@"share_times"];
             weakSelf.userItem.last_money = resultDict[@"last_money"];
-            
             //保存新数据
             [self.userItem saveUserItemToUserDefaults];
-            
             self.moneyLabel.text = weakSelf.userItem.money;
-            NSLog(@"loadUserInfoFromServerresultlast_money%@",resultDict[@"last_money"]);
-            
+            NSLog(@"loadUrverresultlast_money%@",resultDict[@"last_money"]);
             if ([self.userItem.last_money  isEqualToString:@"0.00"]) {//答错
                 NSLog(@"viewDidAppear答错");
                 self.newaddMoneyLabel.hidden = YES;
@@ -303,11 +411,14 @@
                 self.middleImageView.image = [UIImage imageNamed:@"daduizzz"];
             }
             
-        } else { //操作失败
-            [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
+        } else {
+            return ;
+            //操作失败
+            //[MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
         }
     } failure:^(NSError *error) {
-        [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
+        return;
+       // [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
     }];
 }
 //提现红包了
@@ -429,7 +540,10 @@
 -(void)customAlterViewHidden{
     [self hidderOtherView];
 }
+
 -(void)hidderOtherView{
+    self.zfShareView.hidden = YES;
+    self.tantouRedPacketView2.hidden = YES;
     self.tantouRedPacketView.hidden = YES;
     [self.alterView hihhdenView];
 }
@@ -441,7 +555,8 @@
     [self hidderOtherView];
 }
 - (void)shareActivityButtonDidClick {
-    [self useMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
+    self.zfShareView.hidden = NO;
+    [self.alterView showShareViewAddView:self.zfShareView];
 }
 
 - (void)endChallengeButtonDidClick {

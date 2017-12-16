@@ -62,8 +62,9 @@
 // 支付
 - (IBAction)onClickPayOKBtn:(UIButton *)sender {
     NSString *money = self.moneyTF.text;
+    NSLog(@"money:%@",money);
     NSString *message = self.messageTF.text;
-    if ([money isEqualToString:@""] || message == nil || message.length == 0  ) {
+    if ([money isEqualToString:@""]) {
         [MBProgressHUD showError:@"请输入金额!"];
         return;
     }

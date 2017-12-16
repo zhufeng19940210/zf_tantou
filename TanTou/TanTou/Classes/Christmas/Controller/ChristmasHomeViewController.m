@@ -41,8 +41,46 @@
 @property (weak,nonatomic) UIButton *tomorrowBtn;
 /*alterView*/
 @property (nonatomic,strong)ZFCustomAlterView *alterView;
+//分享
+@property (nonatomic,strong)UIView *zfShareView;
 @end
 @implementation ChristmasHomeViewController
+//分享View
+- (UIView *)zfShareView {
+    if (!_zfShareView) {
+        UIView *tantouRedPacketView = [[UIView alloc] init];
+        [self.view addSubview:tantouRedPacketView];
+        _zfShareView = tantouRedPacketView;
+        tantouRedPacketView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+        tantouRedPacketView.hidden = YES;
+        //背景图片
+        UIImageView *backgroundImageView = [[UIImageView alloc] init];
+        [tantouRedPacketView addSubview:backgroundImageView];
+        backgroundImageView.image = [UIImage imageNamed:@"tuichutanchuang"];
+        backgroundImageView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+        backgroundImageView.origin = CGPointMake(0, 0);
+        //挑战按钮
+        UIButton *challengeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"tiaozhan"] highlightedImage:[UIImage imageNamed:@"tiaozhan"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(CancelButtonDidClick)];
+        [tantouRedPacketView addSubview:challengeButton];
+        challengeButton.right = tantouRedPacketView.width * 0.5 - ZXSRealValueFit6SWidthPt(30);
+        challengeButton.bottom = CGRectGetMaxY(backgroundImageView.frame) - ZXSRealValueFit6SWidthPt(60);
+        //注销按钮
+        UIButton *cancelButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"zhuxiao"] highlightedImage:[UIImage imageNamed:@"zhuxiao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(ShareButtonDidClick)];
+        [tantouRedPacketView addSubview:cancelButton];
+        cancelButton.left = tantouRedPacketView.width * 0.5 + ZXSRealValueFit6SWidthPt(30);
+        cancelButton.bottom = challengeButton.bottom;
+    }
+    return _zfShareView;
+}
+#pragma mark CancelButtonDidClick
+-(void)CancelButtonDidClick{
+    [self hiddenOtherView];
+}
+#pragma mark - ShareButtonDidClick
+-(void)ShareButtonDidClick{
+    [self hiddenOtherView];
+    [self userMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
+}
 -(ZFCustomAlterView *)alterView{
     if (!_alterView) {
         _alterView = [[ZFCustomAlterView alloc]init];
@@ -63,7 +101,6 @@
 }
 - (UIButton *)tomorrowBtn {
     if (!_tomorrowBtn) {
-        
         UIButton *tomorrowBtn = [UIButton zxs_buttonWithBackGroundImage:[UIImage imageNamed:@"xuanxiangzz"] highlightedBackGroundImage:[UIImage imageNamed:@"xuanxiangz"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(312), ZXSRealValueFit6SWidthPt(88)) titleColor:[UIColor colorWithRed:1.0 green:238 / 255.0 blue:128 / 255.0 alpha:1.0] titleFont:ZXSSystemFontFit6WithPt(28.f) target:self action:@selector(TomoorowButtonDidClick) title:@"明天再来"];
         tomorrowBtn.hidden = YES;
         [self.view addSubview:tomorrowBtn];
@@ -96,7 +133,6 @@
     }
     return _challengeImageView;
 }
-
 - (UILabel *)countLabel {
     if (!_countLabel) {
         UILabel *countLabel = [UILabel zxs_labelWithTextColor:[UIColor colorWithRed:1.0 green:238 / 255.0 blue:128 / 255.0 alpha:1.0] font:ZXSSystemFontFit6WithPt(20.f) text:@"3"];
@@ -109,7 +145,6 @@
     }
     return _countLabel;
 }
-
 - (UIButton *)shareActivityButton {
     if (!_shareActivityButton) {
         
@@ -122,7 +157,6 @@
 
 - (UIButton *)startAnswerButton {
     if (!_startAnswerButton) {
-        
         UIButton *startAnswerButton = [UIButton zxs_buttonWithBackGroundImage:[UIImage imageNamed:@"xuanxiangzz"] highlightedBackGroundImage:[UIImage imageNamed:@"xuanxiangz"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(312), ZXSRealValueFit6SWidthPt(88)) titleColor:[UIColor colorWithRed:1.0 green:238 / 255.0 blue:128 / 255.0 alpha:1.0] titleFont:ZXSSystemFontFit6WithPt(28.f) target:self action:@selector(startAnswerButtonDidClick:) title:@"马上开始"];
         [self.view addSubview:startAnswerButton];
         _startAnswerButton = startAnswerButton;
@@ -193,6 +227,7 @@
     self.shareActivityButton.centerX = self.startAnswerButton.centerX;
     self.shareActivityButton.bottom = self.startAnswerButton.top - ZXSRealValueFit6SWidthPt(20);
     self.tantouRedPacketView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
+    self.zfShareView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
     self.challengeImageView.top = ZXSRealValueFit6SWidthPt(60);
     self.challengeImageView.right = self.redPacketButton.left - ZXSRealValueFit6SWidthPt(80);
     self.countLabel.left = self.challengeImageView.right - ZXSRealValueFit6SWidthPt(10);
@@ -254,6 +289,11 @@
 }
 //提现
 - (void)sendCashMoneyRequestToServer {
+    NSString *networkStatus = [[ZXSUtil shareUtil] getcurrentStatus];
+    if ([networkStatus isEqualToString:@"NotNet"]) {
+        [MBProgressHUD showError:@"网络未连接"];
+        return;
+    }
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uid"] = self.userItem.uid;
     parameters[@"token"] = self.userItem.token;
@@ -333,12 +373,15 @@
             //can_challenge: 1 是可以答题 0 是不能可以答题
             //challenge_times 挑战的次数
             //share_time  分享的次数
-            if (challengeCount == 0 || [share_time isEqualToString:@"3"]) {
+            if (challengeCount == 0 && ![share_time isEqualToString:@"2"]) {
                 // 总的次数为空
+                self.startAnswerButton.hidden = YES;
+                self.tomorrowBtn.hidden = YES;
+            }else if (challengeCount == 0 && [share_time isEqualToString:@"2"]){
                 self.startAnswerButton.hidden = YES;
                 self.tomorrowBtn.hidden = NO;
             }else{
-                if (can_challenge == 1) {
+                if (can_challenge == 1 ) {
                     self.startAnswerButton.hidden = NO;
                     self.tomorrowBtn.hidden = YES;
                 }
@@ -362,15 +405,16 @@
     [self.alterView showShareViewAddView:self.tantouRedPacketView];
 }
 - (void)shareActivityButtonDidClick {
-    [self userMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
+    self.zfShareView.hidden = NO;
+    [self.alterView showShareViewAddView:self.zfShareView];
 }
 #pragma mark -明天再来
 -(void)TomoorowButtonDidClick{
     // 退出当前控制器
-    //[self.navigationController popToRootViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:NO];
     //TODO测试东西了
-    ChristmasEndingViewController *endVc = [[ChristmasEndingViewController alloc]init];
-    [self.navigationController pushViewController:endVc animated:YES];
+    //ChristmasEndingViewController *endVc = [[ChristmasEndingViewController alloc]init];
+    //[self.navigationController pushViewController:endVc animated:YES];
 }
 - (void)startAnswerButtonDidClick:(UIButton *)button {
     // 退出当前控制器
@@ -385,6 +429,7 @@
     [self hiddenOtherView];
 }
 -(void)hiddenOtherView{
+    self.zfShareView.hidden = YES;
     self.tantouRedPacketView.hidden = YES;
     [self.alterView hihhdenView];
 }

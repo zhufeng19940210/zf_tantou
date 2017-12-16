@@ -66,7 +66,7 @@
     appDelegate.window.rootViewController = nav;
     appDelegate.homeVC = homeVC;
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirstRun"];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong2];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 #pragma mark -UIScollViewDelegate

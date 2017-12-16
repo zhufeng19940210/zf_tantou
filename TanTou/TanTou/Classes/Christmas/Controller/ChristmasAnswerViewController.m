@@ -5,7 +5,6 @@
 //  Created by StoneMan on 2017/11/15.
 //  Copyright © 2017年 bailing. All rights reserved.
 //
-
 #import "ChristmasAnswerViewController.h"
 #import "ChristmasEndingViewController.h"
 #import "ChristmasFoodItem.h"
@@ -448,9 +447,7 @@ static NSUInteger currentCorrectCount = 0;
         [self.bButton setTitle:[NSString stringWithFormat:@"B.  %@",foodItem.choice[1]] forState:UIControlStateNormal];
         [self.cButton setTitle:[NSString stringWithFormat:@"C.  %@",foodItem.choice[2]] forState:UIControlStateNormal];
         [self.dButton setTitle:[NSString stringWithFormat:@"D.  %@",foodItem.choice[3]] forState:UIControlStateNormal];
-        
         foodItemIndex++;
-        
 //        //修改按钮的状态
 //        self.currentSelectedButton.selected = NO;;
 //        for (UIButton *tempButton in self.selectedButtons) {
@@ -459,9 +456,7 @@ static NSUInteger currentCorrectCount = 0;
         self.currentSelectedButton.selected = NO;
         self.containOptionButtonView.userInteractionEnabled = YES;
     }
-    
     NSLog(@"myTimer runs %lu times!", (unsigned long)second++);
-    
 }
 #pragma mark - 触发事件
 - (void)backButtonDidClick {
@@ -475,12 +470,9 @@ static NSUInteger currentCorrectCount = 0;
     if (!self.currentfoodItem) {
         return;
     }
-    
     self.containOptionButtonView.userInteractionEnabled = NO;
     button.selected = YES;
     self.currentSelectedButton = button;
-
-    
 //    self.containOptionButtonView.userInteractionEnabled = NO;
 //
 //    if (button != self.currentSelectedButton) {
@@ -490,18 +482,12 @@ static NSUInteger currentCorrectCount = 0;
 //    } else {
 //        self.currentSelectedButton.selected = YES;
 //    }
-    
-
-    
     //    button.selected = YES;
     //    self.currentSelectedButton = button;
     //    for (UIButton *tempButton in self.selectedButtons) {
     //        tempButton.userInteractionEnabled = NO;
     //    }
-    
 
-    
-    
 //    button.selected = YES;
 //    self.currentSelectedButton = button;
     
@@ -513,7 +499,6 @@ static NSUInteger currentCorrectCount = 0;
 //            tempButton.selected = NO;
 //        }
 //    }
-    
     //取消定时器
     [[JX_GCDTimerManager sharedInstance] cancelTimerWithName:myTimer];
     //回答问题

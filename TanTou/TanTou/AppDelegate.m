@@ -125,80 +125,73 @@
  *  开屏广告成功展示
  */
 -(void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 /**
  *  开屏广告展示失败
  */
 -(void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"开屏广告展示失败< == >splashAdFailToPresent");
+    [[NSNotificationCenter defaultCenter]postNotificationName:ZF_Alter_HuoDong object:nil];
 }
 /**
  *  应用进入后台时回调
  *  详解: 当点击下载应用时会调用系统程序打开，应用切换到后台
  */
 - (void)splashAdApplicationWillEnterBackground:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+
 }
 /**
  *  开屏广告点击回调
  */
 - (void)splashAdClicked:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 /**
  *  开屏广告将要关闭回调
  */
 - (void)splashAdWillClosed:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"点击以后全屏广告页已经关闭 <==> splashAdDidDismissFullScreenModal");
+    [[NSNotificationCenter defaultCenter]postNotificationName:ZF_Alter_HuoDong object:nil];
 }
 /**
  *  开屏广告关闭回调
  */
 - (void)splashAdClosed:(GDTSplashAd *)splashAd{
-    _splash = nil;
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"点击以后全屏广告页已经关闭 <==> splashAdDidDismissFullScreenModal");
+    [[NSNotificationCenter defaultCenter]postNotificationName:ZF_Alter_HuoDong object:nil];
 }
 /**
  *  开屏广告点击以后即将弹出全屏广告页
  */
 - (void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+
 }
 /**
  *  开屏广告点击以后弹出全屏广告页
  */
 - (void)splashAdDidPresentFullScreenModal:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+
 }
 /**
  *  点击以后全屏广告页将要关闭
  */
 - (void)splashAdWillDismissFullScreenModal:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"点击以后全屏广告页将要关闭 <==> splashAdWillDismissFullScreenModal");
+    [[NSNotificationCenter defaultCenter]postNotificationName:ZF_Alter_HuoDong object:nil];
 }
 /**
  *  点击以后全屏广告页已经关闭
  */
 - (void)splashAdDidDismissFullScreenModal:(GDTSplashAd *)splashAd{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"点击以后全屏广告页已经关闭 <==> splashAdDidDismissFullScreenModal");
+    [[NSNotificationCenter defaultCenter]postNotificationName:ZF_Alter_HuoDong object:nil];
 }
 /**
  * 开屏广告剩余时间回调
  */
 - (void)splashAdLifeTime:(NSUInteger)time{
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:ZF_Alter_HuoDong];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"开屏广告剩余时间回调<==>splashAdLifeTime");
+    self.splash = nil;
+    [[NSNotificationCenter defaultCenter]postNotificationName:ZF_Alter_HuoDong object:nil];
 }
 #pragma mark 支付的回调方法
 #pragma mark - 这里是回调的方法

@@ -30,6 +30,7 @@
 #define REDIO ZXSSCREEN_WIDTH/1080  //适配比例
 /**显示登录成功的东西**/
 #define ZF_Alter_HuoDong  @"alter_huodong"
+#define ZF_Alter_HuoDong2  @"alter_huodong2"
 #pragma mark - 系统适配
 #define iOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? YES : NO)
 
