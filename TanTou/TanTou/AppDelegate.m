@@ -50,9 +50,9 @@
         ZFNavigtionController *nav = [[ZFNavigtionController alloc] initWithRootViewController:homeVC];
         self.window.rootViewController = nav;
         [self.window makeKeyAndVisible];
+        //启动广告页面了
+        [self setupGuangGao];
     }
-    //启动广告页面了
-    [self setupGuangGao];
     return YES;
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application {

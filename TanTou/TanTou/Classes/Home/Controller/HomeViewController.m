@@ -69,7 +69,7 @@
     if (self.isFirst == NO) {
         self.isFirst = YES;
         self.shengdanhuodongView.hidden = NO;
-        [self.alterView showShareViewAddView:self.shengdanhuodongView];
+        [self.alterView showShareViewAddView:self.shengdanhuodongView tapGestureWithBool:YES];
     }
 }
 
@@ -127,7 +127,6 @@
         containIconView.layer.cornerRadius = ZXSRealValueFit6SWidthPt(60);
         containIconView.layer.masksToBounds = YES;
         containIconView.backgroundColor = [UIColor clearColor];
-        
         UIButton *touxiangButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"touxiang"] selectedImage:nil bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(120), ZXSRealValueFit6SWidthPt(120)) target:self action:@selector(touxiangButtonDidClick:)];
         [containIconView addSubview:touxiangButton];
         _touxiangButton = touxiangButton;
@@ -212,7 +211,6 @@
     }
     return _tantouRedPacketView;
 }
-
 -(DCPathButton *) dcPathButton{
     if (!_dcPathButton) {
         DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"jia111"]
@@ -255,7 +253,6 @@
     if (self.userItem.uid.length == 0 || self.userItem.uid == nil) return;
     [self loadUserInfoFromServer];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -299,9 +296,8 @@
             BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:ZF_Alter_HuoDong2];
             if (isShow == YES) {
                 self.shengdanhuodongView.hidden = NO;
-                [self.alterView showShareViewAddView:self.shengdanhuodongView];
+                [self.alterView showShareViewAddView:self.shengdanhuodongView tapGestureWithBool:YES];
             } else{
-                
             }
             if (self.isLogin) {//登录
                 self.containIconView.hidden = NO;
@@ -400,7 +396,7 @@
 - (void)touxiangButtonDidClick:(UIButton *)button {
     //跳出红包框
     self.tantouRedPacketView.hidden = NO;
-    [self.alterView showShareViewAddView:self.tantouRedPacketView];
+    [self.alterView showShareViewAddView:self.tantouRedPacketView tapGestureWithBool:YES];
     //获取本地用户数据
     [self.userItem userItemFromUserDefaults];
     self.moneyLabel.text = self.userItem.money;
@@ -435,7 +431,6 @@
     if(iOS8) {
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             //跳转照相界面
-            self.navigationController.navigationBar.hidden = YES;
             [self.navigationController pushViewController:[[FoolCameraViewController alloc] init] animated:NO];
         }else {
             UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message: @"您当前的设备没有照相功能"  preferredStyle:UIAlertControllerStyleAlert];

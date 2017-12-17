@@ -28,16 +28,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *biaoyulabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bgimageView;
 @property (nonatomic,strong)UIImageView *activityImageV;
-@property (weak, nonatomic) IBOutlet UIImageView *actionView;
-@property (weak, nonatomic) IBOutlet UIView *activityView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *myTopLayout;
 @property(nonatomic,strong) UIButton*shareBtn;
 @property(nonatomic,strong)  UIView*views;
 #pragma mark zhufeng
 @property (weak, nonatomic) IBOutlet UIView *selectView;
-@property (weak, nonatomic) IBOutlet UIView *ZFAlterView;
-@property (weak, nonatomic) IBOutlet UIView *ZFMyView;
-@property (weak, nonatomic) IBOutlet UITableView *zfTableView;
 @property (nonatomic,strong)NSMutableArray *foodDataArray;
 @property (nonatomic,strong)NSString *myscore;
 @property (nonatomic,strong) ShareView *shareView;
@@ -45,8 +40,80 @@
 @property (strong, nonatomic) UIImage *snapshotImage;
 @property (nonatomic,strong)UIView *tantouRedPacketView;
 @property (nonatomic,strong)ZFCustomAlterView *customAlterView;
+// 定制一个view和imageView
+@property (nonatomic,strong)UIView *actionView;
+@property (nonatomic,strong)UIImageView *activityImageView;
+//定制一个view
+@property (nonatomic,strong)UIView *detailView;
+@property (nonatomic,strong)UITableView *zfTableView;
 @end
 @implementation SelectViewController
+-(UIView *)detailView{
+    if (!_detailView ) {
+        UIView *tantouRedPacketView = [[UIView alloc] init];
+        tantouRedPacketView.backgroundColor = [UIColor colorWithRed:(30/255.0f) green:(205/255.0f) blue:(205/255.0f) alpha:1.0];
+        [self.view addSubview:tantouRedPacketView];
+        _detailView = tantouRedPacketView;
+        tantouRedPacketView.layer.cornerRadius = 20;
+        tantouRedPacketView.layer.masksToBounds = YES;
+        tantouRedPacketView.frame = CGRectMake(40, 64, ZXSSCREEN_WIDTH -80, ZXSSCREEN_HEIGHT - 130);
+        tantouRedPacketView.hidden = YES;
+        //背景图片
+        UITableView *zftableView = [[UITableView alloc]init];
+        zftableView.frame = CGRectMake(0, 0, ZXSSCREEN_WIDTH -80,ZXSSCREEN_HEIGHT - 210);
+        [tantouRedPacketView addSubview:zftableView];
+        _zfTableView = zftableView;
+        zftableView.delegate = self;
+        zftableView.dataSource = self;
+        zftableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [zftableView registerNib:[UINib nibWithNibName:@"SelectHeaderView" bundle:[NSBundle mainBundle]] forHeaderFooterViewReuseIdentifier:@"SelectHeaderView"];
+        [zftableView registerNib:[UINib nibWithNibName:@"SelectTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"SelectTableViewCell"];
+        zftableView.backgroundColor=[UIColor whiteColor];
+        //菜单详情
+        UIView *myView = [[UIView alloc]init];
+        myView.frame = CGRectMake(0, CGRectGetMaxY(zftableView.frame), ZXSSCREEN_WIDTH -80, 50);
+        myView.backgroundColor = [UIColor colorWithRed:(30/255.0f) green:(205/255.0f) blue:(205/255.0f) alpha:1.0];
+        myView.layer.cornerRadius = 20;
+        myView.layer.masksToBounds = YES;
+        [tantouRedPacketView addSubview:myView];
+        UIButton *caidanBtn = [[UIButton alloc]init];
+        caidanBtn.frame = CGRectMake(0, 0, ZXSSCREEN_WIDTH -80, 50);
+        [caidanBtn setTitle:@"菜单详情" forState:UIControlStateNormal];
+        [caidanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [myView addSubview:caidanBtn];
+        //关闭按钮
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tantouRedPacketView addSubview:closeButton];
+        closeButton.backgroundColor = [UIColor colorWithRed:(30/255.0f) green:(205/255.0f) blue:(205/255.0f) alpha:1.0];
+        [closeButton setBackgroundImage:[UIImage imageNamed:@"chacha"] forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(zfColoseButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+        closeButton.frame = CGRectMake(0,CGRectGetMaxY(myView.frame) ,ZXSRealValueFit6SWidthPt(70), ZXSRealValueFit6SWidthPt(70));
+        closeButton.centerX = tantouRedPacketView.width * 0.5;
+        closeButton.top = myView.bottom - 10;
+    }
+    return _detailView;
+}
+#pragma  mark - zfColoseButtonDidClick
+-(void)zfColoseButtonDidClick{
+    [self ZFhiddenOtherView];
+}
+-(UIView *)actionView{
+    if (!_actionView) {
+        UIView *actionView = [[UIView alloc]init];
+        [self.view addSubview:actionView];
+        _actionView = actionView;
+        actionView.hidden = YES;
+        actionView.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(250), ZXSRealValueFit6SWidthPt(250));
+        actionView.hidden = YES;
+        //背景图片
+        UIImageView *backgroundImageView = [[UIImageView alloc] init];
+        [actionView addSubview:backgroundImageView];
+        _activityImageV = backgroundImageView;
+        backgroundImageView.image = [UIImage imageNamed:@"loading1"];
+        backgroundImageView.frame = CGRectMake(0, ZXSRealValueFit6SWidthPt(120), ZXSRealValueFit6SWidthPt(250), ZXSRealValueFit6SWidthPt(250));
+    }
+    return _actionView;
+}
 -(ZFCustomAlterView *)customAlterView{
     if (!_customAlterView) {
         _customAlterView = [[ZFCustomAlterView alloc]init];
@@ -90,14 +157,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavigationBar];
+    self.detailView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5);
+    self.actionView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5);
     self.tantouRedPacketView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5- 40);
     self.biaoyulabel.hidden=YES;
     self.bgimageView.image = self.selectImage;
      self.bgimageView.contentMode = UIViewContentModeScaleAspectFit;
     UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scanBigImageClick1:)];
     [_bgimageView addGestureRecognizer:tapGestureRecognizer1];
-    UITapGestureRecognizer *alterTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenAlterView:)];
-    [self.ZFAlterView addGestureRecognizer:alterTapGesture];
     [_bgimageView setUserInteractionEnabled:YES];
     [self sendShareCommandWithType:self.selectImage];
 }
@@ -105,7 +172,7 @@
     self.title = @"健康指数";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:33 / 255.0 green:203 / 255.0 blue:200 / 255.0 alpha:1.0]];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"zf_back_height"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"fanhuibai"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:18] target:self action:@selector(saveBarButtonItemDidClick) title:@"保存"];
 }
 #pragma mark - 触发事件
@@ -137,22 +204,6 @@
             [MBProgressHUD showSuccess:@"截图保存成功！" toView:self.view];
         }];
     }
-}
-
--(void)hiddenAlterView:(UITapGestureRecognizer *)gsture{
-    self.ZFAlterView.hidden = YES;
-    self.ZFMyView.hidden = YES;
-}
-
--(void)createTableView{
-    self.zfTableView.delegate = self;
-    self.zfTableView.dataSource = self;
-    [self.zfTableView registerNib:[UINib nibWithNibName:@"SelectHeaderView" bundle:[NSBundle mainBundle]] forHeaderFooterViewReuseIdentifier:@"SelectHeaderView"];
-    [self.zfTableView registerNib:[UINib nibWithNibName:@"SelectTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"SelectTableViewCell"];
-    self.ZFMyView.layer.masksToBounds=YES;
-    self.ZFMyView.layer.cornerRadius=20;
-    self.zfTableView.backgroundColor=[UIColor whiteColor];
-
 }
 
 #pragma mark - uitableViewDelegate
@@ -256,13 +307,12 @@
     return cell;
 }
 -(void)sendShareCommandWithType:(UIImage*)photo{
-    
     if ([[[ZXSUtil shareUtil] getcurrentStatus] isEqualToString:@"NotNet"]) {
         [MBProgressHUD showError:@"网络未连接" toView:self.view];
         return;
     }
-    self.ZFAlterView.hidden = NO;
-    self.activityView.hidden = NO;
+    self.actionView.hidden = NO;
+    [self.customAlterView showShareViewAddView:self.actionView tapGestureWithBool:NO];
     [self myStartAnimating];
     photo = [self imageCompressForWidth:photo targetWidth:200.0f];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
@@ -284,8 +334,8 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"dict:%@",dict);
         [weakSelf myStopAnimating];
-        self.ZFAlterView.hidden = YES;
-        self.activityView.hidden = YES;
+        weakSelf.actionView.hidden = YES;
+        [self.customAlterView hihhdenView];
         NSNumber*status  =[dict objectForKey:@"status"];
         int a=[status intValue];
         if(a==1)
@@ -313,9 +363,12 @@
             weakSelf.biaoyulabel.text = [NSString stringWithFormat:@"无法识别"];
             weakSelf.bgimageView.userInteractionEnabled = NO;
             weakSelf.tantouRedPacketView.hidden = NO;
-            [weakSelf.customAlterView showShareViewAddView:weakSelf.tantouRedPacketView];
+            [weakSelf.customAlterView showShareViewAddView:weakSelf.tantouRedPacketView tapGestureWithBool:YES];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [weakSelf myStopAnimating];
+        weakSelf.actionView.hidden = YES;
+        [self.customAlterView hihhdenView];
         [MBProgressHUD showError:@"请求失败" toView:self.view];
         return;
     }];
@@ -358,15 +411,15 @@
         [array addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading%d",i]]];
     }
 
-    [self.actionView setAnimationImages:array];
-    [self.actionView setAnimationRepeatCount:INTMAX_MAX];
-    [self.actionView setAnimationDuration:0.5];
-    [self.actionView startAnimating];
+    [self.activityImageV setAnimationImages:array];
+    [self.activityImageV setAnimationRepeatCount:INTMAX_MAX];
+    [self.activityImageV setAnimationDuration:0.5];
+    [self.activityImageV startAnimating];
 }
 -(void)myStopAnimating
 {
-    [self.actionView stopAnimating];
-    [self.actionView removeFromSuperview];
+    [self.activityImageV stopAnimating];
+    [self.activityImageV removeFromSuperview];
 }
 
 -(void)rightAction{
@@ -453,19 +506,14 @@
 }
 - (IBAction)dashangAction:(UIButton *)sender {
     if (self.myscore!=nil) {
-        [self createTableView];
-        self.ZFMyView.hidden = NO;
-        self.ZFAlterView.hidden = NO;
+        self.detailView.hidden = NO;
+        [self.customAlterView showShareViewAddView:self.detailView tapGestureWithBool:YES];
         [self.zfTableView reloadData];
     }else{
         self.bgimageView.userInteractionEnabled = NO;
         self.tantouRedPacketView.hidden = NO;
-        [self.customAlterView showShareViewAddView:self.tantouRedPacketView];
+        [self.customAlterView showShareViewAddView:self.tantouRedPacketView tapGestureWithBool:YES];
     }
-}
-- (IBAction)backbtnAction:(UIButton *)sender {
-    self.ZFAlterView.hidden = YES;
-    self.ZFMyView.hidden = YES;
 }
 #pragma - 保存至相册
 - (void)saveImageToPhotoAlbum:(UIImage *)savedImage {
@@ -488,6 +536,7 @@
 #pragma mark --隐藏其他的东西
 -(void)ZFhiddenOtherView{
     self.bgimageView.userInteractionEnabled = YES;
+    self.detailView.hidden = YES;
     self.tantouRedPacketView.hidden = YES;
     [self.customAlterView hihhdenView];
 }

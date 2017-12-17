@@ -43,6 +43,8 @@
 @property (nonatomic,strong)ZFCustomAlterView *alterView;
 //分享
 @property (nonatomic,strong)UIView *zfShareView;
+//确定是分享还是直接挑战了
+@property (nonatomic,assign)BOOL isTiaozhan;
 @end
 @implementation ChristmasHomeViewController
 //分享View
@@ -56,16 +58,16 @@
         //背景图片
         UIImageView *backgroundImageView = [[UIImageView alloc] init];
         [tantouRedPacketView addSubview:backgroundImageView];
-        backgroundImageView.image = [UIImage imageNamed:@"tuichutanchuang"];
+        backgroundImageView.image = [UIImage imageNamed:@"fenxiangz"];
         backgroundImageView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
         backgroundImageView.origin = CGPointMake(0, 0);
-        //挑战按钮
-        UIButton *challengeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"tiaozhan"] highlightedImage:[UIImage imageNamed:@"tiaozhan"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(CancelButtonDidClick)];
+        //取消按钮
+        UIButton *challengeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"quxiao"] highlightedImage:[UIImage imageNamed:@"quxiao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(CancelButtonDidClick)];
         [tantouRedPacketView addSubview:challengeButton];
         challengeButton.right = tantouRedPacketView.width * 0.5 - ZXSRealValueFit6SWidthPt(30);
         challengeButton.bottom = CGRectGetMaxY(backgroundImageView.frame) - ZXSRealValueFit6SWidthPt(60);
-        //注销按钮
-        UIButton *cancelButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"zhuxiao"] highlightedImage:[UIImage imageNamed:@"zhuxiao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(ShareButtonDidClick)];
+        //分享按钮
+        UIButton *cancelButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"fenxiang"] highlightedImage:[UIImage imageNamed:@"fenxiang"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(ShareButtonDidClick)];
         [tantouRedPacketView addSubview:cancelButton];
         cancelButton.left = tantouRedPacketView.width * 0.5 + ZXSRealValueFit6SWidthPt(30);
         cancelButton.bottom = challengeButton.bottom;
@@ -118,7 +120,6 @@
 }
 - (UIButton *)redPacketButton {
     if (!_redPacketButton) {
-        
         UIButton *redPacketButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"hongbao"] highlightedImage:[UIImage imageNamed:@"hongbao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(72), ZXSRealValueFit6SWidthPt(88)) target:self action:@selector(redPacketButtonDidClick)];
         [self.view addSubview:redPacketButton];
         _redPacketButton = redPacketButton;
@@ -217,8 +218,8 @@
     self.screenWidth = ZXSSCREEN_WIDTH;
     self.screenHeight = ZXSSCREEN_HEIGHT;
     self.backgroundImageView.origin = CGPointMake(0, 0);
-    self.backButton.origin = CGPointMake(ZXSRealValueFit6SWidthPt(40), ZXSRealValueFit6SWidthPt(40));//20,20
-    self.redPacketButton.top = ZXSRealValueFit6SWidthPt(30);//16
+    self.backButton.origin = CGPointMake(ZXSRealValueFit6SWidthPt(50), ZXSRealValueFit6SWidthPt(50));//20,20
+    self.redPacketButton.top = ZXSRealValueFit6SWidthPt(50);//16
     self.redPacketButton.right = self.screenWidth - ZXSRealValueFit6SWidthPt(40);//20
     self.startAnswerButton.centerX = self.screenWidth * 0.5;
     self.startAnswerButton.bottom = self.screenHeight - ZXSRealValueFit6SWidthPt(100);
@@ -228,7 +229,7 @@
     self.shareActivityButton.bottom = self.startAnswerButton.top - ZXSRealValueFit6SWidthPt(20);
     self.tantouRedPacketView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
     self.zfShareView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
-    self.challengeImageView.top = ZXSRealValueFit6SWidthPt(60);
+    self.challengeImageView.top = ZXSRealValueFit6SWidthPt(70);
     self.challengeImageView.right = self.redPacketButton.left - ZXSRealValueFit6SWidthPt(80);
     self.countLabel.left = self.challengeImageView.right - ZXSRealValueFit6SWidthPt(10);
     self.countLabel.bottom = self.challengeImageView.top + ZXSRealValueFit6SWidthPt(10);
@@ -249,8 +250,8 @@
             
             switch (state) {
                 case SSDKResponseStateSuccess: {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                    [alertView show];
+//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                    [alertView show];
                     //通知服务器发送分享成功信息请求
                     [weakSelf sendShareActivityRequestToServer];
                     break;
@@ -314,7 +315,6 @@
         } else { //操作失败
             [weakSelf hiddenOtherView];
             [MBProgressHUD showError:dict[@"msg"] toView:self.view];
-         
         }
     } failure:^(NSError *error) {
         [weakSelf hiddenOtherView];
@@ -375,13 +375,15 @@
             //share_time  分享的次数
             if (challengeCount == 0 && ![share_time isEqualToString:@"2"]) {
                 // 总的次数为空
-                self.startAnswerButton.hidden = YES;
+                self.isTiaozhan = NO;
+                self.startAnswerButton.hidden = NO;
                 self.tomorrowBtn.hidden = YES;
             }else if (challengeCount == 0 && [share_time isEqualToString:@"2"]){
                 self.startAnswerButton.hidden = YES;
                 self.tomorrowBtn.hidden = NO;
             }else{
                 if (can_challenge == 1 ) {
+                    self.isTiaozhan = YES;
                     self.startAnswerButton.hidden = NO;
                     self.tomorrowBtn.hidden = YES;
                 }
@@ -402,24 +404,25 @@
 }
 - (void)redPacketButtonDidClick {
     self.tantouRedPacketView.hidden = NO;
-    [self.alterView showShareViewAddView:self.tantouRedPacketView];
+    [self.alterView showShareViewAddView:self.tantouRedPacketView tapGestureWithBool:YES];
 }
+#pragma mark - 直接点击分享了
 - (void)shareActivityButtonDidClick {
-    self.zfShareView.hidden = NO;
-    [self.alterView showShareViewAddView:self.zfShareView];
+    [self userMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
 }
 #pragma mark -明天再来
 -(void)TomoorowButtonDidClick{
     // 退出当前控制器
     [self.navigationController popToRootViewControllerAnimated:NO];
-    //TODO测试东西了
-    //ChristmasEndingViewController *endVc = [[ChristmasEndingViewController alloc]init];
-    //[self.navigationController pushViewController:endVc animated:YES];
 }
 - (void)startAnswerButtonDidClick:(UIButton *)button {
-    // 退出当前控制器
-    ChristmasAnswerViewController *answerVc = [[ChristmasAnswerViewController alloc]init];
-    [self.navigationController pushViewController:answerVc animated:YES];
+    if (self.isTiaozhan == YES) {
+        ChristmasAnswerViewController *answerVc = [[ChristmasAnswerViewController alloc]init];
+        [self.navigationController pushViewController:answerVc animated:YES];
+    }else{
+        self.zfShareView.hidden = NO;
+        [self.alterView showShareViewAddView:self.zfShareView tapGestureWithBool:YES];
+    }
 }
 - (void)cashButtonDidClick {
     [self sendCashMoneyRequestToServer];

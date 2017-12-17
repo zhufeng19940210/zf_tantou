@@ -7,12 +7,9 @@
 //  Designed By PageGuo,
 //  QQ:799573715
 //  github:https://github.com/PageGuo/NewPagedFlowView
-
 #import "NewPagedFlowView.h"
 #import "PGIndexBannerSubiew.h"
-
 @interface NewPagedFlowView ()
-
 @property (nonatomic, assign, readwrite) NSInteger currentPageIndex;
 
 /**
@@ -703,12 +700,10 @@ static NSString *subviewClassName;
         
     }
 }
-
 //点击了cell
 - (void)singleCellTapAction:(NSInteger)selectTag withCell:(PGIndexBannerSubiew *)cell {
     
     if ([self.delegate respondsToSelector:@selector(didSelectCell:withSubViewIndex:)]) {
-        
         [self.delegate didSelectCell:cell withSubViewIndex:selectTag];
         
     }

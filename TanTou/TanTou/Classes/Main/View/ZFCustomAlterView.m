@@ -10,14 +10,16 @@
 @end
 @implementation ZFCustomAlterView
 //显示
--(void)showShareViewAddView:(UIView *)myView{
+-(void)showShareViewAddView:(UIView *)myView tapGestureWithBool:(BOOL)isTapGesture{
     //背景图
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UIView *blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,ZXSSCREEN_WIDTH ,ZXSSCREEN_HEIGHT)];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenView)];
+    if (isTapGesture == YES) {
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenView)];
+        [blackView addGestureRecognizer:tapGesture];
+    }
     blackView.backgroundColor = [UIColor colorWithRed:(0/255.0f) green:(0/255.0f) blue:(0/255.0f) alpha:0.4];
     blackView.tag = 440;
-    [blackView addGestureRecognizer:tapGesture];
     [window addSubview:blackView];
     [window addSubview:myView];
 }

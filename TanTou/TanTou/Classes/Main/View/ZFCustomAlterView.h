@@ -12,6 +12,6 @@
 @end
 @interface ZFCustomAlterView : UIView
 @property (nonatomic,weak)id <ZFCustomAlterViewDelegate>delegate;
--(void)showShareViewAddView:(UIView *)myView;
+-(void)showShareViewAddView:(UIView *)myView tapGestureWithBool:(BOOL)isTapGesture;
 -(void)hihhdenView;
 @end

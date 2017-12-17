@@ -44,45 +44,8 @@
 @property (nonatomic,strong)UIView *tantouRedPacketView2;
 @property (nonatomic,strong)UIImageView *centerView;
 @property (nonatomic,copy)NSString *pushUrl;
-@property (nonatomic,strong)UIView *zfShareView;
 @end
 @implementation ChristmasEndingViewController
-//分享View
-- (UIView *)zfShareView {
-    if (!_zfShareView) {
-        UIView *tantouRedPacketView = [[UIView alloc] init];
-        [self.view addSubview:tantouRedPacketView];
-        _zfShareView = tantouRedPacketView;
-        tantouRedPacketView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
-        tantouRedPacketView.hidden = YES;
-        //背景图片
-        UIImageView *backgroundImageView = [[UIImageView alloc] init];
-        [tantouRedPacketView addSubview:backgroundImageView];
-        backgroundImageView.image = [UIImage imageNamed:@"tuichutanchuang"];
-        backgroundImageView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
-        backgroundImageView.origin = CGPointMake(0, 0);
-        //挑战按钮
-        UIButton *challengeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"tiaozhan"] highlightedImage:[UIImage imageNamed:@"tiaozhan"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(CancelButtonDidClick)];
-        [tantouRedPacketView addSubview:challengeButton];
-        challengeButton.right = tantouRedPacketView.width * 0.5 - ZXSRealValueFit6SWidthPt(30);
-        challengeButton.bottom = CGRectGetMaxY(backgroundImageView.frame) - ZXSRealValueFit6SWidthPt(60);
-        //注销按钮
-        UIButton *cancelButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"zhuxiao"] highlightedImage:[UIImage imageNamed:@"zhuxiao"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(ShareButtonDidClick)];
-        [tantouRedPacketView addSubview:cancelButton];
-        cancelButton.left = tantouRedPacketView.width * 0.5 + ZXSRealValueFit6SWidthPt(30);
-        cancelButton.bottom = challengeButton.bottom;
-    }
-    return _zfShareView;
-}
-#pragma mark CancelButtonDidClick
--(void)CancelButtonDidClick{
-    [self hidderOtherView];
-}
-#pragma mark - ShareButtonDidClick
--(void)ShareButtonDidClick{
-    [self hidderOtherView];
-    [self useMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
-}
 //懒加载
 - (UIView *)tantouRedPacketView2 {
 if (!_tantouRedPacketView2) {
@@ -92,8 +55,8 @@ if (!_tantouRedPacketView2) {
         tantouRedPacketView.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(648));
         tantouRedPacketView.hidden = YES;
         //关闭按钮
-        UIButton *closeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"chacha2"] highlightedImage:[UIImage imageNamed:@"chacha2"] bounds:CGRectMake(ZXSRealValueFit6SWidthPt(540),0, ZXSRealValueFit6SWidthPt(48), ZXSRealValueFit6SWidthPt(48)) target:self action:@selector(EndCloseDidClick)];
-        closeButton.frame = CGRectMake(ZXSRealValueFit6SWidthPt(540),10, ZXSRealValueFit6SWidthPt(48), ZXSRealValueFit6SWidthPt(48));
+        UIButton *closeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"chacha2"] highlightedImage:[UIImage imageNamed:@"chacha2"] bounds:CGRectMake(ZXSRealValueFit6SWidthPt(540),0, ZXSRealValueFit6SWidthPt(80), ZXSRealValueFit6SWidthPt(80)) target:self action:@selector(EndCloseDidClick)];
+        closeButton.frame = CGRectMake(ZXSRealValueFit6SWidthPt(550),10, ZXSRealValueFit6SWidthPt(80), ZXSRealValueFit6SWidthPt(80));
         [tantouRedPacketView addSubview:closeButton];
         //背景图片
         UIImageView *backgroundImageView = [[UIImageView alloc] init];
@@ -110,9 +73,9 @@ if (!_tantouRedPacketView2) {
         //获取更多鼓励
         UIButton *moreButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"jiangli"] highlightedImage:[UIImage imageNamed:@"jiangli"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(260), ZXSRealValueFit6SWidthPt(80)) target:self action:@selector(MoreButtonDidClick)];
         [tantouRedPacketView addSubview:moreButton];
-        moreButton.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(200), ZXSRealValueFit6SWidthPt(70));
+        moreButton.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(260), ZXSRealValueFit6SWidthPt(100));
         moreButton.centerX = tantouRedPacketView.width * 0.5;
-        moreButton.bottom = tantouRedPacketView.bottom - 10;
+        moreButton.bottom = tantouRedPacketView.bottom - 8;
     }
     return _tantouRedPacketView2;
 }
@@ -316,8 +279,8 @@ if (!_tantouRedPacketView2) {
     self.screenWidth = ZXSSCREEN_WIDTH;
     self.screenHeight = ZXSSCREEN_HEIGHT;
     self.backgroundImageView.origin = CGPointMake(0, 0);
-    self.backButton.origin = CGPointMake(ZXSRealValueFit6SWidthPt(40), ZXSRealValueFit6SWidthPt(40));
-    self.redPacketButton.top = ZXSRealValueFit6SWidthPt(30);
+    self.backButton.origin = CGPointMake(ZXSRealValueFit6SWidthPt(50), ZXSRealValueFit6SWidthPt(50));
+    self.redPacketButton.top = ZXSRealValueFit6SWidthPt(50);
     self.redPacketButton.right = self.screenWidth - ZXSRealValueFit6SWidthPt(40);
     self.newaddMoneyLabel.top = ZXSRealValueFit6SWidthPt(300);
     self.newaddMoneyLabel.centerX = self.screenWidth * 0.5;
@@ -348,7 +311,7 @@ if (!_tantouRedPacketView2) {
             if ([status intValue] ==1) {
                 [weakSelf.centerView sd_setImageWithURL:[NSURL URLWithString:logonurl]];
                 weakSelf.tantouRedPacketView2.hidden = NO;
-                [weakSelf.alterView showShareViewAddView:weakSelf.tantouRedPacketView2];
+                [weakSelf.alterView showShareViewAddView:weakSelf.tantouRedPacketView2 tapGestureWithBool:YES];
                 [weakSelf loadUserInfoFromServer];
             }else{
                [MBProgressHUD showError:@"请求失败" toView:self.view];
@@ -462,7 +425,6 @@ if (!_tantouRedPacketView2) {
         NSLog(@"shareActivityButtonDidClickmsg:%@",dict[@"msg"]);
         NSNumber *status = [dict objectForKey:@"status"];
         if ([status intValue] == 1) { //操作成功
-            
         } else { //操作失败
             [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
         }
@@ -486,9 +448,8 @@ if (!_tantouRedPacketView2) {
             
             switch (state) {
                 case SSDKResponseStateSuccess: {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                    [alertView show];
-                    
+//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                    [alertView show];
                     //通知服务器发送分享成功信息请求
                     [weakSelf sendShareActivityRequestToServer];
                     break;
@@ -504,45 +465,34 @@ if (!_tantouRedPacketView2) {
         }];
     }
 }
+//动画帧
 - (void)moveAndScalemoneyLabel {
     //当前金额动画
     /* 移动 */
     CABasicAnimation *animation1 = [CABasicAnimation animationWithKeyPath:@"position"];
     // 起始帧和终了帧的设定
     animation1.toValue = [NSValue valueWithCGPoint:CGPointMake(ZXSSCREEN_WIDTH - 40, 40)]; // 终了帧
-    animation1.duration = 3.0;
+    animation1.duration = 1.0;
     /* 放大缩小 */
     CABasicAnimation *animation2 = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     animation2.toValue = [NSNumber numberWithFloat:0.0001];
-    animation2.duration = 3.0;
-    
+    animation2.duration = 1.0;
     [self.newaddMoneyLabel.layer addAnimation:animation1 forKey:nil];
     [self.newaddMoneyLabel.layer addAnimation:animation2 forKey:nil];
 }
 #pragma mark - 触发事件
 - (void)backButtonDidClick {
-    [UIView animateWithDuration:5.0 animations:^{
-        [self moveAndScalemoneyLabel];
-    } completion:^(BOOL finished) {
-        // 退出当前控制器
-        if ([self.navigationController.childViewControllers[1] isKindOfClass:[WeChatLoginViewController class]]) {
-            [self.navigationController popToViewController:self.navigationController.childViewControllers[2] animated:YES];
-        } else {
-            [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:YES];
-        }
-    }];
+    [self showMyBackAnimation];
 }
 - (void)redPacketButtonDidClick {
     self.tantouRedPacketView.hidden = NO;
-    [self.alterView showShareViewAddView:self.tantouRedPacketView];
+    [self.alterView showShareViewAddView:self.tantouRedPacketView tapGestureWithBool:YES];
 }
 #pragma mark -ZFCustomAlterViewDelegate
 -(void)customAlterViewHidden{
     [self hidderOtherView];
 }
-
 -(void)hidderOtherView{
-    self.zfShareView.hidden = YES;
     self.tantouRedPacketView2.hidden = YES;
     self.tantouRedPacketView.hidden = YES;
     [self.alterView hihhdenView];
@@ -555,15 +505,21 @@ if (!_tantouRedPacketView2) {
     [self hidderOtherView];
 }
 - (void)shareActivityButtonDidClick {
-    self.zfShareView.hidden = NO;
-    [self.alterView showShareViewAddView:self.zfShareView];
+    [self useMobShareSDKForShareImage:[UIImage imageNamed:@"share.png"]];
 }
-
 - (void)endChallengeButtonDidClick {
-    if ([self.navigationController.childViewControllers[1] isKindOfClass:[WeChatLoginViewController class]]) {
-         [self.navigationController popToViewController:self.navigationController.childViewControllers[2] animated:NO];
-    } else {
-        [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:NO];
-    }
+    [self showMyBackAnimation];
+}
+-(void)showMyBackAnimation{
+    [UIView animateWithDuration:5.0 animations:^{
+        [self moveAndScalemoneyLabel];
+    } completion:^(BOOL finished) {
+        // 退出当前控制器
+        if ([self.navigationController.childViewControllers[1] isKindOfClass:[WeChatLoginViewController class]]) {
+            [self.navigationController popToViewController:self.navigationController.childViewControllers[2] animated:NO];
+        } else {
+            [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:NO];
+        }
+    }];
 }
 @end
