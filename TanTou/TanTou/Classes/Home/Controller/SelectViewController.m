@@ -110,7 +110,7 @@
         [actionView addSubview:backgroundImageView];
         _activityImageV = backgroundImageView;
         backgroundImageView.image = [UIImage imageNamed:@"loading1"];
-        backgroundImageView.frame = CGRectMake(0, ZXSRealValueFit6SWidthPt(120), ZXSRealValueFit6SWidthPt(250), ZXSRealValueFit6SWidthPt(250));
+        backgroundImageView.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(250), ZXSRealValueFit6SWidthPt(250));
     }
     return _actionView;
 }

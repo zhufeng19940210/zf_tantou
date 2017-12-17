@@ -109,7 +109,7 @@
         [actionView addSubview:backgroundImageView];
         _activityImageV = backgroundImageView;
         backgroundImageView.image = [UIImage imageNamed:@"loading1"];
-        backgroundImageView.frame = CGRectMake(0, ZXSRealValueFit6SWidthPt(120), ZXSRealValueFit6SWidthPt(250), ZXSRealValueFit6SWidthPt(250));
+        backgroundImageView.frame = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(250), ZXSRealValueFit6SWidthPt(250));
     }
     return _actionView;
 }
@@ -156,7 +156,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavigationBar];
-    self.tantouRedPacketView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5 -40);
+    self.detailView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5);
+    self.actionView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5);
+    self.tantouRedPacketView.center = CGPointMake(ZXSSCREEN_WIDTH * 0.5, ZXSSCREEN_HEIGHT * 0.5- 40);
     self.biaoyulabel.hidden=YES;
     self.bgimageView.image = self.selectImage;
      self.bgimageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -166,14 +168,14 @@
     [self sendShareCommandWithType:self.selectImage];
 }
 - (void)setupNavigationBar {
-    self.title = @"健康得分";
+    self.title = @"健康指数";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:33 / 255.0 green:203 / 255.0 blue:200 / 255.0 alpha:1.0]];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"fanhuibai"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"fanhuibai"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick2)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:18] target:self action:@selector(saveBarButtonItemDidClick) title:@"保存"];
 }
 #pragma mark - 触发事件
-- (void)leftBarButtonItemDidClick {
+- (void)leftBarButtonItemDidClick2 {
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 - (void)saveBarButtonItemDidClick {
@@ -234,7 +236,6 @@
 }
 
 -(CGFloat)cellHeightWithStr:(NSString *)str{
-    
     CGFloat cellHeight;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -333,8 +334,8 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"dict:%@",dict);
         [weakSelf myStopAnimating];
-        weakSelf.actionView.hidden = NO;
-        [weakSelf.customAlterView showShareViewAddView:weakSelf.actionView tapGestureWithBool:NO];
+        weakSelf.actionView.hidden = YES;
+        [weakSelf.customAlterView hihhdenView];
         NSNumber*status  =[dict objectForKey:@"status"];
         int a=[status intValue];
         if(a==1)
