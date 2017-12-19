@@ -72,7 +72,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20171216001</string>
+	<string>20171219001</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sinaweibosso</string>
@@ -112,7 +112,7 @@
 		<string>armv7</string>
 	</array>
 	<key>UIRequiresFullScreen</key>
-	<false/>
+	<true/>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UIStatusBarStyle</key>
