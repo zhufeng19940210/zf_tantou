@@ -360,6 +360,7 @@ if (!_tantouRedPacketView2) {
             NSLog(@"loadUrverresultlast_money%@",resultDict[@"last_money"]);
             if ([self.userItem.last_money  isEqualToString:@"0.00"]) {//答错
                 NSLog(@"viewDidAppear答错");
+                //测试了
                 self.newaddMoneyLabel.hidden = YES;
                 self.resultLabel.hidden = YES;
                 self.middleImageView.image = [UIImage imageNamed:@"zjzlzzz"];
@@ -426,7 +427,7 @@ if (!_tantouRedPacketView2) {
         NSNumber *status = [dict objectForKey:@"status"];
         if ([status intValue] == 1) { //操作成功
         } else { //操作失败
-            [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
+           // [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
@@ -511,15 +512,14 @@ if (!_tantouRedPacketView2) {
     [self showMyBackAnimation];
 }
 -(void)showMyBackAnimation{
-    [UIView animateWithDuration:5.0 animations:^{
-        [self moveAndScalemoneyLabel];
-    } completion:^(BOOL finished) {
-        // 退出当前控制器
-        if ([self.navigationController.childViewControllers[1] isKindOfClass:[WeChatLoginViewController class]]) {
-            [self.navigationController popToViewController:self.navigationController.childViewControllers[2] animated:NO];
-        } else {
-            [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:NO];
-        }
-    }];
+    [self moveAndScalemoneyLabel];
+    [self performSelector:@selector(zfback) withObject:self afterDelay:1.0];
+}
+-(void)zfback{
+    if ([self.navigationController.childViewControllers[1] isKindOfClass:[WeChatLoginViewController class]]) {
+        [self.navigationController popToViewController:self.navigationController.childViewControllers[2] animated:YES];
+    } else {
+        [self.navigationController popToViewController:self.navigationController.childViewControllers[1] animated:YES];
+    }
 }
 @end

@@ -171,7 +171,7 @@
     self.title = @"健康指数";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:33 / 255.0 green:203 / 255.0 blue:200 / 255.0 alpha:1.0]];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"fanhuibai"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick2)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"bai2"] highlightedImage:nil target:self action:@selector(leftBarButtonItemDidClick2)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:18] target:self action:@selector(saveBarButtonItemDidClick) title:@"保存"];
 }
 #pragma mark - 触发事件

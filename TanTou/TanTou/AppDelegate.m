@@ -46,6 +46,7 @@
         self.window.rootViewController = rootVc;
         [self.window makeKeyAndVisible];
     } else { // 平时使用
+        
         HomeViewController *homeVC = [[HomeViewController alloc] init];
         ZFNavigtionController *nav = [[ZFNavigtionController alloc] initWithRootViewController:homeVC];
         self.window.rootViewController = nav;
@@ -108,6 +109,11 @@
 }
 - (void)setupGuangGao {
     //开屏广告初始化并展示代码
+    NSString *networkStatus = [[ZXSUtil shareUtil] getcurrentStatus];
+    if ([networkStatus isEqualToString:@"NotNet"]) {
+        [MBProgressHUD showError:@"网络未连接"];
+        return;
+    }
     GDTSplashAd *splash = [[GDTSplashAd alloc] initWithAppkey:@"1106337035" placementId:@"8060621589607712"];
     splash.delegate = self; //设置代理 //根据iPhone设备不同设置不同背景图
     if ([[UIScreen mainScreen] bounds].size.height >= 568.0f) {

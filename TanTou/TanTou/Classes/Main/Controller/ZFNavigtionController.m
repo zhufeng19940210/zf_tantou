@@ -28,11 +28,8 @@
     if (self.childViewControllers.count > 0) { // 不是第一个push进来的 左上角加上返回键
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.titleLabel.font = [UIFont systemFontOfSize:18];
-        [button setTitle:@"" forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-        [button setImage:[UIImage imageNamed:@"fanhuibai"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"fanhuihei"] forState:UIControlStateHighlighted];
+        [button setImage:[UIImage imageNamed:@"bai2"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"hei2"] forState:UIControlStateHighlighted];
         [button sizeToFit];
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         [button addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];

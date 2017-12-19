@@ -282,7 +282,7 @@
         if ([status intValue] == 1) { //操作成功
             [weakSelf loadUserInfoFromServer];
         } else { //操作失败
-            [MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
+            //[MBProgressHUD showError:dict[@"msg"] toView:weakSelf.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD showError:[NSString stringWithFormat:@"%@",error] toView:weakSelf.view];
@@ -292,7 +292,7 @@
 - (void)sendCashMoneyRequestToServer {
     NSString *networkStatus = [[ZXSUtil shareUtil] getcurrentStatus];
     if ([networkStatus isEqualToString:@"NotNet"]) {
-        [MBProgressHUD showError:@"网络未连接"];
+        [MBProgressHUD showError:@"网络未连接" toView:self.view];
         return;
     }
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -325,7 +325,7 @@
 - (void)loadUserInfoFromServer {
     NSString *networkStatus = [[ZXSUtil shareUtil] getcurrentStatus];
     if ([networkStatus isEqualToString:@"NotNet"]) {
-        [MBProgressHUD showError:@"网络未连接"];
+        [MBProgressHUD showError:@"网络未连接" toView:self.view];
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }

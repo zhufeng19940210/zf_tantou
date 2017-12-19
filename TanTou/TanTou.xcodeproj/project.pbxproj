@@ -1240,7 +1240,7 @@
 				TargetAttributes = {
 					BF24B9961F3D14FD00741740 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = A658VDE3EY;
+						DevelopmentTeam = UG23VK8R95;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1546,10 +1546,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuanyuan  Gao (5PU44WM2KG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuanyuan  Gao (5PU44WM2KG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ShiWen Feng (PL839S6LZU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = A658VDE3EY;
+				DEVELOPMENT_TEAM = UG23VK8R95;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TanTou/Library/ZhiFuBao",
@@ -1591,10 +1591,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bailing.Christmas;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bailing.TanTou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9f3350f0-7fc9-43a0-add2-46f0fa4e214a";
-				PROVISIONING_PROFILE_SPECIFIER = ChristmasDev;
+				PROVISIONING_PROFILE = "96f37346-8d90-4a61-a33a-0c4b6551b165";
+				PROVISIONING_PROFILE_SPECIFIER = zf_bailing_dev;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1604,10 +1604,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yuanyuan  Gao (A658VDE3EY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yuanyuan  Gao (A658VDE3EY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen DaoDian Technology Co. Ltd (UG23VK8R95)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = A658VDE3EY;
+				DEVELOPMENT_TEAM = UG23VK8R95;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TanTou/Library/ZhiFuBao",
@@ -1648,10 +1648,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bailing.Christmas;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bailing.TanTou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "150f7907-2718-47ed-9fc8-9e727bb39b5b";
-				PROVISIONING_PROFILE_SPECIFIER = ChristmasDis;
+				PROVISIONING_PROFILE = "51ed8b22-e0e5-49ee-b6fb-b98ddc887c03";
+				PROVISIONING_PROFILE_SPECIFIER = zf_bailing_ad_hoc;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
