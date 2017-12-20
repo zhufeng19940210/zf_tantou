@@ -420,25 +420,8 @@
     self.isLogin = NO;
 }
 - (void)cameraButtonDidClick:(UIButton *)sender {
-    //判断是否获得相机权限
-    NSString *mediaType = AVMediaTypeVideo;
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
-    if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
-        [MBProgressHUD showError:@"应用相机权限受限,请在设置中启用"];
-        return;
-    }
-    // 适配iOS8以上系统版本
-    if(iOS8) {
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            //跳转照相界面
-            [self.navigationController pushViewController:[[FoolCameraViewController alloc] init] animated:NO];
-        }else {
-            UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message: @"您当前的设备没有照相功能"  preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-            [alertView addAction:confirmAction];
-            [self presentViewController:alertView animated:YES completion:nil];
-        }
-    }
+    //跳转照相界面
+    [self.navigationController pushViewController:[[FoolCameraViewController alloc] init] animated:NO];
 }
 #pragma mark closeBtn
 -(void)closeButtonDidClick{
@@ -471,8 +454,8 @@
     NSLog(@" at index : %lu",  (unsigned long)itemButtonIndex);
     if(itemButtonIndex==0)
     {
-       ZFPayViewController *paymoneyVc = [[ZFPayViewController alloc]init];
-      [self.navigationController pushViewController:paymoneyVc animated:NO];
+//       ZFPayViewController *paymoneyVc = [[ZFPayViewController alloc]init];
+//      [self.navigationController pushViewController:paymoneyVc animated:NO];
     }else if(itemButtonIndex==1)
     {
         FeedbackViewController1*feedBackVC=[[FeedbackViewController1 alloc]init];
