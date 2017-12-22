@@ -386,6 +386,8 @@
                     self.isTiaozhan = YES;
                     self.startAnswerButton.hidden = NO;
                     self.tomorrowBtn.hidden = YES;
+                }else{
+                    NSLog(@"人数太多了");
                 }
             }
         } else { //操作失败

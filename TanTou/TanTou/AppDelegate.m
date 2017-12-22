@@ -23,7 +23,7 @@
 #import "HomeViewController.h"
 #import "ZFNavigtionController.h"
 #import <AlipaySDK/AlipaySDK.h>
-@interface AppDelegate ()<GDTSplashAdDelegate,WXApiDelegate>
+@interface AppDelegate ()<GDTSplashAdDelegate,WXApiDelegate,UIAlertViewDelegate>
 /**是否是第一次运行*/
 @property (assign, nonatomic) BOOL isFirstRun; // yes是,no不是
 //广告控件
@@ -53,15 +53,19 @@
         [self.window makeKeyAndVisible];
         //启动广告页面了
         [self setupGuangGao];
+        //这里开始去检测版本
+        [self setupVersion];
     }
     return YES;
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    
 }
 -(void)applicationDidEnterBackground:(UIApplication *)application {
-
+    
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    
 }
 #pragma mark - 自定义方法
 //初始化ShareSDK应用
@@ -144,7 +148,6 @@
  *  详解: 当点击下载应用时会调用系统程序打开，应用切换到后台
  */
 - (void)splashAdApplicationWillEnterBackground:(GDTSplashAd *)splashAd{
-
 }
 /**
  *  开屏广告点击回调
@@ -243,5 +246,79 @@
     }
     //2.微信
     return  [WXApi handleOpenURL:url delegate:self];
+}
+//更新版本的代码
+-(void)setupVersion
+{
+    __weak AppDelegate *weakSelf = self;
+    [[ZXSNetworkTool sharedNetworkTool]POST:@"http://itunes.apple.com/cn/lookup?id=1270665960" parameters:nil success:^(id responseObject) {
+        NSLog(@"responseObject:%@",responseObject);
+        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"dict:%@",dict);
+        //获取版本号与对应的下载链接
+        NSArray * results = dict[@"results"];
+        for (NSDictionary * dict in results) {
+            weakSelf.appStoreVersion = dict[@"version"];
+            NSLog(@"self.appStoreVersion:%@",weakSelf.appStoreVersion);
+            weakSelf.urlStr = dict[@"trackViewUrl"];
+            NSLog(@"self.urlStr:%@",weakSelf.urlStr);
+            }
+            weakSelf.localVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+            NSLog(@"self.localVersion:%@",weakSelf.localVersion );
+            weakSelf.type = [self checkVersion:weakSelf.localVersion isNewThanVersion:self.appStoreVersion];
+            NSLog(@"self.type:%lu",(unsigned long)weakSelf.type);
+            NSString * message = nil;
+            if ( weakSelf.type == LocolVersionToAppStoreVersionEqual) {
+                //当前是最新版本
+                message = @"当前是最新版本";
+            }
+            else if (weakSelf.type == LocolVersionToAppStoreVersionSmall)
+            {
+                NSLog(@"更新版本");
+                message = [NSString stringWithFormat:@"请点击更新最新版本:%@",self.appStoreVersion];
+                UIAlertView *alterVC = [[UIAlertView alloc]initWithTitle:@"提示" message:message delegate:self  cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                    [alterVC show];
+            }
+    } failure:^(NSError *error) {
+    }];
+}
+#pragma mark - uialterViewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex ==1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.urlStr]];
+    }
+}
+/**
+ *  比较版本号的大小
+ *  @param localVersion 当前版本号
+ *  @param appSroreVersion appStore版本号
+ *  @return appStore版本号与当前版本号大小关系
+ *   当前版本号（用户为用户版本号，审核为Xcode开发版本号）
+ appStore版本号是 大于或等于 当前版本号 显示更新
+ */
+- (CompareVersionType)checkVersion:(NSString *)localVersion isNewThanVersion:(NSString *)appSroreVersion{
+    CompareVersionType compareVersion ;
+    NSArray * locol = [localVersion componentsSeparatedByString:@"."];
+    NSArray * appStore = [appSroreVersion componentsSeparatedByString:@"."];
+    for (NSUInteger i = 0; i<locol.count; i++) {
+        NSInteger locolV = [[locol objectAtIndex:i] integerValue];
+        NSInteger appStoreV = appStore.count > i ? [[appStore objectAtIndex:i] integerValue] : 0;
+        if (locolV > appStoreV) {
+            compareVersion =  LocolVersionToAppStoreVersionLarge;
+            return  compareVersion;
+        }
+        else if (locolV < appStoreV) {
+            compareVersion =  LocolVersionToAppStoreVersionSmall;
+            return compareVersion;
+        }
+        else if(i == locol.count - 1)
+        {
+            if (locolV == appStoreV) {
+                compareVersion = LocolVersionToAppStoreVersionEqual;
+                return compareVersion;
+            }
+        }
+    }
+    return compareVersion;
 }
 @end
