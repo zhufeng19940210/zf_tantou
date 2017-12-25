@@ -55,11 +55,41 @@
 @property (assign, nonatomic) BOOL isgridImageViewHidden;
 //照片
 @property (strong, nonatomic) UIImage *photoImage;
-
+//天天就是加这加哪
+@property (nonatomic,weak)UIView *zfButtomView;
+//跳转的button
+@property (nonatomic,strong)UIButton *zfPushBtn;
 
 @end
 
 @implementation FoolCameraViewController
+- (UIView *)zfButtomView {
+    if (!_zfButtomView) {
+        UIView *buttomView = [[UIView alloc] init];
+        [self.view addSubview:buttomView];
+        buttomView.hidden = YES;
+        _zfButtomView = buttomView;
+        buttomView.bounds = CGRectMake(0, 0, self.screenwidth, ZXSSCREEN_HEIGHT - CGRectGetMaxY(self.containView.frame));
+        buttomView.backgroundColor = [UIColor colorWithRed:244 / 255.0 green:244 / 255.0 blue:244 / 255.0 alpha:1];
+        // 添加拍照按钮
+        UIButton *photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [buttomView addSubview:photoButton];
+        _zfPushBtn = photoButton;
+        [photoButton setImage:[UIImage imageNamed:@"anjian"] forState:UIControlStateNormal];
+        [photoButton setImage:[UIImage imageNamed:@"anjianz"] forState:UIControlStateHighlighted];
+        [photoButton addTarget:self action:@selector(pushPinfen) forControlEvents:UIControlEventTouchUpInside];//拍照按钮
+        photoButton.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(240), ZXSRealValueFit6SWidthPt(240));
+        photoButton.center = CGPointMake(self.screenwidth * 0.5, buttomView.height * 0.5-20);
+    }
+    return _zfButtomView;
+}
+#pragma mark - pushPinfen
+-(void)pushPinfen{
+    self.zfButtomView.hidden = YES;
+    SelectViewController2 *selectVc2 = [[SelectViewController2 alloc]init];
+    selectVc2.selectImage = self.photoImage;
+    [self.navigationController pushViewController:selectVc2 animated:YES];
+}
 #pragma mark - 懒加载
 - (AVCaptureSession *)session {
     if (!_session) {
@@ -111,7 +141,6 @@
     }
     return _session;
 }
-
 - (AVCaptureVideoPreviewLayer *)previewLayer {
     if (!_previewLayer) {
         // 初始化预览层，session负责驱动input进行信息的采集，layer负责把图像渲染显示
@@ -124,7 +153,6 @@
     }
     return _previewLayer;
 }
-
 - (UIView *)containView {
     if (!_containView) {
         UIView *containView = [[UIView alloc] init];
@@ -186,7 +214,6 @@
 
 - (UIView *)buttomView {
     if (!_buttomView) {
-        
         UIView *buttomView = [[UIView alloc] init];
         [self.view addSubview:buttomView];
         _buttomView = buttomView;
@@ -239,6 +266,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.containView.origin = CGPointMake(0, -20);
     self.buttomView.origin = CGPointMake(0, CGRectGetMaxY(self.containView.frame));
+    self.zfButtomView.origin = CGPointMake(0, CGRectGetMaxY(self.containView.frame));
     // 获取闪光按钮和网格按钮默认设置值，并且设置闪光按钮和网格按钮
     [self setupGridButtonAndFlashButton];
 }
@@ -279,6 +307,10 @@
 - (void)cancelBarButtonItemDidClick {
     //设置拍照、闪光按钮和网格按钮能点击
     self.view.userInteractionEnabled = YES;
+    self.zfButtomView.hidden = YES;
+    self.buttomView.hidden = NO;
+    self.gridButton.enabled = YES;
+    self.flashButton.enabled = YES;
     //设置导航栏leftBarButtonItem
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem zxs_barButtonItemWithHighlightedStatusWithImage:[UIImage imageNamed:@"bai2"] highlightedImage:nil target:self action:@selector(backBarButtonItemDidClick)];
     //设置导航栏rightBarButtonItem
@@ -292,8 +324,7 @@
     }
 }
 - (void)completeBarButtonItemDidClick {
-    // 保存图片
-    [self saveImageToPhotoAlbum:self.photoImage];
+    self.zfButtomView.hidden = YES;
     SelectViewController2 *selectVc2 = [[SelectViewController2 alloc]init];
     selectVc2.selectImage = self.photoImage;
     [self.navigationController pushViewController:selectVc2 animated:YES];
@@ -345,7 +376,6 @@
 
 //点击的时候出现黄色的小正方形
 - (void)focusGesture:(UITapGestureRecognizer*)gesture {
-    
     CGPoint point = [gesture locationInView:gesture.view];
     NSLog(@"NSStringFromCGPoint%@",NSStringFromCGPoint(point));
     // 设置正方形只能在画面区域显示
@@ -358,7 +388,6 @@
 }
 
 - (void)focusAtPoint:(CGPoint)point {
-    
     CGSize size = self.gridImageView.size;
     CGPoint focusPoint = CGPointMake(point.y / size.height ,1 - point.x / size.width);
     NSError *error;
@@ -386,7 +415,11 @@
     }
 }
 - (void)shutterCamera {
-    self.view.userInteractionEnabled = NO;
+    self.buttomView.hidden = YES;
+    self.zfButtomView.hidden = NO;
+    self.gridButton.enabled = NO;
+    self.flashButton.enabled = NO;
+    //self.view.userInteractionEnabled = NO;
     //session通过AVCaptureConnection连接AVCaptureStillimageOutPut进行图片输出
     AVCaptureConnection *videoConnection = [self.imageOutput connectionWithMediaType:AVMediaTypeVideo];
     if (!videoConnection) {

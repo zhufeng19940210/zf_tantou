@@ -53,9 +53,9 @@
         [self.window makeKeyAndVisible];
         //启动广告页面了
         [self setupGuangGao];
-        //这里开始去检测版本
-        [self setupVersion];
     }
+    //这里开始去检测版本
+    [self setupVersion];
     return YES;
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application {

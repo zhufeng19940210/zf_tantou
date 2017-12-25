@@ -45,8 +45,38 @@
 @property (nonatomic,strong)UIView *zfShareView;
 //确定是分享还是直接挑战了
 @property (nonatomic,assign)BOOL isTiaozhan;
+//又加了一个东西了
+@property (nonatomic,weak)UIView *zfAlterView;
+//人数过多的情况
+@property (nonatomic,assign)BOOL isMorePeople;
 @end
 @implementation ChristmasHomeViewController
+//AlterView
+-(UIView *)zfAlterView{
+    if (!_zfAlterView) {
+        UIView *alterView = [[UIView alloc] init];
+        [self.view addSubview:alterView];
+        _zfAlterView = alterView;
+        alterView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+        alterView.hidden = YES;
+        //背景图片
+        UIImageView *backgroundImageView = [[UIImageView alloc] init];
+        [alterView addSubview:backgroundImageView];
+        backgroundImageView.image = [UIImage imageNamed:@"meiqianle"];
+        backgroundImageView.bounds = CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(578), ZXSRealValueFit6SWidthPt(528));
+        backgroundImageView.origin = CGPointMake(0, 0);
+        //确定按钮
+        UIButton *challengeButton = [UIButton zxs_buttonWithImage:[UIImage imageNamed:@"queding"] highlightedImage:[UIImage imageNamed:@"queding"] bounds:CGRectMake(0, 0, ZXSRealValueFit6SWidthPt(180), ZXSRealValueFit6SWidthPt(76)) target:self action:@selector(ZFQuedingButtonDidClick)];
+        [alterView addSubview:challengeButton];
+        challengeButton.centerX = alterView.width * 0.5;
+        challengeButton.bottom = alterView.height -20;
+    }
+    return _zfAlterView;
+}
+#pragma mark - ZFQuedingButtonDidClick (隐藏其他的button的东西了)
+-(void)ZFQuedingButtonDidClick{
+    [self hiddenOtherView];
+}
 //分享View
 - (UIView *)zfShareView {
     if (!_zfShareView) {
@@ -229,6 +259,7 @@
     self.shareActivityButton.bottom = self.startAnswerButton.top - ZXSRealValueFit6SWidthPt(20);
     self.tantouRedPacketView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
     self.zfShareView.center = CGPointMake(self.screenWidth * 0.5, self.screenHeight * 0.5);
+    self.zfAlterView.center = CGPointMake(self.screenWidth*0.5, self.screenHeight *0.5);
     self.challengeImageView.top = ZXSRealValueFit6SWidthPt(70);
     self.challengeImageView.right = self.redPacketButton.left - ZXSRealValueFit6SWidthPt(80);
     self.countLabel.left = self.challengeImageView.right - ZXSRealValueFit6SWidthPt(10);
@@ -375,6 +406,7 @@
             //share_time  分享的次数
             if (challengeCount == 0 && ![share_time isEqualToString:@"2"]) {
                 // 总的次数为空
+                self.isMorePeople = NO;
                 self.isTiaozhan = NO;
                 self.startAnswerButton.hidden = NO;
                 self.tomorrowBtn.hidden = YES;
@@ -383,11 +415,15 @@
                 self.tomorrowBtn.hidden = NO;
             }else{
                 if (can_challenge == 1 ) {
+                    self.isMorePeople = NO;
                     self.isTiaozhan = YES;
                     self.startAnswerButton.hidden = NO;
                     self.tomorrowBtn.hidden = YES;
                 }else{
-                    NSLog(@"人数太多了");
+                    //这里人说过多了
+                    self.isMorePeople = YES;
+                    self.startAnswerButton.hidden = NO;
+                    self.tomorrowBtn.hidden = YES;
                 }
             }
         } else { //操作失败
@@ -422,8 +458,15 @@
         ChristmasAnswerViewController *answerVc = [[ChristmasAnswerViewController alloc]init];
         [self.navigationController pushViewController:answerVc animated:YES];
     }else{
-        self.zfShareView.hidden = NO;
-        [self.alterView showShareViewAddView:self.zfShareView tapGestureWithBool:YES];
+        if (self.isMorePeople == YES) {
+            //人数过多了
+            self.zfAlterView.hidden = NO;
+            [self.alterView showShareViewAddView:self.zfAlterView tapGestureWithBool:YES];
+        }else{
+            NSLog(@"显示的走的测试数据");
+            self.zfShareView.hidden = NO;
+            [self.alterView showShareViewAddView:self.zfShareView tapGestureWithBool:YES];
+        }
     }
 }
 - (void)cashButtonDidClick {
@@ -435,6 +478,7 @@
 }
 -(void)hiddenOtherView{
     self.zfShareView.hidden = YES;
+    self.zfAlterView.hidden = YES;
     self.tantouRedPacketView.hidden = YES;
     [self.alterView hihhdenView];
 }

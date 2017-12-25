@@ -42,6 +42,8 @@
 		BF24BAFF1F3D1AF500741740 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF24BAFE1F3D1AF500741740 /* libstdc++.tbd */; };
 		BF24BB011F3D1AFF00741740 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF24BB001F3D1AFF00741740 /* libz.tbd */; };
 		BF24BB031F3D1B1200741740 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF24BB021F3D1B1200741740 /* libicucore.tbd */; };
+		BF4471D31FF168B200A90266 /* ZFIntroductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4471D11FF168B200A90266 /* ZFIntroductViewController.m */; };
+		BF4471D41FF168B200A90266 /* ZFIntroductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF4471D21FF168B200A90266 /* ZFIntroductViewController.xib */; };
 		BF8669EA1FE2F7E000CD3981 /* ZFCustomAlterView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8669E81FE2F7E000CD3981 /* ZFCustomAlterView.m */; };
 		BF9418D81F586DDB00E895A8 /* SelectHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9418D31F586DDB00E895A8 /* SelectHeaderView.m */; };
 		BF9418D91F586DDB00E895A8 /* SelectHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF9418D41F586DDB00E895A8 /* SelectHeaderView.xib */; };
@@ -228,6 +230,9 @@
 		BF24BAFE1F3D1AF500741740 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		BF24BB001F3D1AFF00741740 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BF24BB021F3D1B1200741740 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		BF4471D01FF168B200A90266 /* ZFIntroductViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFIntroductViewController.h; sourceTree = "<group>"; };
+		BF4471D11FF168B200A90266 /* ZFIntroductViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFIntroductViewController.m; sourceTree = "<group>"; };
+		BF4471D21FF168B200A90266 /* ZFIntroductViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZFIntroductViewController.xib; sourceTree = "<group>"; };
 		BF8669E81FE2F7E000CD3981 /* ZFCustomAlterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCustomAlterView.m; sourceTree = "<group>"; };
 		BF8669E91FE2F7E000CD3981 /* ZFCustomAlterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCustomAlterView.h; sourceTree = "<group>"; };
 		BF9418D21F586DDB00E895A8 /* SelectHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectHeaderView.h; sourceTree = "<group>"; };
@@ -1120,6 +1125,9 @@
 				BF2331741FE33353003D674F /* ZFPayViewController.h */,
 				BF2331751FE33353003D674F /* ZFPayViewController.m */,
 				BF2331771FE33362003D674F /* ZFPayViewController.xib */,
+				BF4471D01FF168B200A90266 /* ZFIntroductViewController.h */,
+				BF4471D11FF168B200A90266 /* ZFIntroductViewController.m */,
+				BF4471D21FF168B200A90266 /* ZFIntroductViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1273,6 +1281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF4471D41FF168B200A90266 /* ZFIntroductViewController.xib in Resources */,
 				BF9BFFB31FE33F9E00D02995 /* ShareSDKConfigFile.bundle in Resources */,
 				BF9BFEF31FE33E8B00D02995 /* AlipaySDK.bundle in Resources */,
 				BF9BFF3E1FE33E8B00D02995 /* README.md in Resources */,
@@ -1404,6 +1413,7 @@
 				BF9BFF371FE33E8B00D02995 /* AFHTTPSessionManager.m in Sources */,
 				BF9BFF011FE33E8B00D02995 /* NSObject+MJProperty.m in Sources */,
 				BF9418D81F586DDB00E895A8 /* SelectHeaderView.m in Sources */,
+				BF4471D31FF168B200A90266 /* ZFIntroductViewController.m in Sources */,
 				BF9BFF1F1FE33E8B00D02995 /* UIView+WebCache.m in Sources */,
 				FEF7F7331F9CC94D00B9F155 /* ZXSConst.m in Sources */,
 				BF9BFF161FE33E8B00D02995 /* SDWebImageDownloaderOperation.m in Sources */,

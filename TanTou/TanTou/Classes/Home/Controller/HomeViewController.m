@@ -22,6 +22,7 @@
 #import "ShareViewController.h"
 #import "ZFPayViewController.h"
 #import "SelectViewController.h"
+#import "ZFIntroductViewController.h"
 @interface HomeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,DCPathButtonDelegate,ZFCustomAlterViewDelegate>
 //背景
 @property (weak, nonatomic) UIImageView *backgroundImageView;
@@ -454,8 +455,8 @@
     NSLog(@" at index : %lu",  (unsigned long)itemButtonIndex);
     if(itemButtonIndex==0)
     {
-//       ZFPayViewController *paymoneyVc = [[ZFPayViewController alloc]init];
-//      [self.navigationController pushViewController:paymoneyVc animated:NO];
+        ZFIntroductViewController *introdcutVc = [[ZFIntroductViewController alloc]init];
+        [self.navigationController pushViewController:introdcutVc animated:NO];
     }else if(itemButtonIndex==1)
     {
         FeedbackViewController1*feedBackVC=[[FeedbackViewController1 alloc]init];
