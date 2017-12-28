@@ -12,7 +12,6 @@
 @property (weak, nonatomic) IBOutlet YJTComposeView *suggestionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayout;
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
-
 @end
 @implementation FeedbackViewController1
 - (void) viewWillDisappear:(BOOL)animated {

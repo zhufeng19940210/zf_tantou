@@ -287,39 +287,40 @@
     //获取用户数据，判断用户是否登录
     [self.userItem userItemFromUserDefaults];
     self.isLogin = (self.userItem.uid != nil);
-    //比较两个时间段
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *nowDateString = [dateFormatter stringFromDate:[NSDate date]];
-    NSInteger flagInt = [NSDate zxs_compareDateString:nowDateString otherDateString:@"2017-12-26 00:00:00"];
-    switch (flagInt) {
-        case 1:{
-            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:ZF_Alter_HuoDong2];
-            if (isShow == YES) {
-                self.shengdanhuodongView.hidden = NO;
-                [self.alterView showShareViewAddView:self.shengdanhuodongView tapGestureWithBool:YES];
-            } else{
-            }
-            if (self.isLogin) {//登录
-                self.containIconView.hidden = NO;
-                //设置头像
-                NSURL *iconURL = [NSURL URLWithString:self.userItem.icon];
-                [self.touxiangButton sd_setImageWithURL:iconURL forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"touxiang"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                }];
-            } else {//没有登录
-                self.containIconView.hidden = YES;
-            }
-        }
-            break;
-        case 0:
-        case -1:{
-            self.shengdanhuodongView.hidden = YES;
-            self.touxiangButton.hidden = YES;
-        }
-            break;
-        default:
-            break;
+    BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:ZF_Alter_HuoDong2];
+    if (isShow == YES) {
+        self.shengdanhuodongView.hidden = NO;
+        [self.alterView showShareViewAddView:self.shengdanhuodongView tapGestureWithBool:YES];
+    } else{
     }
+    if (self.isLogin) {//登录
+        self.containIconView.hidden = NO;
+        //设置头像
+        NSURL *iconURL = [NSURL URLWithString:self.userItem.icon];
+        [self.touxiangButton sd_setImageWithURL:iconURL forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"touxiang"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        }];
+    } else {//没有登录
+        self.containIconView.hidden = YES;
+    }
+//    //比较两个时间段
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    NSString *nowDateString = [dateFormatter stringFromDate:[NSDate date]];
+//    NSInteger flagInt = [NSDate zxs_compareDateString:nowDateString otherDateString:@"2017-12-26 00:00:00"];
+//    switch (flagInt) {
+//        case 1:{
+//
+//        }
+//            break;
+//        case 0:
+//        case -1:{
+//            self.shengdanhuodongView.hidden = YES;
+//            self.touxiangButton.hidden = YES;
+//        }
+//            break;
+//        default:
+//            break;
+// }
 }
 - (void)clearUserDefaults{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

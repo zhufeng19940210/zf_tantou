@@ -1660,8 +1660,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bailing.TanTou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "61de9769-cec3-4d50-bd81-fb03b8f22f5d";
-				PROVISIONING_PROFILE_SPECIFIER = zf_bailing_tantou_dis;
+				PROVISIONING_PROFILE = "51ed8b22-e0e5-49ee-b6fb-b98ddc887c03";
+				PROVISIONING_PROFILE_SPECIFIER = zf_bailing_ad_hoc;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

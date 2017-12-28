@@ -78,13 +78,12 @@
     }];
 }
 -(void)myRealShareWithtag{
-//创建一个分享参数
+    //创建一个分享参数
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     NSArray* imageArray = @[[UIImage imageNamed:@"testshare.png"]];
     NSString *title = @"对焦食物，一探究竟!";
     NSString *text  = @"探头App下载链接";
     NSString *url = @"https://www.daodianwang.com/App/download-tantou.php";
-    
     [shareParams SSDKSetupShareParamsByText: text images:imageArray url:[NSURL URLWithString: url] title:title type:SSDKContentTypeAuto];
     [ShareSDK share:self.shareType parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
         
