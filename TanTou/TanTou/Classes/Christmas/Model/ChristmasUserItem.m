@@ -83,5 +83,4 @@ static ChristmasUserItem *_instance;
     [userDefaults setValue:self.can_challenge forKey:@"can_challenge"];
     [userDefaults synchronize];
 }
-
 @end

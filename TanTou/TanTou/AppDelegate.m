@@ -46,7 +46,6 @@
         self.window.rootViewController = rootVc;
         [self.window makeKeyAndVisible];
     } else { // 平时使用
-        
         HomeViewController *homeVC = [[HomeViewController alloc] init];
         ZFNavigtionController *nav = [[ZFNavigtionController alloc] initWithRootViewController:homeVC];
         self.window.rootViewController = nav;

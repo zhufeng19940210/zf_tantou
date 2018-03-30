@@ -464,8 +464,12 @@
         [self.navigationController pushViewController:feedBackVC animated:NO];
     }else
     {
-        ShareViewController*shareVC=[[ShareViewController alloc]init];
-        [self.navigationController pushViewController:shareVC animated:NO];
+        NSString * testStr = @"你好，\"你好\"";
+        NSLog(@"%@",testStr);
+        ZFPayViewController *payVc = [[ZFPayViewController alloc]init];
+        [self.navigationController pushViewController:payVc animated:YES];
+//        ShareViewController*shareVC=[[ShareViewController alloc]init];
+//        [self.navigationController pushViewController:shareVC animated:NO];
     }
 }
 #pragma mark ZFCustomAlterViewDelegate
