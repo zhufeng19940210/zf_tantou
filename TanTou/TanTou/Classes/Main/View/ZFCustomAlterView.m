@@ -23,8 +23,8 @@
     [window addSubview:blackView];
     [window addSubview:myView];
 }
+
 -(void)hiddenView{
-    NSLog(@"fdjskfskfldslflds");
     if ([self.delegate respondsToSelector:@selector(customAlterViewHidden)]) {
         [self.delegate customAlterViewHidden];
     }
